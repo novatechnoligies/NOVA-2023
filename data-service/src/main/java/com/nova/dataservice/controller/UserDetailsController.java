@@ -1,8 +1,61 @@
 package com.nova.dataservice.controller;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.nova.dataservice.entity.Role;
+import com.nova.dataservice.entity.UserDetails;
+import com.nova.dataservice.service.RoleService;
+import com.nova.dataservice.service.UserDetailsServices;
 
 @RestController
 public class UserDetailsController {
+	
+	@Autowired
+	UserDetailsServices detailsServices;
+	
+	@PostMapping(value = "saveUserDetails")
+	public ResponseEntity<Object> saveUserDetails(@RequestBody UserDetails userDetails) {
+		try {
+			UserDetails data = detailsServices.saveUserDetails(userDetails);
+			if (data!=null) {
+				return new ResponseEntity<>(data, HttpStatus.OK);
+			}else {
+				return new ResponseEntity<>("fail to save data", HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>("somthing went wrong fail to save data , due to MYSQL is down", HttpStatus.OK);
+		}
+	}
+	
+	@GetMapping(value = "getAllUserDetails")
+	public ResponseEntity<Object> getAllUserDetails() {
+		List<UserDetails> data = detailsServices.getAllUserDetails();
+		if (data.isEmpty()) {
+			return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Object>(data, HttpStatus.OK);
+		}
+	}
+	
+	@GetMapping(value = "getUserDetailsById/{id}")
+	public ResponseEntity<Object> getUserDetailsById(@PathVariable("id") Long id) {
+		Optional<UserDetails> data = detailsServices.getUserDetailsById(id);
+		if (data.isPresent()) {
+			return new ResponseEntity<Object>(data.get(),HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Object>("no data found for this id",HttpStatus.OK);
+		}
+		
+	}
 
 }
