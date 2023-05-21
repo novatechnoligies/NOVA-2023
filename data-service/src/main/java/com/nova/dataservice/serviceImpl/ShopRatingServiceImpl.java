@@ -1,5 +1,8 @@
 package com.nova.dataservice.serviceImpl;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,4 +22,19 @@ public class ShopRatingServiceImpl implements ShopRatingService{
 		return ratingRepository.save(shopRating);
 	}
 
-}
+	@Override
+	public List<ShopRating> findAllShopRataing() {
+		// TODO Auto-generated method stub
+		return ratingRepository.findAll();
+	}
+
+	@Override
+	public Optional<ShopRating> getShopRatingById(long id) {
+		// TODO Auto-generated method stub
+		return ratingRepository.findById(id);
+	}
+
+	
+	}
+
+
