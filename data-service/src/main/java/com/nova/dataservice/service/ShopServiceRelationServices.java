@@ -9,7 +9,7 @@ import com.nova.dataservice.entity.ShopServiceRelation;
 
 public interface ShopServiceRelationServices {
 
-	ShopServiceRelation saveShopServiceRelation(ShopRating serviceRelation);
+	ShopServiceRelation saveShopServiceRelation(ShopServiceRelation serviceRelation);
 
 	List<ShopServiceRelation> findAllShopServiceRelation();
 

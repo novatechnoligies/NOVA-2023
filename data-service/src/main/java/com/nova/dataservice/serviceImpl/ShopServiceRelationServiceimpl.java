@@ -11,7 +11,7 @@ import com.nova.dataservice.repository.ShopServiceRelationRepository;
 import com.nova.dataservice.service.ShopServiceRelationServices;
 
 @Service
-public class ShopServiceRelationServiceimpl implements ShopServiceRelationServices {
+public abstract class ShopServiceRelationServiceimpl implements ShopServiceRelationServices {
 	
 	@Autowired
 	ShopServiceRelationRepository relationRepository;

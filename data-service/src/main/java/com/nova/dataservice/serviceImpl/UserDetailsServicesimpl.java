@@ -19,15 +19,6 @@ public class UserDetailsServicesimpl implements UserDetailsServices {
 	UserDetailsRepository detailsRepository;
 
 	@Override
-	public UserDetails save(UserDetails userDetails) {
-		// TODO Auto-generated method stub
-		return  detailsRepository.save(userDetails);
-	}
-
-	@Autowired
-	UserDetailsRepository detailsRepository;
-	
-	@Override
 	public UserDetails saveUserDetails(UserDetails userDetails) {
 		// TODO Auto-generated method stub
 		return detailsRepository.save(userDetails);
