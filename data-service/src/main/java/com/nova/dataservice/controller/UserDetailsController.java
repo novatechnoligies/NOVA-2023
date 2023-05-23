@@ -8,13 +8,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.nova.dataservice.entity.Role;
 import com.nova.dataservice.entity.UserDetails;
 import com.nova.dataservice.service.RoleService;
+
 import com.nova.dataservice.service.UserDetailsServices;
 
 @RestController
@@ -39,6 +42,7 @@ public class UserDetailsController {
 	
 	@GetMapping(value = "getAllUserDetails")
 	public ResponseEntity<Object> getAllUserDetails() {
+    
 		List<UserDetails> data = detailsServices.getAllUserDetails();
 		if (data.isEmpty()) {
 			return new ResponseEntity<Object>("no data found", HttpStatus.OK);
@@ -49,13 +53,16 @@ public class UserDetailsController {
 	
 	@GetMapping(value = "getUserDetailsById/{id}")
 	public ResponseEntity<Object> getUserDetailsById(@PathVariable("id") Long id) {
+    	try {
 		Optional<UserDetails> data = detailsServices.getUserDetailsById(id);
 		if (data.isPresent()) {
 			return new ResponseEntity<Object>(data.get(),HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Object>("no data found for this id",HttpStatus.OK);
 		}
-		
+	} catch (Exception e) {
+	// TODO: handle exception
+	return new ResponseEntity<Object>("Something went wrong",HttpStatus.OK);
+}
 	}
-
 }
