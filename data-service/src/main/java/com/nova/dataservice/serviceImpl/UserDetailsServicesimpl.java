@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.nova.dataservice.entity.UserDetails;
 import com.nova.dataservice.repository.UserDetailsRepository;
 import com.nova.dataservice.service.UserDetailsServices;
-
+// mallesh Service
 @Service
 public class UserDetailsServicesimpl implements UserDetailsServices {
 	
