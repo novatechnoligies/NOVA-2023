@@ -1,8 +1,14 @@
 package com.nova.dataservice.controller;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,29 +18,46 @@ import com.nova.dataservice.service.SlotAvailabilityServices;
 
 @RestController
 public class SlotAvailabilityController {
-	
-	
-	@Autowired
-	SlotAvailabilityServices services;
-	
-	@PostMapping(value="saveSlotAvailability")
-	public ResponseEntity<Object> saveSlotAvailability(@RequestBody SlotAvailability availability) {
-	try {
-	SlotAvailability data= services.save(availability);
-		
-		if (data !=null) {
-			return new ResponseEntity<Object>(data,HttpStatus.OK);
-			
-		} else {
-			return new ResponseEntity<Object>("Failed to saveData",HttpStatus.OK);
 
+	@Autowired
+	SlotAvailabilityServices availabilityServices;
+	
+	@PostMapping(value = "saveSlotAvailability")
+	public ResponseEntity<Object> saveSlotAvailability(@RequestBody SlotAvailability slotAvailability) {
+		try {
+			SlotAvailability data = availabilityServices.saveSlotAvailability(slotAvailability);
+			if (data!=null) {
+				return new ResponseEntity<>(data, HttpStatus.OK);
+			}else {
+				return new ResponseEntity<>("fail to save data", HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>("somthing went wrong fail to save data , due to MYSQL is down", HttpStatus.OK);
+		}
+	}
+	
+	@GetMapping(value = "getAllSlotAvailability")
+	public ResponseEntity<Object> getAllSlotAvailability() {
+		List<SlotAvailability> data = availabilityServices.getAllSlotAvailability();
+		if (data.isEmpty()) {
+			return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Object>(data, HttpStatus.OK);
+		}
+	}
+	
+	@GetMapping(value = "getSlotAvailabilityById/{id}")
+	public ResponseEntity<Object> getSlotAvailabilityById(@PathVariable("id") Long id) {
+		Optional<SlotAvailability> data = availabilityServices.getSlotAvailabilityById(id);
+		if (data.isPresent()) {
+			return new ResponseEntity<Object>(data.get(),HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Object>("no data found for this id",HttpStatus.OK);
 		}
 		
-	} catch (Exception e) {
-		// TODO: handle exception
-		return new ResponseEntity<Object>("someThing went wrong ",HttpStatus.OK);
 	}
-}
+
+
 }
 
 	

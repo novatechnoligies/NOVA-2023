@@ -1,5 +1,10 @@
 package com.nova.dataservice.serviceImpl;
 
+
+import java.util.List;
+import java.util.Optional;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +22,27 @@ public class UserDetailsServicesimpl implements UserDetailsServices {
 	public UserDetails save(UserDetails userDetails) {
 		// TODO Auto-generated method stub
 		return  detailsRepository.save(userDetails);
+	}
+
+	@Autowired
+	UserDetailsRepository detailsRepository;
+	
+	@Override
+	public UserDetails saveUserDetails(UserDetails userDetails) {
+		// TODO Auto-generated method stub
+		return detailsRepository.save(userDetails);
+	}
+
+	@Override
+	public List<UserDetails> getAllUserDetails() {
+		// TODO Auto-generated method stub
+		return detailsRepository.findAll();
+	}
+
+	@Override
+	public Optional<UserDetails> getUserDetailsById(Long id) {
+		// TODO Auto-generated method stub
+		return detailsRepository.findById(id);
 	}
 
 }

@@ -1,5 +1,10 @@
 package com.nova.dataservice.serviceImpl;
 
+
+import java.util.List;
+import java.util.Optional;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +16,25 @@ import com.nova.dataservice.service.SlotAvailabilityServices;
 public class SlotAvailabilityServicesimpl implements SlotAvailabilityServices {
 
 	@Autowired
-	SlotAvailabilityRepository slotAvailabilityRepository;
+	SlotAvailabilityRepository availabilityRepository;
 	
 	@Override
-	public SlotAvailability save(SlotAvailability availability) {
-		return slotAvailabilityRepository.save(availability);
+	public SlotAvailability saveSlotAvailability(SlotAvailability slotAvailability) {
+		// TODO Auto-generated method stub
+		return availabilityRepository.save(slotAvailability);
+	}
+
+	@Override
+	public List<SlotAvailability> getAllSlotAvailability() {
+		// TODO Auto-generated method stub
+		return availabilityRepository.findAll();
+	}
+
+	@Override
+	public Optional<SlotAvailability> getSlotAvailabilityById(Long id) {
+		// TODO Auto-generated method stub
+		return availabilityRepository.findById(id);
+
 	}
 
 }
