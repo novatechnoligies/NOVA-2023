@@ -13,6 +13,6 @@ public interface ShopServiceRelationServices {
 
 	List<ShopServiceRelation> findAllShopServiceRelation();
 
-	Optional<ShopServiceRelation> shopServiceRelationfindById(long id);
+	Optional<ShopServiceRelation> shopServiceRelationfindById(Long id);
 
 }

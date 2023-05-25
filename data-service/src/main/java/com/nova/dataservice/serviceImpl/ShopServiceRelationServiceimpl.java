@@ -11,7 +11,7 @@ import com.nova.dataservice.repository.ShopServiceRelationRepository;
 import com.nova.dataservice.service.ShopServiceRelationServices;
 
 @Service
-public abstract class ShopServiceRelationServiceimpl implements ShopServiceRelationServices {
+public class ShopServiceRelationServiceimpl implements ShopServiceRelationServices {
 	
 	@Autowired
 	ShopServiceRelationRepository relationRepository;
@@ -29,7 +29,7 @@ public abstract class ShopServiceRelationServiceimpl implements ShopServiceRelat
 	}
 
 	@Override
-	public Optional<ShopServiceRelation> shopServiceRelationfindById(long id) {
+	public Optional<ShopServiceRelation> shopServiceRelationfindById(Long id) {
 		// TODO Auto-generated method stub
 		return relationRepository.findById(id);
 	}
