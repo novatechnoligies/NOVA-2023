@@ -1,5 +1,6 @@
 package com.nova.dataservice.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -24,4 +25,33 @@ public class ShopServiceRelation {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id")
     private ServiceMaster service;
+    
+  @Column
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	@Column
+
+	public ShopDetails getShop() {
+		return shop;
+	}
+
+	public void setShop(ShopDetails shop) {
+		this.shop = shop;
+	}
+	@Column
+
+	public ServiceMaster getService() {
+		return service;
+	}
+
+	public void setService(ServiceMaster service) {
+		this.service = service;
+	}
+    
+    
 }

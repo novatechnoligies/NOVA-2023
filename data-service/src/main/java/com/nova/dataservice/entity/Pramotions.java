@@ -31,5 +31,65 @@ public class Pramotions {
 	private Long createdBy;
 	@Column(name = "pramotion_amount")
 	private Float pramotionAmount;
+	public Long getId() {
+		return id;
+	}
+	@Id
+	@Column
+	public void setId(Long id) {
+		this.id = id;
+	}
+	@Column
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
+	}
+	@Column
+	public LocalDate getExpDate() {
+		return expDate;
+	}
+	public void setExpDate(LocalDate expDate) {
+		this.expDate = expDate;
+	}
+	@Column
+	public Boolean getStatus() {
+		return status;
+	}
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+	@Column
+	public Boolean getIsDeleted() {
+		return isDeleted;
+	}
+	public void setIsDeleted(Boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+	@Column
+	public Boolean getIsUsed() {
+		return isUsed;
+	}
+	public void setIsUsed(Boolean isUsed) {
+		this.isUsed = isUsed;
+	}
+	@Column
+	public Long getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(Long createdBy) {
+		this.createdBy = createdBy;
+	}
+	@Column
+	public Float getPramotionAmount() {
+		return pramotionAmount;
+	}
+	public void setPramotionAmount(Float pramotionAmount) {
+		this.pramotionAmount = pramotionAmount;
+	}
+	
+	
 
 }
+
