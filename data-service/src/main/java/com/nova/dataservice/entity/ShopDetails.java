@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -20,31 +23,176 @@ public class ShopDetails {
 
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String shopName;
-    private String shopAddress;
-    private Long latitude;
-    private Long longitude;
-    private String email;
-    private String phone;
-    private String logo;
-    private LocalDate createdAt;
-    private Boolean status;
-    private Boolean isDeleted;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shop_type_id")
-    private ShopType shopType; 
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private UserDetails owner;
-    
-    @OneToMany(mappedBy = "shop")
-    private List<ShopAvalibility> timeAvailabilities = new ArrayList<>();
-    
-    @OneToMany(mappedBy = "shop")
-    private List<ShopServiceRelation> shopServices = new ArrayList<>();
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
+	
+	@Column(name = "shop_name")
+	private String shopName;
+	
+	@Column(name = "shop_address")
+	private String shopAddress;
+	
+	@Column(name = "latitude")
+	private Long latitude;
+	
+	@Column(name = "longitude")
+	private Long longitude;
+	
+	@Column(name = "email")
+	private String email;
+	
+	@Column(name = "phone")
+	private String phone;
+	
+	@Column(name = "logo")
+	private String logo;
+	
+	@Column(name = "created_at")
+	private LocalDate createdAt;
+	
+	@Column(name = "status")
+	private Boolean status;
+	
+	@Column(name = "is_deleted")
+	private Boolean isDeleted;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "shop_type_id")
+	@JsonIgnore
+	private ShopType shopType;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	@JsonIgnore
+	private UserDetails owner;
+
+	@OneToMany(mappedBy = "shop")
+	@JsonIgnore
+	private List<ShopAvalibility> timeAvailabilities = new ArrayList<>();
+
+	@OneToMany(mappedBy = "shop")
+	@JsonIgnore
+	private List<ShopServiceRelation> shopServices = new ArrayList<>();
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getShopName() {
+		return shopName;
+	}
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+
+	public String getShopAddress() {
+		return shopAddress;
+	}
+
+	public void setShopAddress(String shopAddress) {
+		this.shopAddress = shopAddress;
+	}
+
+	public Long getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Long latitude) {
+		this.latitude = latitude;
+	}
+
+	public Long getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Long longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	public Boolean getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(Boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	public ShopType getShopType() {
+		return shopType;
+	}
+
+	public void setShopType(ShopType shopType) {
+		this.shopType = shopType;
+	}
+
+	public UserDetails getOwner() {
+		return owner;
+	}
+
+	public void setOwner(UserDetails owner) {
+		this.owner = owner;
+	}
+
+	public List<ShopAvalibility> getTimeAvailabilities() {
+		return timeAvailabilities;
+	}
+
+	public void setTimeAvailabilities(List<ShopAvalibility> timeAvailabilities) {
+		this.timeAvailabilities = timeAvailabilities;
+	}
+
+	public List<ShopServiceRelation> getShopServices() {
+		return shopServices;
+	}
+
+	public void setShopServices(List<ShopServiceRelation> shopServices) {
+		this.shopServices = shopServices;
+	}
 
 }

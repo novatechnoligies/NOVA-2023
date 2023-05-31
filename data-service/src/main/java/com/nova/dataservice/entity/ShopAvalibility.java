@@ -28,10 +28,13 @@ public class ShopAvalibility {
     private LocalTime fromTime;
 
     private LocalTime toTime;
+    
+    private Long timeInterval;
 
     // Other fields
+    
 
-    @ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id")
     private ShopDetails shop;
     
@@ -87,6 +90,15 @@ public class ShopAvalibility {
 
 	public void setShop(ShopDetails shop) {
 		this.shop = shop;
+	}
+
+	@Column
+		public Long getTimeInterval() {
+		return timeInterval;
+	}
+
+	public void setTimeInterval(Long timeInterval) {
+		this.timeInterval = timeInterval;
 	}
     
     
