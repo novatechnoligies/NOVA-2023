@@ -31,7 +31,7 @@ public class ShopAvalibility {
 	@Column(name = "from_time")
     private LocalTime fromTime;
 
-	@Column(name = "to_date")
+	@Column(name = "to_time")
     private LocalTime toTime;
     
 	@Column(name = "time_interval")
