@@ -19,16 +19,22 @@ public class ShopAvalibility {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
     private Long id;
 
+	@Column(name = "from_date")
     private LocalDate fromDate;
 
+	@Column(name = "to_date")
     private LocalDate toDate;
 
+	@Column(name = "from_time")
     private LocalTime fromTime;
 
+	@Column(name = "to_date")
     private LocalTime toTime;
     
+	@Column(name = "time_interval")
     private Long timeInterval;
 
     // Other fields
@@ -38,8 +44,7 @@ public class ShopAvalibility {
     @JoinColumn(name = "shop_id")
     private ShopDetails shop;
     
-   
-   @Column
+	
 	public Long getId() {
 		return id;
 	}
@@ -47,7 +52,7 @@ public class ShopAvalibility {
 	public void setId(Long id) {
 		this.id = id;
 	}
-   @Column
+
 	public LocalDate getFromDate() {
 		return fromDate;
 	}
@@ -55,7 +60,6 @@ public class ShopAvalibility {
 	public void setFromDate(LocalDate fromDate) {
 		this.fromDate = fromDate;
 	}
-	@Column
 
 	public LocalDate getToDate() {
 		return toDate;
@@ -64,7 +68,6 @@ public class ShopAvalibility {
 	public void setToDate(LocalDate toDate) {
 		this.toDate = toDate;
 	}
-	@Column
 
 	public LocalTime getFromTime() {
 		return fromTime;
@@ -73,7 +76,6 @@ public class ShopAvalibility {
 	public void setFromTime(LocalTime fromTime) {
 		this.fromTime = fromTime;
 	}
-	@Column
 
 	public LocalTime getToTime() {
 		return toTime;
@@ -82,7 +84,6 @@ public class ShopAvalibility {
 	public void setToTime(LocalTime toTime) {
 		this.toTime = toTime;
 	}
-	@Column
 
 	public ShopDetails getShop() {
 		return shop;
@@ -92,8 +93,7 @@ public class ShopAvalibility {
 		this.shop = shop;
 	}
 
-	@Column
-		public Long getTimeInterval() {
+	public Long getTimeInterval() {
 		return timeInterval;
 	}
 
