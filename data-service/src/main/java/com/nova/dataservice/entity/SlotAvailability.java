@@ -1,6 +1,7 @@
 package com.nova.dataservice.entity;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -50,6 +51,9 @@ public class SlotAvailability {
 	
 	@Column(name = "appointment_status")
 	private String appintmentStatus;
+	
+	@Column(name = "slot_time")
+	private LocalTime slotTime;
 
 	public Long getId() {
 		return id;
@@ -121,6 +125,14 @@ public class SlotAvailability {
 
 	public void setAppintmentStatus(String appintmentStatus) {
 		this.appintmentStatus = appintmentStatus;
+	}
+
+	public LocalTime getSlotTime() {
+		return slotTime;
+	}
+
+	public void setSlotTime(LocalTime slotTime) {
+		this.slotTime = slotTime;
 	}
 	
 }
