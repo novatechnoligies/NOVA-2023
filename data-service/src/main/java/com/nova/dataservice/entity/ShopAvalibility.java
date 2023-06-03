@@ -40,10 +40,10 @@ public class ShopAvalibility {
     // Other fields
     
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "shop_id")
     private ShopDetails shop;
-    
+     
 	
 	public Long getId() {
 		return id;
