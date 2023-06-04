@@ -34,6 +34,34 @@ public class AppShopConsumerOwnerDetails {
 	private String ownerName;
 	
 	private  String ownerPhone;
+	
+	
+
+	public AppShopConsumerOwnerDetails() {
+		super();
+	}
+
+	public AppShopConsumerOwnerDetails(LocalDate appoinmentDate, LocalTime appoinmentTime, Long slotId,
+			String appoinmentStatus, String shopName, String shopAddress, String shopPhone, Long latitude,
+			Long longitude, Long consumerId, String consumerName, String consumerPhone, Long onwerId, String ownerName,
+			String ownerPhone) {
+		super();
+		this.appoinmentDate = appoinmentDate;
+		this.appoinmentTime = appoinmentTime;
+		this.slotId = slotId;
+		this.appoinmentStatus = appoinmentStatus;
+		this.shopName = shopName;
+		this.shopAddress = shopAddress;
+		this.shopPhone = shopPhone;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.consumerId = consumerId;
+		this.consumerName = consumerName;
+		this.consumerPhone = consumerPhone;
+		this.onwerId = onwerId;
+		this.ownerName = ownerName;
+		this.ownerPhone = ownerPhone;
+	}
 
 	public LocalDate getAppoinmentDate() {
 		return appoinmentDate;
