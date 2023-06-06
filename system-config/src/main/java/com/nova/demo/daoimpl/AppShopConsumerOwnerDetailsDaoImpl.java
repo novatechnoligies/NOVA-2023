@@ -6,12 +6,13 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nova.demo.DTO.AppShopConsumerOwnerDetails;
+import com.nova.demo.DTO.AppointmentCountDetails;
 import com.nova.demo.dao.AppShopConsumerOwnerDetailsDao;
 
 import jakarta.persistence.EntityManager;
@@ -68,5 +69,28 @@ public class AppShopConsumerOwnerDetailsDaoImpl implements AppShopConsumerOwnerD
 
         //return resultList;
     }
+
+	@Override
+	public AppointmentCountDetails getTotalAppointmentCount(Long shopId, String appoinmentStatus,
+			LocalDate fromDate, LocalDate toDate) {
+		 String sql = "SELECT count(*) AS totalBookedSlots\r\n"
+		 		+ " FROM slot_availibility As sla\r\n"
+		 		+ " where sla.shop_id =:shopId And sla.appointment_status =:appoinmentStatus And sla.app_date "
+		 		+ " BETWEEN :fromDate AND :toDate ";
+
+	        Query query = entityManager.createNativeQuery(sql)
+	        .setParameter("shopId", shopId)
+	        .setParameter("appoinmentStatus", appoinmentStatus)
+	        .setParameter("fromDate", fromDate)
+	        .setParameter("toDate", toDate);
+	        
+	        Optional<List> resultList = Optional.ofNullable(query.getResultList());
+	        
+	        AppointmentCountDetails aap = new AppointmentCountDetails();
+	        aap.setTotalBookedSlots((Long)resultList.get().get(0));
+	        return aap;
+	        //return re
+		
+	}
 
 }

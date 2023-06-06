@@ -17,6 +17,7 @@ public class ServiceMaster {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id")
     private Long id;
 
 	@Column(name = "name")
@@ -25,4 +26,36 @@ public class ServiceMaster {
 
 	@OneToMany(mappedBy = "service")
     private List<ShopServiceRelation> shopServices = new ArrayList<>();
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public List<ShopServiceRelation> getShopServices() {
+		return shopServices;
+	}
+
+
+	public void setShopServices(List<ShopServiceRelation> shopServices) {
+		this.shopServices = shopServices;
+	}
+	
+	
 }
