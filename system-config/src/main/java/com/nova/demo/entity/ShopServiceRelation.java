@@ -1,6 +1,6 @@
 package com.nova.demo.entity;
 
-import java.io.Serializable;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,8 +19,43 @@ public class ShopServiceRelation {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+	
+	@Column(name="status")
+	private Boolean status;
+	
+	@Column(name="amount")
+	private Float amount;
+	
+	@Column(name="created_date")
+	private LocalDate createdDate;
+	
+	
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	public Float getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Float amount) {
+		this.amount = amount;
+	}
+
+	public LocalDate getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(LocalDate createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id")
     private ShopDetails shop;
 
