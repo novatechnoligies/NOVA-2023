@@ -15,7 +15,7 @@ public class MailController {
 
 	@GetMapping(value = "/sendMail")
 	public String sendMail() {
-		inter.sendMail("santoshhadapad2307@gmail.com", "test", "body");
+		inter.sendMail("raviroogi5@gmail.com", "test", "i Love you boss i need to make this project ASAP thanks for support...!");
 		return "done";
 	}
 }

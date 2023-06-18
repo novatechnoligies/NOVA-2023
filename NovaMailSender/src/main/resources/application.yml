@@ -1,12 +1,11 @@
 server:
-  port: 8088
+  port: 8089
 
 spring:
   application:
-    name: nova-report-service
+    name: nova-mail-service
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
-  
