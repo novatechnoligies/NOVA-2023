@@ -36,17 +36,7 @@ public class UserDetails {
 	private String phone;
 	@Column(name = "otp")
 	private String otp;
-	public String getOtp() {
-		return otp;
-	}
-
-	public void setOtp(String otp) {
-		this.otp = otp;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+	
 
 	@Column(name = "pin")
 	private String pin;
@@ -68,6 +58,19 @@ public class UserDetails {
 	@JoinColumn(name = "role_id")
 	@JsonIgnore
 	private Role role;
+	
+
+	public String getOtp() {
+		return otp;
+	}
+
+	public void setOtp(String otp) {
+		this.otp = otp;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
 	@OneToMany(mappedBy = "owner")
 	@JsonIgnore

@@ -18,6 +18,8 @@ public interface UserDetailsService {
 
 	Optional<UserDetails> findUserByEmailAndOtp(String email, String otp);
 
+	Optional<UserDetails> findUserByPhone(String phone);
+
 
 
 	

@@ -156,5 +156,11 @@ public class UsersDetailsController {
 		return new ResponseEntity<Object>("Something went wrong",HttpStatus.OK);
 	}
 	}
+	
+	@GetMapping(value = "getUserByPhone/{phone}")
+	public ResponseEntity<Object> findUserByPhone(@PathVariable("phone") String phone) {
+	 Optional<UserDetails> data=	detailsService.findUserByPhone(phone);
+	 return new ResponseEntity<Object>(data, HttpStatus.OK);
+	}
 }
 
