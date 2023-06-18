@@ -52,6 +52,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return detailsRepo.findUserByEmailAndOtp(email,otp);
 	}
 
+	@Override
+	public Optional<UserDetails> findUserByPhone(String phone) {
+		// TODO Auto-generated method stub
+		return detailsRepo.findByPhone(phone);
+	}
+
 	
 
 	
