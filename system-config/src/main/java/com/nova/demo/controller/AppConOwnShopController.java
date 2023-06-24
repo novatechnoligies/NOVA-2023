@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nova.demo.DTO.AppShopConsumerOwnerDetails;
 import com.nova.demo.DTO.AppointmentCountDetails;
+import com.nova.demo.DTO.ShopDetailsDTO;
+import com.nova.demo.entity.ShopDetails;
 import com.nova.demo.service.AppConOwnShopService;
 
 @RestController
@@ -62,6 +64,18 @@ public class AppConOwnShopController {
 			e.printStackTrace();
 			return new ResponseEntity<Object>("something went wrong", HttpStatus.OK);
 		}
+		
+	}
+	@GetMapping(value = "getShopDetailsByShopTypeID")
+	public ResponseEntity<Object> getShopDetailsByShopTypeID(Long shopTypeID) {
+		
+		List<ShopDetailsDTO> list = appConOwnShopService.getShopDetailsByShopTypeID(shopTypeID);
+		if (list.isEmpty()) {
+			return new ResponseEntity<>("No shops are availabale", HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<>(list,HttpStatus.OK);
+		}
+		
 		
 	}
 }

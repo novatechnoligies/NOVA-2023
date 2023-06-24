@@ -13,7 +13,9 @@ import org.springframework.stereotype.Repository;
 
 import com.nova.demo.DTO.AppShopConsumerOwnerDetails;
 import com.nova.demo.DTO.AppointmentCountDetails;
+import com.nova.demo.DTO.ShopDetailsDTO;
 import com.nova.demo.dao.AppShopConsumerOwnerDetailsDao;
+import com.nova.demo.entity.ShopDetails;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -92,5 +94,50 @@ public class AppShopConsumerOwnerDetailsDaoImpl implements AppShopConsumerOwnerD
 	        //return re
 		
 	}
+
+	@Override
+	public List<ShopDetailsDTO> getShopDetailsByShopTypeID(Long shopTypeID) {
+		 String sql = "select sd.id as shopId,sd.shop_name as shopName ,sd.phone as shopName,sd.shop_address as shopAddress,"
+		 		+ " sd.latitude,sd.longitude as longitude,sd.status as shopStatus,sd.created_at as registeredDate,sd.is_deleted as deleted,\r\n"
+		 		+ "st.code as shopType,\r\n"
+		 		+ "ud.first_name as ownerName,ud.phone as ownerPhone,ud.id as ownerId\r\n"
+		 		+ "from shop_details as sd \r\n"
+		 		+ "join shop_type as st on st.id=sd.shop_type_id\r\n"
+		 		+ "join user_details as ud on sd.user_id=ud.id\r\n"
+		 		+ "where sd.shop_type_id =:shopTypeID";
+
+		        Query query = entityManager.createNativeQuery(sql)
+		        .setParameter("shopTypeID", shopTypeID);
+		        
+		        List<Object[]> resultList = query.getResultList();
+		        
+		        
+		        List<ShopDetailsDTO> dtoList = new ArrayList<>();
+		        
+		        for(Object [] result:resultList) {
+		        	ShopDetailsDTO dto = new ShopDetailsDTO();
+		        	
+		        	dto.setShopId(Long.valueOf(result[0].toString()));
+		        	dto.setShopName(String.valueOf(result[1]));
+		        	dto.setShopPhone(String.valueOf(result[2]));
+		        	dto.setShopAddress(String.valueOf(result[3]));
+		        	dto.setLatitude(Float.valueOf(result[4].toString()));
+		        	dto.setLongitude(Float.valueOf(result[5].toString()));
+		        	dto.setShopStatus(Boolean.valueOf(result[6].toString()));
+//		        	if(result[7]!=null)
+//			        	dto.setRegisteredDate(LocalDate.parse(result[7].toString()));
+		        	if(result[8]!=null)
+		        	dto.setDeleted(Boolean.valueOf(result[8].toString()));
+		        	dto.setShopType(String.valueOf(result[9]));
+		        	dto.setOwnerName(String.valueOf(result[10]));
+		        	dto.setOwnerPhone(String.valueOf(result[11]));
+		        	dto.setOwnerId(Long.valueOf(result[12].toString()));
+		        	
+		        	
+		        	dtoList.add(dto);
+		        }
+				return dtoList;
+			
+		}
 
 }

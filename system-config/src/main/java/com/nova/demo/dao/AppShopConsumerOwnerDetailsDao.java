@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import com.nova.demo.DTO.AppShopConsumerOwnerDetails;
 import com.nova.demo.DTO.AppointmentCountDetails;
+import com.nova.demo.DTO.ShopDetailsDTO;
+import com.nova.demo.entity.ShopDetails;
 
 public interface AppShopConsumerOwnerDetailsDao {
 
@@ -13,4 +15,6 @@ public interface AppShopConsumerOwnerDetailsDao {
 
 	public AppointmentCountDetails getTotalAppointmentCount(Long shopId, String appoinmentStatus,
 			LocalDate fromDate, LocalDate toDate);
+
+	public List<ShopDetailsDTO> getShopDetailsByShopTypeID(Long shopTypeID);
 }
