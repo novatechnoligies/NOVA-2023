@@ -18,6 +18,7 @@ public class ShopServiceRelation {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id")
     private Long id;
 	
 	@Column(name="status")
@@ -29,6 +30,13 @@ public class ShopServiceRelation {
 	@Column(name="created_date")
 	private LocalDate createdDate;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shop_id")
+    private ShopDetails shop;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "service_id")
+    private ServiceMaster service;
 	
 
     public Boolean getStatus() {
@@ -54,16 +62,7 @@ public class ShopServiceRelation {
 	public void setCreatedDate(LocalDate createdDate) {
 		this.createdDate = createdDate;
 	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shop_id")
-    private ShopDetails shop;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "service_id")
-    private ServiceMaster service;
     
-  @Column
 	public Long getId() {
 		return id;
 	}
@@ -71,8 +70,6 @@ public class ShopServiceRelation {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	@Column
-
 	public ShopDetails getShop() {
 		return shop;
 	}
@@ -80,8 +77,6 @@ public class ShopServiceRelation {
 	public void setShop(ShopDetails shop) {
 		this.shop = shop;
 	}
-	@Column
-
 	public ServiceMaster getService() {
 		return service;
 	}
