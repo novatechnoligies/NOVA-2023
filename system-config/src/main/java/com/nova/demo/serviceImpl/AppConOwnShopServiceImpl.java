@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.nova.demo.DTO.AppShopConsumerOwnerDetails;
 import com.nova.demo.DTO.AppointmentCountDetails;
+import com.nova.demo.DTO.ShopDetailsDTO;
 import com.nova.demo.dao.AppShopConsumerOwnerDetailsDao;
+import com.nova.demo.entity.ShopDetails;
 import com.nova.demo.service.AppConOwnShopService;
 
 @Service
@@ -32,4 +34,11 @@ public class AppConOwnShopServiceImpl implements AppConOwnShopService {
 		return dao.getTotalAppointmentCount(shopId,appoinmentStatus,fromDate,toDate);
 	}
 
+	@Override
+	public List<ShopDetailsDTO> getShopDetailsByShopTypeID(Long shopTypeID) {
+		// TODO Auto-generated method stub
+		return dao.getShopDetailsByShopTypeID(shopTypeID);
+	}
+
+	
 }
