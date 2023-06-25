@@ -18,4 +18,7 @@ public interface AppConOwnShopService {
 
 	List<ShopDetailsDTO> getShopDetailsByShopTypeID(Long shopTypeID);
 
+	ShopDetailsDTO getShopDetailsAndAppointmentCountsAndOwnerDetailsByShopId(Long shopId, LocalDate fromDate,
+			LocalDate toDate);
+
 }

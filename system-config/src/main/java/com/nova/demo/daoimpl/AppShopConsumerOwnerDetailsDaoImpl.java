@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.query.NativeQuery;
+import org.hibernate.transform.Transformers;
+import org.hibernate.type.StandardBasicTypes;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -97,47 +101,88 @@ public class AppShopConsumerOwnerDetailsDaoImpl implements AppShopConsumerOwnerD
 
 	@Override
 	public List<ShopDetailsDTO> getShopDetailsByShopTypeID(Long shopTypeID) {
-		 String sql = "select sd.id as shopId,sd.shop_name as shopName ,sd.phone as shopName,sd.shop_address as shopAddress,"
-		 		+ " sd.latitude,sd.longitude as longitude,sd.status as shopStatus,sd.created_at as registeredDate,sd.is_deleted as deleted,\r\n"
-		 		+ "st.code as shopType,\r\n"
-		 		+ "ud.first_name as ownerName,ud.phone as ownerPhone,ud.id as ownerId\r\n"
-		 		+ "from shop_details as sd \r\n"
-		 		+ "join shop_type as st on st.id=sd.shop_type_id\r\n"
-		 		+ "join user_details as ud on sd.user_id=ud.id\r\n"
-		 		+ "where sd.shop_type_id =:shopTypeID";
+		
 
-		        Query query = entityManager.createNativeQuery(sql)
-		        .setParameter("shopTypeID", shopTypeID);
-		        
-		        List<Object[]> resultList = query.getResultList();
-		        
-		        
-		        List<ShopDetailsDTO> dtoList = new ArrayList<>();
-		        
-		        for(Object [] result:resultList) {
-		        	ShopDetailsDTO dto = new ShopDetailsDTO();
-		        	
-		        	dto.setShopId(Long.valueOf(result[0].toString()));
-		        	dto.setShopName(String.valueOf(result[1]));
-		        	dto.setShopPhone(String.valueOf(result[2]));
-		        	dto.setShopAddress(String.valueOf(result[3]));
-		        	dto.setLatitude(Float.valueOf(result[4].toString()));
-		        	dto.setLongitude(Float.valueOf(result[5].toString()));
-		        	dto.setShopStatus(Boolean.valueOf(result[6].toString()));
-//		        	if(result[7]!=null)
-//			        	dto.setRegisteredDate(LocalDate.parse(result[7].toString()));
-		        	if(result[8]!=null)
-		        	dto.setDeleted(Boolean.valueOf(result[8].toString()));
-		        	dto.setShopType(String.valueOf(result[9]));
-		        	dto.setOwnerName(String.valueOf(result[10]));
-		        	dto.setOwnerPhone(String.valueOf(result[11]));
-		        	dto.setOwnerId(Long.valueOf(result[12].toString()));
-		        	
-		        	
-		        	dtoList.add(dto);
-		        }
-				return dtoList;
+		StringBuffer sql = new StringBuffer("SELECT sd.id AS shopId, sd.shop_name AS shopName, sd.phone AS shopPhone, sd.shop_address AS shopAddress, "
+			        + "sd.latitude, sd.longitude, sd.status AS shopStatus, sd.created_at AS registeredDate, sd.is_deleted AS deleted, "
+			        + "st.code AS shopType, "
+			        + "ud.first_name AS ownerName, ud.phone AS ownerPhone, ud.id AS ownerId "
+			        + "FROM shop_details AS sd "
+			        + "JOIN shop_type AS st ON st.id = sd.shop_type_id "
+			        + "JOIN user_details AS ud ON sd.user_id = ud.id "
+			        + "WHERE sd.shop_type_id =:shopTypeID");
+
+			Query query = entityManager.createNativeQuery(sql.toString())
+			        .setParameter("shopTypeID", shopTypeID);
+
+			query.unwrap(NativeQuery.class)
+            .addScalar("shopId", StandardBasicTypes.LONG)
+            .addScalar("shopName", StandardBasicTypes.STRING)
+            .addScalar("shopPhone", StandardBasicTypes.STRING)
+            .addScalar("shopAddress", StandardBasicTypes.STRING)
+            .addScalar("latitude", StandardBasicTypes.FLOAT)
+            .addScalar("longitude", StandardBasicTypes.FLOAT)
+            .addScalar("shopStatus", StandardBasicTypes.BOOLEAN)
+            .addScalar("registeredDate", StandardBasicTypes.DATE)
+            .addScalar("deleted", StandardBasicTypes.BOOLEAN)
+            .addScalar("shopType", StandardBasicTypes.STRING)
+            .addScalar("ownerName", StandardBasicTypes.STRING)
+            .addScalar("ownerPhone", StandardBasicTypes.STRING)
+            .addScalar("ownerId", StandardBasicTypes.LONG);
+
+    ((NativeQuery) query).setResultTransformer(Transformers.aliasToBean(ShopDetailsDTO.class));
+
+    Object result = query.getResultList();
+
+    if (result != null) {
+        return (List<ShopDetailsDTO>) result;
+    } else {
+        // Handle case where no result is found for the given shopId
+        return null;
+    }
 			
-		}
+}
+
+	@Override
+	public ShopDetailsDTO getShopDetailsAndAppointmentCountsAndOwnerDetailsByShopId(Long shopId, LocalDate fromDate,
+			LocalDate toDate) {
+		StringBuffer sql = new StringBuffer("SELECT sd.id AS shopId, sd.shop_name AS shopName, sd.phone AS shopPhone, sd.shop_address AS shopAddress, "
+			        + "sd.latitude, sd.longitude, sd.status AS shopStatus, sd.created_at AS registeredDate, sd.is_deleted AS deleted, "
+			        + "st.code AS shopType, "
+			        + "ud.first_name AS ownerName, ud.phone AS ownerPhone, ud.id AS ownerId "
+			        + "FROM shop_details AS sd "
+			        + "JOIN shop_type AS st ON st.id = sd.shop_type_id "
+			        + "JOIN user_details AS ud ON sd.user_id = ud.id "
+			        + "WHERE sd.id = :shopId ");
+
+			Query query = entityManager.createNativeQuery(sql.toString())
+			        .setParameter("shopId", shopId);
+
+			query.unwrap(NativeQuery.class)
+            .addScalar("shopId", StandardBasicTypes.LONG)
+            .addScalar("shopName", StandardBasicTypes.STRING)
+            .addScalar("shopPhone", StandardBasicTypes.STRING)
+            .addScalar("shopAddress", StandardBasicTypes.STRING)
+            .addScalar("latitude", StandardBasicTypes.FLOAT)
+            .addScalar("longitude", StandardBasicTypes.FLOAT)
+            .addScalar("shopStatus", StandardBasicTypes.BOOLEAN)
+            .addScalar("registeredDate", StandardBasicTypes.DATE)
+            .addScalar("deleted", StandardBasicTypes.BOOLEAN)
+            .addScalar("shopType", StandardBasicTypes.STRING)
+            .addScalar("ownerName", StandardBasicTypes.STRING)
+            .addScalar("ownerPhone", StandardBasicTypes.STRING)
+            .addScalar("ownerId", StandardBasicTypes.LONG);
+
+    ((NativeQuery) query).setResultTransformer(Transformers.aliasToBean(ShopDetailsDTO.class));
+
+    Object result = query.getSingleResult();
+
+    if (result != null) {
+        return (ShopDetailsDTO) result;
+    } else {
+        // Handle case where no result is found for the given shopId
+        return null;
+    }
+}
 
 }

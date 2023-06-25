@@ -17,4 +17,7 @@ public interface AppShopConsumerOwnerDetailsDao {
 			LocalDate fromDate, LocalDate toDate);
 
 	public List<ShopDetailsDTO> getShopDetailsByShopTypeID(Long shopTypeID);
+
+	public ShopDetailsDTO getShopDetailsAndAppointmentCountsAndOwnerDetailsByShopId(Long shopId, LocalDate fromDate,
+			LocalDate toDate);
 }

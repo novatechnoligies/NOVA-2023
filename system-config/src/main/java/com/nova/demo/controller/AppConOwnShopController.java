@@ -75,7 +75,16 @@ public class AppConOwnShopController {
 		} else {
 			return new ResponseEntity<>(list,HttpStatus.OK);
 		}
+	}
+	
+	@GetMapping(value = "getShopDetailsAndAppointmentCountsAndOwnerDetailsByShopId")
+	public ResponseEntity<Object> getShopDetailsAndAppointmentCountsAndOwnerDetailsByShopId(Long shopId,LocalDate fromDate, LocalDate toDate) {
 		
-		
+		ShopDetailsDTO list = appConOwnShopService.getShopDetailsAndAppointmentCountsAndOwnerDetailsByShopId(shopId,fromDate,toDate);
+		if (list==null) {
+			return new ResponseEntity<>("No shops are availabale", HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<>(list,HttpStatus.OK);
+		}
 	}
 }

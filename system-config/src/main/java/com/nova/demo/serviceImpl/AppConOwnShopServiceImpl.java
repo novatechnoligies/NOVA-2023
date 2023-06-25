@@ -40,5 +40,12 @@ public class AppConOwnShopServiceImpl implements AppConOwnShopService {
 		return dao.getShopDetailsByShopTypeID(shopTypeID);
 	}
 
+	@Override
+	public ShopDetailsDTO getShopDetailsAndAppointmentCountsAndOwnerDetailsByShopId(Long shopId, LocalDate fromDate,
+			LocalDate toDate) {
+		// TODO Auto-generated method stub
+		return dao.getShopDetailsAndAppointmentCountsAndOwnerDetailsByShopId(shopId,fromDate,toDate);
+	}
+
 	
 }
