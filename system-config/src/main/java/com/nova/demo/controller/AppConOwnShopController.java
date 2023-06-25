@@ -79,12 +79,11 @@ public class AppConOwnShopController {
 	
 	@GetMapping(value = "getShopDetailsAndAppointmentCountsAndOwnerDetailsByShopId")
 	public ResponseEntity<Object> getShopDetailsAndAppointmentCountsAndOwnerDetailsByShopId(Long shopId,LocalDate fromDate, LocalDate toDate) {
-		
-		ShopDetailsDTO list = appConOwnShopService.getShopDetailsAndAppointmentCountsAndOwnerDetailsByShopId(shopId,fromDate,toDate);
-		if (list==null) {
+		ShopDetailsDTO data = appConOwnShopService.getShopDetailsAndAppointmentCountsAndOwnerDetailsByShopId(shopId,fromDate,toDate);
+		if (data==null) {
 			return new ResponseEntity<>("No shops are availabale", HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<>(list,HttpStatus.OK);
+			return new ResponseEntity<>(data,HttpStatus.OK);
 		}
 	}
 }

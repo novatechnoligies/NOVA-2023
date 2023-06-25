@@ -173,16 +173,14 @@ public class AppShopConsumerOwnerDetailsDaoImpl implements AppShopConsumerOwnerD
             .addScalar("ownerPhone", StandardBasicTypes.STRING)
             .addScalar("ownerId", StandardBasicTypes.LONG);
 
-    ((NativeQuery) query).setResultTransformer(Transformers.aliasToBean(ShopDetailsDTO.class));
+			NativeQuery<?> nativeQuery = query.unwrap(NativeQuery.class);
+		    nativeQuery.setResultTransformer(Transformers.aliasToBean(ShopDetailsDTO.class));
 
-    Object result = query.getSingleResult();
-
-    if (result != null) {
-        return (ShopDetailsDTO) result;
-    } else {
+		    ShopDetailsDTO dto = (ShopDetailsDTO) nativeQuery.getSingleResult();
+        return dto;
         // Handle case where no result is found for the given shopId
-        return null;
-    }
+      //  return null;
+  //  }
 }
 
 }
