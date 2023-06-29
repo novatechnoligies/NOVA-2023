@@ -17,59 +17,178 @@ public class AppontmentDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "shop_id", nullable = false)
-    private ShopDetails shop;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserDetails user;
-
-    @ManyToOne
-    @JoinColumn(name = "slot_id", nullable = false)
-    private SlotAvailability slot;
-    
+    @Column (name="slot_id")
+    private Boolean slotId;
+    @Column (name="shop_id")
+    private Boolean shopId;
+    @Column (name="app_status")
+    private Boolean appStatus;
     @Column(name = "appointment_status")
     private String appointmentStatus;
+    @Column (name="service_id")
+    private Boolean serviceId;
+    @Column (name="amount")
+    private Float amount;
+    @Column (name="tax1")
+    private Float tax1;
+    @Column (name="tax2")
+    private Float tax2;
+    @Column (name="gst")
+    private Boolean gst;
+    @Column (name="csgt")
+    private Boolean cgst;
+   @Column (name="sgst")
+   private Boolean sgst;
+   @Column (name="consumer_id")
+   private Boolean consumerId;
+   @Column (name="created_at")
+   private Boolean createdAt;
+   @Column (name="status")
+   private Boolean status;
+
 
 	public Long getId() {
 		return id;
 	}
 
+
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public ShopDetails getShop() {
-		return shop;
+
+	public Boolean getSlotId() {
+		return slotId;
 	}
 
-	public void setShop(ShopDetails shop) {
-		this.shop = shop;
+
+	public void setSlotId(Boolean slotId) {
+		this.slotId = slotId;
 	}
 
-	public UserDetails getUser() {
-		return user;
+
+	public Boolean getShopId() {
+		return shopId;
 	}
 
-	public void setUser(UserDetails user) {
-		this.user = user;
+
+	public void setShopId(Boolean shopId) {
+		this.shopId = shopId;
 	}
 
-	public SlotAvailability getSlot() {
-		return slot;
+
+	public Boolean getAppStatus() {
+		return appStatus;
 	}
 
-	public void setSlot(SlotAvailability slot) {
-		this.slot = slot;
+
+	public void setAppStatus(Boolean appStatus) {
+		this.appStatus = appStatus;
 	}
+
+
+	public Boolean getServiceId() {
+		return serviceId;
+	}
+
+
+	public void setServiceId(Boolean serviceId) {
+		this.serviceId = serviceId;
+	}
+
+
+	public Float getAmount() {
+		return amount;
+	}
+
+
+	public void setAmount(Float amount) {
+		this.amount = amount;
+	}
+
+
+	public Float getTax1() {
+		return tax1;
+	}
+
+
+	public void setTax1(Float tax1) {
+		this.tax1 = tax1;
+	}
+
+
+	public Float getTax2() {
+		return tax2;
+	}
+
+
+	public void setTax2(Float tax2) {
+		this.tax2 = tax2;
+	}
+
+
+	public Boolean getGst() {
+		return gst;
+	}
+
+
+	public void setGst(Boolean gst) {
+		this.gst = gst;
+	}
+
+
+	public Boolean getCgst() {
+		return cgst;
+	}
+
+
+	public void setCgst(Boolean cgst) {
+		this.cgst = cgst;
+	}
+
+
+	public Boolean getSgst() {
+		return sgst;
+	}
+
+
+	public void setSgst(Boolean sgst) {
+		this.sgst = sgst;
+	}
+
+
+	public Boolean getConsumerId() {
+		return consumerId;
+	}
+
+
+	public void setConsumerId(Boolean consumerId) {
+		this.consumerId = consumerId;
+	}
+
+
+	public Boolean getCreatedAt() {
+		return createdAt;
+	}
+
+
+	public void setCreatedAt(Boolean createdAt) {
+		this.createdAt = createdAt;
+	}
+
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
 
 	public String getAppointmentStatus() {
 		return appointmentStatus;
-	}
-
-	public void setAppointmentStatus(String appointmentStatus) {
-		this.appointmentStatus = appointmentStatus;
 	}
     
 }
