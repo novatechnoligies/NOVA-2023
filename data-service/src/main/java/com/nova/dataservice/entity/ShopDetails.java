@@ -3,9 +3,7 @@ package com.nova.dataservice.entity;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -45,9 +43,6 @@ public class ShopDetails {
 	@Column(name = "phone")
 	private String phone;
 	
-	@Column(name = "logo")
-	private String logo;
-	
 	@Column(name = "created_at")
 	private LocalDate createdAt;
 	
@@ -56,7 +51,34 @@ public class ShopDetails {
 	
 	@Column(name = "is_deleted")
 	private Boolean isDeleted;
-
+	
+	@Column (name= "printer_required")
+	private Boolean printerRequired;
+	
+	@Column (name ="logo")
+	private String logo;
+	
+	@Column (name ="device_required")
+	private Boolean deviceRequired;
+	
+	@Column (name="inventory")
+	private Boolean inventory;
+	
+	@Column (name="enable_gift_card")
+	private Boolean enableGiftCard;
+	
+	@Column (name="promotions")
+	private Boolean promotions;
+	
+	@Column (name="shop_code")
+	private Boolean shopCode;
+	
+	@Column (name="gst_no")
+	private Boolean gstNo;
+	
+	@Column (name="create_employee")
+	private Boolean createEmployee;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "shop_type_id")
 	@JsonIgnore
@@ -193,6 +215,70 @@ public class ShopDetails {
 
 	public void setShopServices(List<ShopServiceRelation> shopServices) {
 		this.shopServices = shopServices;
+	}
+
+	public Boolean getPrinterRequired() {
+		return printerRequired;
+	}
+
+	public void setPrinterRequired(Boolean printerRequired) {
+		this.printerRequired = printerRequired;
+	}
+
+	public Boolean getDeviceRequired() {
+		return deviceRequired;
+	}
+
+	public void setDeviceRequired(Boolean deviceRequired) {
+		this.deviceRequired = deviceRequired;
+	}
+
+	public Boolean getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(Boolean inventory) {
+		this.inventory = inventory;
+	}
+
+	public Boolean getEnableGiftCard() {
+		return enableGiftCard;
+	}
+
+	public void setEnableGiftCard(Boolean enableGiftCard) {
+		this.enableGiftCard = enableGiftCard;
+	}
+
+	public Boolean getPromotions() {
+		return promotions;
+	}
+
+	public void setPromotions(Boolean promotions) {
+		this.promotions = promotions;
+	}
+
+	public Boolean getShopCode() {
+		return shopCode;
+	}
+
+	public void setShopCode(Boolean shopCode) {
+		this.shopCode = shopCode;
+	}
+
+	public Boolean getGstNo() {
+		return gstNo;
+	}
+
+	public void setGstNo(Boolean gstNo) {
+		this.gstNo = gstNo;
+	}
+
+	public Boolean getCreateEmployee() {
+		return createEmployee;
+	}
+
+	public void setCreateEmployee(Boolean createEmployee) {
+		this.createEmployee = createEmployee;
 	}
 
 }
