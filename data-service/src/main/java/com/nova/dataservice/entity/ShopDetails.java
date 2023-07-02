@@ -92,6 +92,10 @@ public class ShopDetails {
 	@OneToMany(mappedBy = "shop")
 	@JsonIgnore
 	private List<ShopAvalibility> timeAvailabilities = new ArrayList<>();
+	
+//	@OneToMany(mappedBy = "shop")
+//	@JsonIgnore
+//	private List<ShopUpdateRequest> shopUpdateRequests = new ArrayList<>();
 
 	@OneToMany(mappedBy = "shop")
 	@JsonIgnore
