@@ -47,6 +47,14 @@ public class UserDetails {
 	private String username;
 	@Column(name = "password")
 	private String password;
+	@Column(name = "adhar_no")
+	private String adharNo;
+	@Column(name = "adhar_photo")
+	private String adharPhoto;
+	@Column(name = "owner_photo")
+	private String ownerPhoto;
+	@Column(name = "is_phone_no_verified")
+	private Boolean isPhoneNoVerified;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "role_id")
 	private Role role;
