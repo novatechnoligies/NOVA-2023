@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/nova_v1_2
+    username: root
+    password: ravi
+
+    
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  application:
+     name: DATA-SERVICE
+     
+    
+     
+server:
+  port: 8083
+  
+
+  
+
