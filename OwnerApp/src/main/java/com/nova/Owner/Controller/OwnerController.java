@@ -1,5 +1,6 @@
 package com.nova.Owner.Controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nova.Owner.DTO.AppointmentDetails;
+import com.nova.Owner.DTO.AppointmentDetailsDTO;
+import com.nova.Owner.DTO.ShopDetailsDTO;
+import com.nova.Owner.Entity.ShopDetails;
 import com.nova.Owner.Entity.UserDetails;
 import com.nova.Owner.Service.OwnerOREmployeeService;
 
@@ -85,4 +90,55 @@ public class OwnerController {
 
 		}
 	}
+		
+		@GetMapping(value="GetShopDetailsByOwnerId/{ownerId}")
+		public ResponseEntity<Object> GetShopDetailsByOwnerId(@PathVariable("ownerId") Long ownerId) {
+			try {
+				List<ShopDetailsDTO> data = employeeService.GetShopDetailsByOwnerId(ownerId);
+				if (data != null) {
+					return new ResponseEntity<Object>(data, HttpStatus.OK);
+
+				} else {
+					return new ResponseEntity<Object>("id Not Found", HttpStatus.OK);
+
+				}
+
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				return new ResponseEntity<Object>("something went wrong", HttpStatus.OK);
+			}
+		}
+		
+		@GetMapping(value="GetAppoinemetByShopId/{shopId}")
+		public ResponseEntity<Object> GetAppoinemetByShopId(@PathVariable ("shopId") Long shopid) {
+			try {
+				List<AppointmentDetailsDTO> data = employeeService.GetAppoinemetByShopId(shopid);
+				if (data != null) {
+					return new ResponseEntity<Object>(data, HttpStatus.OK);
+				} else {
+					return new ResponseEntity<Object>("id Not Found", HttpStatus.OK);
+				}
+			} catch (Exception e) {
+			// TODO: handle exception
+				e.printStackTrace();
+				return new ResponseEntity<Object>("something went wrong", HttpStatus.OK);
+		}
+
+			
+		}
+		@GetMapping(value="GetAppointmentDetailsByAppointmentId/{AppointmentId}")
+		public ResponseEntity<Object> GetAppointmentDetailsByAppointmentId(@PathVariable ("AppointmentId") Long appointmentId){
+			 try {
+				    List<AppointmentDetails> data=  employeeService.GetAppointmentDetailsByAppointmentId(appointmentId);
+				 	if (!data.isEmpty()) {
+						return new ResponseEntity<Object>(data, HttpStatus.OK);
+					} else {
+						return new ResponseEntity<Object>("id is Not Found", HttpStatus.OK);
+					}
+			} catch (Exception e) {
+				// TODO: handle exception
+				return new ResponseEntity<Object>("somethin went wrong", HttpStatus.OK);
+			}
+		}
 }

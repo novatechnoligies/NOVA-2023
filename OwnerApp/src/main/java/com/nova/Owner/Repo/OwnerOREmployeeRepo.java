@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+
 import com.nova.Owner.Entity.UserDetails;
 
 public interface OwnerOREmployeeRepo extends JpaRepository<UserDetails, Long>{
@@ -13,5 +14,7 @@ public interface OwnerOREmployeeRepo extends JpaRepository<UserDetails, Long>{
 	Optional<UserDetails> findByPhone(String ownerPhone);
 
 	Optional<UserDetails> findByEmail(String email);
+
+	
 
 }
