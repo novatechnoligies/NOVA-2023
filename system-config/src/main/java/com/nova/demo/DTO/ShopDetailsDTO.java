@@ -5,18 +5,31 @@ import java.sql.Date;
 public class ShopDetailsDTO {
 
 	private Long shopId;
+	
 	private String shopName;
+	
 	private String shopPhone;
+	
 	private String shopAddress;
+	
 	private Float latitude;
+	
 	private Float longitude;
+	
 	private Boolean shopStatus;
+	
 	private Date registeredDate;
+	
 	private Boolean deleted;
+	
 	private String shopType;
+	
 	private String ownerName;
+	
 	private String ownerPhone;
+	
 	private Long ownerId;
+	
 	public Long getShopId() {
 		return shopId;
 	}
