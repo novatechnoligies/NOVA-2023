@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.nova.Owner.DTO.AppointmentCountByShopIdDTO;
+import com.nova.Owner.DTO.ShopDetailsDTO;
 import com.nova.Owner.DTO.TodayAppointmentCountDTO;
 
 public interface AppointmentCountByShopIdDAO {
@@ -15,5 +16,7 @@ public interface AppointmentCountByShopIdDAO {
 
 	TodayAppointmentCountDTO getAppointmentCountForShopBetweenTwoDates(Long shopId, LocalDate fromDate,
 			LocalDate toDate);
+
+	ShopDetailsDTO getLabCountByShopTypeId(Long shop_type_id);
 
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nova.Owner.DTO.AppointmentCountByShopIdDTO;
 import com.nova.Owner.DTO.AppointmentDetails;
+import com.nova.Owner.DTO.ShopDetailsDTO;
 import com.nova.Owner.DTO.TodayAppointmentCountDTO;
 import com.nova.Owner.Dao.AppointmentCountByShopIdDAO;
 
@@ -77,8 +78,7 @@ public class AppointmentCountByShopIdDAOImpl implements AppointmentCountByShopId
 
 
 	@Override
-	public TodayAppointmentCountDTO getAppointmentCountForShopBetweenTwoDates(Long shopId, LocalDate fromDate,
-			LocalDate toDate) {
+	public TodayAppointmentCountDTO getAppointmentCountForShopBetweenTwoDates(Long shopId, LocalDate fromDate,LocalDate toDate) {
 		// TODO Auto-generated method stub
 		StringBuffer sql = new StringBuffer("SELECT COUNT(*) AS todayAppointmentCount"
 				+ " FROM appointment_details AS ad"
@@ -101,9 +101,32 @@ public class AppointmentCountByShopIdDAOImpl implements AppointmentCountByShopId
 		} else {
 			// Handle case where no result is found for the given shopId
 			return null;
-		
 	}
 }
+	@Override
+	public ShopDetailsDTO getLabCountByShopTypeId(Long shop_type_id) {
 
-	
+		// TODO Auto-generated method stub
+		StringBuffer sql = new StringBuffer("SELECT COUNT(*) As labCount"
+				+ " From shop_details As sd"
+				+ " WHERE sd.shop_type_id =:shop_type_id ");
+
+		Query query = entityManager.createNativeQuery(sql.toString())
+				.setParameter("shop_type_id",shop_type_id);
+				
+
+		query.unwrap(NativeQuery.class).addScalar("labCount", StandardBasicTypes.LONG);
+
+		((NativeQuery) query).setResultTransformer(Transformers.aliasToBean(ShopDetailsDTO.class));
+
+		Object result = query.getSingleResult();
+
+		if (result != null) {
+			return (ShopDetailsDTO) result;
+		} else {
+			// Handle case where no result is found for the given shopId
+			return null;	
+	}
+
+	}
 }

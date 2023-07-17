@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nova.Owner.DTO.AppointmentCountByShopIdDTO;
+import com.nova.Owner.DTO.ShopDetailsDTO;
 import com.nova.Owner.DTO.TodayAppointmentCountDTO;
 import com.nova.Owner.Service.AppointmentCountByShopIdService;
 
@@ -81,6 +82,22 @@ public class AppointmentCountByShopIdController {
 		}
 		
 	}
+	@GetMapping(value="getLabCountByShopTypeId/{id}")
+	public ResponseEntity<Object> getLabCountByShopTypeId(@PathVariable("id") Long shop_type_id) {
+try {
+	ShopDetailsDTO data=	appointmentCountByShopIdService.getLabCountByShopTypeId(shop_type_id);
+	if (data!=null) {
+		return new ResponseEntity<Object>(data,HttpStatus.OK);
+	} else {
+		return new ResponseEntity<Object>(data,HttpStatus.OK);
+   }
+		
+} catch (Exception e) {
+	// TODO: handle exception
+	e.printStackTrace();
+	return new ResponseEntity<Object>("something went wrong",HttpStatus.OK);
+}
 
+}
 }
 

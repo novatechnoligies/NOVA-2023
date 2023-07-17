@@ -78,8 +78,8 @@ public class AppShopConsumerOwnerDetailsDaoImpl implements AppShopConsumerOwnerD
 	@Override
 	public AppointmentCountDetails getTotalAppointmentCount(Long shopId, String appoinmentStatus,
 			LocalDate fromDate, LocalDate toDate) {
-		 String sql = "SELECT count(*) AS totalBookedSlots\r\n"
-		 		+ " FROM slot_availibility As sla\r\n"
+		 String sql = "SELECT count(*) AS totalBookedSlots"
+		 		+ " FROM slot_availibility As sla"
 		 		+ " where sla.shop_id =:shopId And sla.appointment_status =:appoinmentStatus And sla.app_date "
 		 		+ " BETWEEN :fromDate AND :toDate ";
 

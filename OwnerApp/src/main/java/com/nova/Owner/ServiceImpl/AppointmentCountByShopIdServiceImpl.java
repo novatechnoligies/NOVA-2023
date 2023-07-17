@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nova.Owner.DTO.AppointmentCountByShopIdDTO;
+import com.nova.Owner.DTO.ShopDetailsDTO;
 import com.nova.Owner.DTO.TodayAppointmentCountDTO;
 import com.nova.Owner.Dao.AppointmentCountByShopIdDAO;
 import com.nova.Owner.Service.AppointmentCountByShopIdService;
@@ -35,6 +36,12 @@ public class AppointmentCountByShopIdServiceImpl implements AppointmentCountBySh
 			LocalDate toDate) {
 		// TODO Auto-generated method stub
 		return appointmentCountByShopIdDAO.getAppointmentCountForShopBetweenTwoDates(shopId,fromDate,toDate);
+	}
+
+	@Override
+	public ShopDetailsDTO getLabCountByShopTypeId(Long shop_type_id) {
+		// TODO Auto-generated method stub
+		return appointmentCountByShopIdDAO.getLabCountByShopTypeId(shop_type_id);
 	}
 
 	

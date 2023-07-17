@@ -21,6 +21,8 @@ public class ShopDetailsDTO {
 	
 	private String todayAppointment;
 	
+	private Long labCount;
+	
 	
 
 	public Long getShopId() {
@@ -93,6 +95,14 @@ public class ShopDetailsDTO {
 
 	public void setTodayAppointment(String todayAppointment) {
 		this.todayAppointment = todayAppointment;
+	}
+
+	public Long getLabCount() {
+		return labCount;
+	}
+
+	public void setLabCount(Long labCount) {
+		this.labCount = labCount;
 	}
 
 }
