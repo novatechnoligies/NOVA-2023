@@ -1,0 +1,42 @@
+server:
+  port: 8085
+  
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+      - id: DATA-SERVICE
+        uri: lb://DATA-SERVICE
+        predicates:
+        - Path=/dataservice/**
+        filters:
+        - name: CircuitBreaker
+          args:
+            name: DATA-SERVICE
+            fallbackuri: forward:/dataServiceFallBack
+    
+        
+      - id: NOVA-REPORT-SERVICE
+        uri: lb://NOVA-REPORT-SERVICE
+        predicates:
+        - Path=/novareportservice/** 
+        filters:
+        - name: CircuitBreaker
+          args:
+            name: NOVA-REPORT-SERVICE
+            fallbackuri: forward:/novareportserviceFallBack 
+        
+          
+                  
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+  
