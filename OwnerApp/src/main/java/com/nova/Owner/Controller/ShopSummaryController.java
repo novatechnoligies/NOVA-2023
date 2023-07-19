@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nova.Owner.DTO.ServiceMasterParameterDTO;
 import com.nova.Owner.DTO.ShopSummaryByDTO;
 import com.nova.Owner.Service.ShopSummaryService;
 
@@ -39,4 +40,26 @@ public class ShopSummaryController {
 			return new ResponseEntity<Object>("Something Went Wrong", HttpStatus.OK);
 		}
 	}
+
+	@GetMapping(value = "getByServiceMasterName/{id}")
+	public ResponseEntity<Object> getByServiceMasterName(@PathVariable("id") Long serviceMasterId) {
+		try {
+
+			List<ServiceMasterParameterDTO> data = service.getByServiceMasterName(serviceMasterId);
+			if (data != null) {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
+
+			} else {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
+
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return new ResponseEntity<Object>("something went wrong", HttpStatus.OK);
+		}
+	}
+
 }
+

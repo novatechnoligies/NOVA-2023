@@ -8,6 +8,7 @@ import org.hibernate.type.StandardBasicTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nova.Owner.DTO.ServiceMasterParameterDTO;
 import com.nova.Owner.DTO.ShopDetailsDTO;
 import com.nova.Owner.DTO.ShopSummaryByDTO;
 import com.nova.Owner.Dao.ShopSummaryDAO;
@@ -58,6 +59,57 @@ Object result = query.getResultList();
 
 if (result != null) {
     return (List<ShopSummaryByDTO>) result;
+} else {
+    // Handle case where no result is found for the given shopId
+    return null;
+}
+
+	
+	}
+
+
+	@Override
+	public List<ServiceMasterParameterDTO> getByServiceMasterName(Long serviceMasterId) {
+
+		// TODO Auto-generated method stub
+		StringBuffer sql = new StringBuffer(" SELECT sm.id AS id,sm.name AS Name,"
+				+ " smp.service_master_id AS serviceMasterId,smp.min_value AS minValue,smp.max_value AS maxiValue,"
+				+ " smp.unit AS ServiceMasterParameterUnit,smp.parameter_name AS parameterName,smp.gender AS gender,"
+				+ " mpsp.master_parameter_sub_parametercol AS masterParameterSubParametercol,mpsp.minimum_value AS minumumValue,"
+				+ " mpsp.maximum_value AS maximumvalue,mpsp.unit AS MasterParameterSubParameterUnit,mpsp.status AS status,"
+				+ " mpsp.parameter_id AS parameterId"
+				+ " FROM service_master AS sm"
+				+ " JOIN service_master_parameter AS smp ON sm.id = smp.service_master_id"
+				+ " JOIN master_parameter_sub_parameter AS mpsp ON smp.id = mpsp.parameter_id"
+				+ " WHERE sm.id =:service_master_id");
+		
+		Query query = entityManager.createNativeQuery(sql.toString())
+		        .setParameter("service_master_id", serviceMasterId);
+	
+
+		query.unwrap(NativeQuery.class)
+        .addScalar("id", StandardBasicTypes.LONG)
+        .addScalar("Name", StandardBasicTypes.STRING)
+        .addScalar("serviceMasterId", StandardBasicTypes.LONG)
+        .addScalar("minValue", StandardBasicTypes.STRING)
+        .addScalar("maxiValue", StandardBasicTypes.STRING)
+        .addScalar("ServiceMasterParameterUnit", StandardBasicTypes.STRING)
+        .addScalar("parameterName", StandardBasicTypes.STRING)
+        .addScalar("gender", StandardBasicTypes.STRING)
+        .addScalar("masterParameterSubParametercol", StandardBasicTypes.STRING)
+        .addScalar("minumumValue", StandardBasicTypes.STRING)
+        .addScalar("maximumvalue", StandardBasicTypes.STRING)
+		.addScalar("MasterParameterSubParameterUnit", StandardBasicTypes.STRING)
+		.addScalar("status", StandardBasicTypes.BOOLEAN) 
+		.addScalar("parameterId", StandardBasicTypes.LONG);
+            
+
+((NativeQuery) query).setResultTransformer(Transformers.aliasToBean(ServiceMasterParameterDTO.class));
+
+Object result = query.getResultList();
+
+if (result != null) {
+    return (List<ServiceMasterParameterDTO>) result;
 } else {
     // Handle case where no result is found for the given shopId
     return null;
