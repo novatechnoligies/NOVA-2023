@@ -9,7 +9,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.nova.consumer.dao.ConsumerReportDao;
 import com.nova.consumer.dto.ConsumerReportDTO;
+import com.nova.consumer.dto.ServiceDetailDTO;
 import com.nova.consumer.service.ConsumerReportService;
+
 
 @Service
 public class ConsumerReportServiceImpl implements ConsumerReportService{
@@ -21,6 +23,18 @@ public class ConsumerReportServiceImpl implements ConsumerReportService{
 	public ConsumerReportDTO getConsumerReportDetails(Long conId, Long appId) throws JsonMappingException, JsonProcessingException {
 		// TODO Auto-generated method stub
 		return consumerReportDao.getConsumerReportDetails(conId, appId);
+	}
+
+	@Override
+	public List<ServiceDetailDTO> getServiceDetailsByServiceName(String serviceName) {
+		// TODO Auto-generated method stub
+		return consumerReportDao.getServiceDetailsByServiceName(serviceName);
+	}
+
+	@Override
+	public List<ServiceDetailDTO> findAllServicesByShopName(String shopName) {
+		// TODO Auto-generated method stub
+		return consumerReportDao.findAllServicesByShopName(shopName);
 	}
 
 }

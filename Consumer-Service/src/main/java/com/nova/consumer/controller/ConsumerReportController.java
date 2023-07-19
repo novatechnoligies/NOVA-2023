@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nova.consumer.dto.ConsumerReportDTO;
+import com.nova.consumer.dto.ServiceDetailDTO;
 import com.nova.consumer.service.ConsumerReportService;
 
 @RestController
@@ -33,6 +34,40 @@ public class ConsumerReportController {
 			return new ResponseEntity<Object>("something went wrong", HttpStatus.OK);
 		}
 	}
+	
+	@GetMapping(value = "getServiceDetailsByServiceName/{serviceName}")
+	public ResponseEntity<Object> getServiceDetailsByServiceName (@PathVariable("serviceName") String serviceName ){
+		
+		try {
+			List<ServiceDetailDTO> list = consumerReportService.getServiceDetailsByServiceName(serviceName);
+			if (list.isEmpty()) {
+				return new ResponseEntity<Object>("no shopname found", HttpStatus.OK);
+			}else {
+					return new ResponseEntity<Object>(list,HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return new ResponseEntity<Object>("something went wrong", HttpStatus.OK);
+		}
+	}
+	
+	@GetMapping(value = "findAllServicesByShopName/{shopName}")
+	public ResponseEntity<Object> findAllServicesByShopName (@PathVariable("shopName") String shopName ){
+		
+		try {
+			List<ServiceDetailDTO> shopList = consumerReportService.findAllServicesByShopName(shopName);
+			if (shopList.isEmpty()) {
+				return new ResponseEntity<Object> ("no shoplist found", HttpStatus.OK);
+			}else {
+				return new ResponseEntity<Object>(shopList,HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			return new ResponseEntity<Object>("something wemt wrong", HttpStatus.BAD_REQUEST);
+		}
+	}
+
 	
 	
 }
