@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -57,9 +59,11 @@ public class UserDetails {
 	private Boolean isPhoneNoVerified;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "role_id")
+	@JsonIgnore
 	private Role role;
 
 	@OneToMany(mappedBy = "owner")
+	@JsonIgnore
 	private List<ShopDetails> shops = new ArrayList<>();
 
 	public Long getId() {
