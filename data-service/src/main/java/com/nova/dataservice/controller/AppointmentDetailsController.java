@@ -57,7 +57,7 @@ public class AppointmentDetailsController {
 	public ResponseEntity<Object> getAllAppontments(@PathVariable("appId") Long id) {
 		try {
 			Optional<AppontmentDetails> app =	appService.findAppointmentById(id);
-			if (app!=null && !app.isEmpty()) {
+			if (app!=null && !app.isPresent()) {
 				return new ResponseEntity<>(app, HttpStatus.OK);
 			}else {
 				return new ResponseEntity<>("fail to get data", HttpStatus.OK);

@@ -1,9 +1,18 @@
 server:
-  port: 8088
+  port: 8084
 
 spring:
   application:
     name: nova-report-service
+    
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/ 
+      register-with-eureka: true
+      fetch-registry: true    
+  instance:
+    hostname: localhost   
 
 #eureka:
 #  client:

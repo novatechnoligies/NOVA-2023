@@ -3,21 +3,28 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/nova_v1_2
     username: root
-    password: rootroot
+    password: root
     
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: update
   application:
-     name: DATA-SERVICE
+     name: SYSTEM-CONFIG
      
 
-     
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost    
     
      
 server:
-  port: 8082
+  port: 8087
   
 
   
