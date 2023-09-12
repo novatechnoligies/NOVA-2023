@@ -50,6 +50,8 @@ public class ShopDetails {
 	private Boolean enableGiftCard;
 	@Column (name="promotions")
 	private Boolean promotions;
+	@Column(name = "pin_code")
+	private String pinCode;
 	@Column (name="shop_code")
 	private Boolean shopCode;
 	@Column (name="gst_no")
@@ -66,6 +68,7 @@ public class ShopDetails {
 	private UserDetails owner;
 	@OneToMany(mappedBy = "shop")
 	@JsonIgnore
+	
 	private List<ShopAvalibility> timeAvailabilities = new ArrayList<>();
 
 	@OneToMany(mappedBy = "shop")
@@ -231,6 +234,13 @@ public class ShopDetails {
 	{
 		this.promotions = promotions;
 	}
+	 public String getPinCode() {
+			return pinCode;
+		}
+		public void setPinCode(String pinCode) {
+			this.pinCode = pinCode;
+		}
+	
 	public Boolean getShopCode() 
 	{
 		return shopCode;
@@ -255,5 +265,6 @@ public class ShopDetails {
 	{
 		this.createEmployee = createEmployee;
 	}
+
 
 }
