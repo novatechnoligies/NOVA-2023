@@ -1,0 +1,18 @@
+cloud:
+  aws:
+    credentials:
+      access-key: AKIA5VELUWCBBOPT63VU
+      secret-key: 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
+    region:
+      static: us-east-1
+    stack:
+      auto: false
+       
+server:  port: 9090
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
