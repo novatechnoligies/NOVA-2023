@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nova.Owner.DTO.AppointmentDetails;
@@ -22,6 +23,7 @@ import com.nova.Owner.Service.OwnerOREmployeeService;
 
 @RestController
 @CrossOrigin(origins = "*")
+@RequestMapping(value = "/api/v1")
 public class OwnerController {
 	@Autowired
 	OwnerOREmployeeService employeeService;

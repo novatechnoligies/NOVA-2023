@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nova.Owner.DTO.ServiceMasterParameterDTO;
@@ -17,6 +18,7 @@ import com.nova.Owner.Service.ShopSummaryService;
 
 @RestController
 @CrossOrigin(value="*")
+@RequestMapping(value = "/api/v1")
 
 public class ShopSummaryController {
 	@Autowired
