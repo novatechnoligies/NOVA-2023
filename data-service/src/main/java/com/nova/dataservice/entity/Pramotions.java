@@ -47,7 +47,7 @@ public class Pramotions {
 	private String promotionName;
 	
 	@Column(name = "created_at")
-	private Date createdAt;
+	private LocalDate createdAt;
 	
 	@Column(name = "total_price")
 	private Float totalPrice;
@@ -138,10 +138,10 @@ public class Pramotions {
 	public void setPromotionName(String promotionName) {
 		this.promotionName = promotionName;
 	}
-	public Date getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
 	public Float getTotalPrice() {
