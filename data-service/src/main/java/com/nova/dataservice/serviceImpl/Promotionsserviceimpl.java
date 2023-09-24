@@ -10,6 +10,8 @@ import com.nova.dataservice.entity.Pramotions;
 import com.nova.dataservice.entity.Role;
 import com.nova.dataservice.repository.PromotionsRepository;
 import com.nova.dataservice.service.PromotionsServices;
+
+import jakarta.transaction.Transactional;
 @Service
 public class Promotionsserviceimpl implements PromotionsServices {
 
@@ -33,6 +35,13 @@ public class Promotionsserviceimpl implements PromotionsServices {
 	public Optional<Pramotions> getPromotionById(Long id) {
 		// TODO Auto-generated method stub
 		return promotionsRepository.findById(id);
+	}
+
+
+	@Transactional
+	public Optional<Pramotions> getPromotionByshopId(Long id) {
+		// TODO Auto-generated method stub
+		return promotionsRepository.findByShopId(id);
 	}
 
 	

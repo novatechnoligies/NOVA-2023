@@ -14,6 +14,8 @@ public interface PromotionsServices {
 
 	Optional<Pramotions> getPromotionById(Long id);
 
+	Optional<Pramotions> getPromotionByshopId(Long id);
+
 	
 
 	
