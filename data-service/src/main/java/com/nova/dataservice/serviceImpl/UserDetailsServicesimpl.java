@@ -36,4 +36,12 @@ public class UserDetailsServicesimpl implements UserDetailsServices {
 		return detailsRepository.findById(id);
 	}
 
+	
+
+	@Override
+	public Optional<UserDetails> getAllConsumerDetailsById(Long id) {
+		// TODO Auto-generated method stub
+		return detailsRepository.findById(id);
+	}
+
 }

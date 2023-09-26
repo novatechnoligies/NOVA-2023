@@ -2,6 +2,7 @@ package com.nova.dataservice.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,6 +52,16 @@ public class UserDetailsController {
 		} else {
 			return new ResponseEntity<Object>(data, HttpStatus.OK);
 		}
+	}
+	@GetMapping(value = "/getAllConsumerDetails/{roleId}")
+	 public ResponseEntity<Object> getAllConsumerDetailsById(@PathVariable ("roleId") Long id) {
+		 Optional<UserDetails> data= detailsServices.getAllConsumerDetailsById (id);
+		 if (data.isEmpty()) {
+				return new ResponseEntity<Object>("no Consumer Data", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
+			}
+		
 	}
 	
 	@GetMapping(value = "getUserDetailsById/{id}")
