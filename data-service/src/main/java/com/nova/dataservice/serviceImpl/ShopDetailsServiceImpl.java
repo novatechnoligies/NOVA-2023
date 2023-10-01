@@ -34,4 +34,10 @@ public class ShopDetailsServiceImpl implements ShopDetailsService {
 		return detailsRepository.findById(id);
 	}
 
+	@Override
+	public List<ShopDetails> searchLabDetailsByIdAndName(Long id,String namePattern) {
+		// TODO Auto-generated method stub
+		return detailsRepository.searchLabDetailsByIdAndName( namePattern);
+	}
+
 }

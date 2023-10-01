@@ -39,9 +39,9 @@ public class UserDetailsServicesimpl implements UserDetailsServices {
 	
 
 	@Override
-	public Optional<UserDetails> getAllConsumerDetailsById(Long id) {
+	public List<UserDetails> getAllConsumerDetailsById(Long id) {
 		// TODO Auto-generated method stub
-		return detailsRepository.findById(id);
+		return detailsRepository.findByRoleId(id);
 	}
 
 }

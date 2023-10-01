@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.nova.dataservice.entity.Role;
 import com.nova.dataservice.entity.ServiceMaster;
 import com.nova.dataservice.service.RoleService;
@@ -20,6 +21,7 @@ import com.nova.dataservice.service.ServiceMasterService;
 
 @RestController
 @CrossOrigin(origins = "*")
+@JsonSerialize
 public class ServiceMasterController {
 
 	
@@ -39,6 +41,17 @@ public class ServiceMasterController {
 			return new ResponseEntity<>("somthing went wrong fail to save data , due to MYSQL is down", HttpStatus.OK);
 		}
 	}
+	@GetMapping(value = "findServicesByNameContaining/{serviceName}")
+	public ResponseEntity<Object> findServicesById(@PathVariable("serviceName") String name){
+		List<ServiceMaster>data= serviceMasterService.findServicesByNameContaining(name);
+		if (data.isEmpty()) {
+			return new ResponseEntity<Object>("no Service found", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Object>(data, HttpStatus.OK);
+		}
+	}
+		
+	
 	
 	@GetMapping(value = "findAllMaster")
 	public ResponseEntity<Object> findAllMaster() {

@@ -34,4 +34,10 @@ public class ServiceMasterServiceImpl implements ServiceMasterService{
 		return serviceMasterRepository.findById(id);
 	}
 
+	@Override
+	public List<ServiceMaster> findServicesByNameContaining(String name) {
+		// TODO Auto-generated method stub
+		return serviceMasterRepository.findServicesByNameContaining(name);
+	}
+
 }

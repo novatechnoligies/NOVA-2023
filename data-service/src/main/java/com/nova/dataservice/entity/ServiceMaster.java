@@ -3,6 +3,8 @@ package com.nova.dataservice.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,7 +25,7 @@ public class ServiceMaster {
 	@Column(name = "name")
     private String name;
 	
-
+    @JsonIgnore
 	@OneToMany(mappedBy = "service")
     private List<ShopServiceRelation> shopServices = new ArrayList<>();
 

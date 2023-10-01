@@ -13,4 +13,6 @@ public interface ServiceMasterService {
 
 	Optional<ServiceMaster> getMasterById(Long id);
 
+	List<ServiceMaster> findServicesByNameContaining(String name);
+
 }

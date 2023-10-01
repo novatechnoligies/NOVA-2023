@@ -40,6 +40,26 @@ public class ShopDetailsController {
 		}
 
 	}
+	@GetMapping(value="/searchLabDetailsByIdAndName/{labId}/{labName}")
+	public ResponseEntity<Object> searchLabDetailsByIdAndName(@PathVariable ("labId") Long id,@PathVariable ("labName")String namePattern) {
+		try {
+		List<ShopDetails>data=detailsService.searchLabDetailsByIdAndName(id,namePattern);
+		if (data != null && !data.isEmpty( )) {
+			return new ResponseEntity<Object>(data, HttpStatus.OK);
+
+		} else {
+			return new ResponseEntity<Object>("shopDetails Not Found", HttpStatus.OK);
+
+		}
+
+	} catch (Exception e) {
+		// TODO: handle exception
+		e.printStackTrace();
+		return new ResponseEntity<Object>("something went wrong", HttpStatus.OK);
+	}
+
+}
+		
 	@GetMapping("findAllShopDetails")
 	public ResponseEntity<Object> findAllShopDetails() {
 		try {

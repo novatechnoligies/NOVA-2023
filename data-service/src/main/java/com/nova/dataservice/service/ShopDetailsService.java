@@ -13,4 +13,6 @@ public interface ShopDetailsService {
 
 	Optional<ShopDetails> findByIdShopDetails(Long id);
 
+	List<ShopDetails> searchLabDetailsByIdAndName(Long id ,String namePattern);
+
 }

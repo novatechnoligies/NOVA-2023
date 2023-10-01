@@ -53,9 +53,9 @@ public class UserDetailsController {
 			return new ResponseEntity<Object>(data, HttpStatus.OK);
 		}
 	}
-	@GetMapping(value = "/getAllConsumerDetails/{roleId}")
+	@GetMapping(value = "/getAllConsumerDetailsById/{roleId}")
 	 public ResponseEntity<Object> getAllConsumerDetailsById(@PathVariable ("roleId") Long id) {
-		 Optional<UserDetails> data= detailsServices.getAllConsumerDetailsById (id);
+		 List<UserDetails> data= detailsServices.getAllConsumerDetailsById (id);
 		 if (data.isEmpty()) {
 				return new ResponseEntity<Object>("no Consumer Data", HttpStatus.OK);
 			} else {

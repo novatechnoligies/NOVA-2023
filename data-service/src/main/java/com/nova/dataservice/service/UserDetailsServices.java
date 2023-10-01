@@ -15,7 +15,7 @@ public interface UserDetailsServices {
 
 	Optional<UserDetails> getUserDetailsById(Long id);
 
-	Optional<UserDetails> getAllConsumerDetailsById(Long id);
+	List<UserDetails> getAllConsumerDetailsById(Long id);
 
 
 }
