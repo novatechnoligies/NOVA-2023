@@ -19,27 +19,23 @@ public class ShopDetailsServiceImpl implements ShopDetailsService {
 
 	@Override
 	public ShopDetails saveShopDetails(ShopDetails details) {
-		// TODO Auto-generated method stub
 	return	detailsRepository.save(details);
 	}
 
 	@Override
 	public List<ShopDetails> findAllShopDetails() {
-		// TODO Auto-generated method stub
 		return detailsRepository.findAll();
 	}
 
 	@Override
 	public Optional<ShopDetails> findByIdShopDetails(Long id) {
-		// TODO Auto-generated method stub
 		return detailsRepository.findById(id);
 	}
 
 	@Override
 	public List<ShopDetails> searchLabDetailsByIdAndName(Long id,String namePattern) {
-		// TODO Auto-generated method stub
 		ShopType type = new ShopType();
-		type.setId(id);
+		type.setId(id);// here  we are creating shop type and pass to repo
 		return detailsRepository.searchLabDetailsByIdAndName(type, namePattern);
 	}
 
