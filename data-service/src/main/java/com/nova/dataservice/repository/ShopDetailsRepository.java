@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.nova.dataservice.entity.ShopDetails;
+import com.nova.dataservice.entity.ShopType;
 
 @Repository
 public interface ShopDetailsRepository extends JpaRepository<ShopDetails,Long> {
@@ -20,8 +21,8 @@ public interface ShopDetailsRepository extends JpaRepository<ShopDetails,Long> {
 //	@Query("SELECT s FROM shop_details s WHERE shop_type_id = :id AND shop_name LIKE %:name%")
 //	List<ShopDetails> searchLabDetailsById(@Param("id") Long id, @Param("name") String name);
 	
-	@Query("SELECT s FROM ShopDetails s WHERE  s.shopName LIKE %:namePattern%")
-	List<ShopDetails> searchLabDetailsByIdAndName( @Param("namePattern") String namePattern);
+	@Query("SELECT s FROM ShopDetails s WHERE s.shopType = :id AND s.shopName LIKE %:namePattern%")
+	List<ShopDetails> searchLabDetailsByIdAndName(@Param("id") ShopType id, @Param("namePattern") String namePattern);
 
 
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nova.dataservice.entity.ShopDetails;
+import com.nova.dataservice.entity.ShopType;
 import com.nova.dataservice.repository.ShopDetailsRepository;
 import com.nova.dataservice.service.ShopDetailsService;
 
@@ -37,7 +38,9 @@ public class ShopDetailsServiceImpl implements ShopDetailsService {
 	@Override
 	public List<ShopDetails> searchLabDetailsByIdAndName(Long id,String namePattern) {
 		// TODO Auto-generated method stub
-		return detailsRepository.searchLabDetailsByIdAndName( namePattern);
+		ShopType type = new ShopType();
+		type.setId(id);
+		return detailsRepository.searchLabDetailsByIdAndName(type, namePattern);
 	}
 
 }
