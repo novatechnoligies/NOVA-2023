@@ -73,7 +73,22 @@ public class PromotionController {
 			// TODO: handle exception
 			return new ResponseEntity<Object>("user not found", HttpStatus.OK);
 		}
+	}
+		@GetMapping("/getPromotionByshopId/{shopId}")
+		public ResponseEntity<Object> getPromotionByshopId(@PathVariable("shopId") Long id) {
+			try {
+				Optional<Pramotions> data = service.getPromotionByshopId(id);
+				if (data.isPresent()) {
+					return new ResponseEntity<Object>(data.get(), HttpStatus.OK);
 
+				} else {
+					return new ResponseEntity<Object>("user not found ByshopId", HttpStatus.OK);
+
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				return new ResponseEntity<Object>("user not found", HttpStatus.OK);
+			}
 	}
 
 }
