@@ -2,6 +2,7 @@ package com.nova.dataservice.entity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,9 +37,20 @@ public class ShopAvalibility {
     
 	@Column(name = "time_interval")
     private Long timeInterval;
+	
+	@Column(name = "holiday")
+	private List<String> holidays;
 
     // Other fields
     
+
+	public List<String> getHolidays() {
+		return holidays;
+	}
+
+	public void setHolidays(List<String> holidays) {
+		this.holidays = holidays;
+	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "shop_id")

@@ -28,6 +28,7 @@ public class ShopsAvilabilityServiceimpl implements ShopsAvilabilityService {
 		
 		LocalDate currentDate =avalibility.getFromDate();
 		 while (!currentDate.isAfter(avalibility.getToDate())) {
+			if (!avalibility.getHolidays().contains(currentDate.getDayOfWeek().toString())) {
 			 LocalTime currentTime = avalibility.getFromTime();
 		        while (!currentTime.isAfter(avalibility.getToTime())) {
 		            SlotAvailability sla = new SlotAvailability();
@@ -41,11 +42,13 @@ public class ShopsAvilabilityServiceimpl implements ShopsAvilabilityService {
 		            slaRepo.save(sla);
 		            currentTime = currentTime.plusMinutes(avalibility.getTimeInterval());
 		        }
-	            currentDate = currentDate.plusDays(1);
+			 }
+			currentDate = currentDate.plusDays(1);
 	        }
 		
 		return avilabilityRepository.save(avalibility) ;
 	}
+		
 
 	@Override
 	public List<ShopAvalibility> findAllShopAvailability() {
