@@ -1,6 +1,8 @@
 package com.nova.dataservice.serviceImpl;
 
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +22,9 @@ public class UserDetailsServicesimpl implements UserDetailsServices {
 
 	@Override
 	public UserDetails saveUserDetails(UserDetails userDetails) {
-		// TODO Auto-generated method stub
+		userDetails.setStatus(true);
+		userDetails.setIsDeleted(false);
+		userDetails.setCreatedAt(LocalDate.now());
 		return detailsRepository.save(userDetails);
 	}
 
