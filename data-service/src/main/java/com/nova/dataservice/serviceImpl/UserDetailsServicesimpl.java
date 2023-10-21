@@ -40,4 +40,10 @@ public class UserDetailsServicesimpl implements UserDetailsServices {
 		return detailsRepository.findById(id);
 	}
 
+	@Override
+	public List<UserDetails> getAllUserDetailsOfOwner(String ownerName) {
+		// TODO Auto-generated method stub
+		return detailsRepository.findByFirstName(ownerName);
+	}
+
 }

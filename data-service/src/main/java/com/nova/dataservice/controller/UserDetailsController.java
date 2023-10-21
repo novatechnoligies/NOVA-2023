@@ -55,6 +55,18 @@ public class UserDetailsController {
 		}
 	}
 	
+	@GetMapping(value = "getAllUserDetailsOfOwner")
+	public ResponseEntity<Object> getAllUserDetailsOfOwner(String ownerName) {
+    
+		List<UserDetails> data = detailsServices.getAllUserDetailsOfOwner(ownerName);
+		if (data.isEmpty()) {
+			return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Object>(data, HttpStatus.OK);
+		}
+	}
+	
+	
 	@GetMapping(value = "getUserDetailsById/{id}")
 	public ResponseEntity<Object> getUserDetailsById(@PathVariable("id") Long id) {
     	try {

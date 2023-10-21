@@ -15,5 +15,7 @@ public interface UserDetailsServices {
 
 	Optional<UserDetails> getUserDetailsById(Long id);
 
+	List<UserDetails> getAllUserDetailsOfOwner(String ownerName);
+
 
 }
