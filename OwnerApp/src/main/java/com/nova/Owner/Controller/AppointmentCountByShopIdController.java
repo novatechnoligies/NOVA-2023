@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nova.Owner.DTO.AppointmentCountByShopIdDTO;
@@ -22,6 +23,7 @@ import com.nova.Owner.Service.AppointmentCountByShopIdService;
 
 @RestController
 @CrossOrigin(origins = "*")
+@RequestMapping(value = "/api/v1")
 
 public class AppointmentCountByShopIdController {
 	@Autowired
