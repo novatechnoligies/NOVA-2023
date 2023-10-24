@@ -46,19 +46,15 @@ public class ShopDetailsController {
 	public ResponseEntity<Object> findAllShopDetails() {
 		try {
 			List<ShopDetails> data = detailsService.findAllShopDetails();
-			if (data != null && data.isEmpty()) {
+			if (data != null && !data.isEmpty()) {
 				return new ResponseEntity<Object>(data, HttpStatus.OK);
-
 			} else {
 				return new ResponseEntity<Object>("shopDetails Not Found", HttpStatus.OK);
-
 			}
-
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 			return new ResponseEntity<Object>("something went wrong", HttpStatus.OK);
 		}
-
 	}
 
 	@GetMapping(value = "/findByIdShopDetails/{prId}")
@@ -74,7 +70,7 @@ public class ShopDetailsController {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 			return new ResponseEntity<Object>("something went wrong", HttpStatus.OK);
 		}
 	}

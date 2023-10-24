@@ -58,27 +58,32 @@ public class UserDetailsController {
 	@GetMapping(value = "getAllUserDetailsOfOwner")
 	public ResponseEntity<Object> getAllUserDetailsOfOwner(String ownerName) {
     
-		List<UserDetails> data = detailsServices.getAllUserDetailsOfOwner(ownerName);
-		if (data.isEmpty()) {
-			return new ResponseEntity<Object>("no data found", HttpStatus.OK);
-		} else {
-			return new ResponseEntity<Object>(data, HttpStatus.OK);
-		}
+		try {
+			List<UserDetails> data = detailsServices.getAllUserDetailsOfOwner(ownerName);
+			if (data.isEmpty()) {
+				return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		return new ResponseEntity<Object>("Something went wrong",HttpStatus.OK);
+	}
+		
 	}
 	
 	
 	@GetMapping(value = "getUserDetailsById/{id}")
 	public ResponseEntity<Object> getUserDetailsById(@PathVariable("id") Long id) {
-    	try {
-		Optional<UserDetails> data = detailsServices.getUserDetailsById(id);
-		if (data.isPresent()) {
-			return new ResponseEntity<Object>(data.get(),HttpStatus.OK);
-		} else {
-			return new ResponseEntity<Object>("no data found for this id",HttpStatus.OK);
+		try {
+			Optional<UserDetails> data = detailsServices.getUserDetailsById(id);
+			if (data.isPresent()) {
+				return new ResponseEntity<Object>(data.get(), HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Object>("no data found for this id", HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
 		}
-	} catch (Exception e) {
-	// TODO: handle exception
-	return new ResponseEntity<Object>("Something went wrong",HttpStatus.OK);
-}
 	}
 }
