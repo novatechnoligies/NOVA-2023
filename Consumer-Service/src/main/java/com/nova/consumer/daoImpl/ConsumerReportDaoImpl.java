@@ -2,15 +2,19 @@ package com.nova.consumer.daoImpl;
 
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.hibernate.query.NativeQuery;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.LocalDateType;
+import org.hibernate.type.LocalTimeType;
 import org.hibernate.type.StandardBasicTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nova.consumer.dao.ConsumerReportDao;
+import com.nova.consumer.dto.ConsumerAppoinemtDTO;
 import com.nova.consumer.dto.ConsumerReportDTO;
 import com.nova.consumer.dto.ServiceDetailDTO;
 
@@ -30,13 +35,13 @@ public class ConsumerReportDaoImpl implements ConsumerReportDao {
 	
 	@Override
 	public ConsumerReportDTO getConsumerReportDetails(Long conId,Long appId) throws JsonMappingException, JsonProcessingException {
-		 String sql = "SELECT sa.id AS slotId,sa.app_date AS appDate, sa.slot_time AS appTime,sa.status AS appStatus,sa.services AS appService,\r\n"
-		 		+ "con.id AS consumerId,con.first_name AS consumerName, con.phone AS consumerPhone, con.email AS consumerEmail,con.gender AS consumerGender,\r\n"
-		 		+ "sd.shop_name AS shopName,sd.phone AS shopPhone,sd.email AS shopEmail,sd.latitude AS shopLatitude,sd.longitude AS shopLongitude\r\n"
-		 		+ "FROM slot_availibility AS sa\r\n"
-		 		+ "JOIN user_details AS con ON con.id=sa.user_id\r\n"
-		 		+ "JOIN shop_details AS sd ON sd.id=sa.shop_id\r\n"
-		 		+ "JOIN user_details AS own ON own.id=sd.user_id\r\n"
+		 String sql = "SELECT sa.id AS slotId,sa.app_date AS appDate, sa.slot_time AS appTime,sa.status AS appStatus,sa.services AS appService, "
+		 		+ "con.id AS consumerId,con.first_name AS consumerName, con.phone AS consumerPhone, con.email AS consumerEmail,con.gender AS consumerGender, "
+		 		+ "sd.shop_name AS shopName,sd.phone AS shopPhone,sd.email AS shopEmail,sd.latitude AS shopLatitude,sd.longitude AS shopLongitude "
+		 		+ "FROM slot_availibility AS sa "
+		 		+ "JOIN user_details AS con ON con.id=sa.user_id "
+		 		+ "JOIN shop_details AS sd ON sd.id=sa.shop_id "
+		 		+ "JOIN user_details AS own ON own.id=sd.user_id "
 		 		+ "where con.id =:conId AND sa.id =:appId ";
 
 		        Query query = entityManager.createNativeQuery(sql)
@@ -113,4 +118,52 @@ public class ConsumerReportDaoImpl implements ConsumerReportDao {
 				return null;
 		}
 	}
+
+	@Override
+	public List<ConsumerAppoinemtDTO> getConsumerAppontmentDetails(LocalDate fromDate, LocalDate toDate) {
+		
+		String sql = "SELECT ap.id as appointmentId, sa.app_date AS appDate,sa.slot_time AS slotTime , sa.appointment_status as appointmentStatus, "
+				+ " consumer.id AS consumerId,consumer.first_name AS consumerName, "
+				+ " own.id as ownerId, own.first_name AS ownerName,sa.id AS slotId,ap.appointment_status as appointmentStatus,ap.amount AS amount, "
+				+ " sd.id AS shopId,sd.shop_name AS shopName, sd.shop_address AS shopAddress, consumer.phone AS consumerPhone "
+				+ " FROM appointment_details AS ap "
+				+ " JOIN shop_details AS sd ON sd.id=ap.shop_id "
+				+ " JOIN slot_availibility AS sa ON sa.id=ap.slot_id "
+				+ " JOIN user_details AS consumer ON consumer.id=ap.consumer_id "
+				+ " JOIN user_details AS own ON own.id=ap.user_id" ;
+//	            " WHERE sa.app_date >= :fromDate AND sa.app_date <= :toDate";
+		
+		Query query = entityManager.createNativeQuery(sql.toString());
+//				.setParameter("fromDate", fromDate)
+//				.setParameter("toDate", toDate);
+		
+		query.unwrap(NativeQuery.class)
+		.addScalar("appointmentId",StandardBasicTypes.LONG)
+        .addScalar("appDate", LocalDateType.INSTANCE)
+        .addScalar("slotTime", LocalTimeType.INSTANCE)
+        .addScalar("appointmentStatus", StandardBasicTypes.STRING)
+        .addScalar("consumerId", StandardBasicTypes.LONG)
+        .addScalar("consumerName", StandardBasicTypes.STRING)
+        .addScalar("ownerId", StandardBasicTypes.LONG)
+        .addScalar("ownerName", StandardBasicTypes.STRING)
+        .addScalar("slotId", StandardBasicTypes.LONG)
+        .addScalar("amount", StandardBasicTypes.FLOAT)
+        .addScalar("shopId", StandardBasicTypes.LONG)
+        .addScalar("shopName", StandardBasicTypes.STRING)
+        .addScalar("shopAddress", StandardBasicTypes.STRING)
+        .addScalar("consumerPhone", StandardBasicTypes.STRING);
+		
+		
+        ((NativeQuery) query).setResultTransformer(Transformers.aliasToBean(ConsumerAppoinemtDTO.class));
+        
+        Object result = query.getResultList();
+        
+        if (result != null) {
+			return(List<ConsumerAppoinemtDTO>)result;
+		}else {
+			return null;
+		}
+	}
+	
+	
 }
