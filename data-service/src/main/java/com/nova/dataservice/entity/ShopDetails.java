@@ -63,9 +63,6 @@ public class ShopDetails {
 	@Column(name = "enable_gift_card")
 	private Boolean enableGiftCard;
 	
-	@Column(name = "promotions")
-	private Boolean promotions;
-	
 	@Column(name = "pin_code")
 	private String pinCode;
 	
@@ -75,8 +72,11 @@ public class ShopDetails {
 	@Column(name = "gst_no")
 	private String gstNo;
 	
-	@Column(name = "create_employee")
-	private Boolean createEmployee;
+	@Column(name = "capacity")// indiactes employee count and no of appointments handle in same slot
+	private Long capacity;
+	
+	@Column (name = "amenities")// incules Wi-fi parking , TV, restroom 
+	private String amenities;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "shop_type_id")
@@ -90,12 +90,11 @@ public class ShopDetails {
 	
 	@OneToMany(mappedBy = "shop")
 	@JsonIgnore
-
 	private List<ShopAvalibility> timeAvailabilities = new ArrayList<>();
 
 	@OneToMany(mappedBy = "shop")
 	@JsonIgnore
-	private List<ShopServiceRelation> shopServices = new ArrayList<>();
+	private List<ServiceMasterShopRelation> shopServices = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -209,11 +208,11 @@ public class ShopDetails {
 		this.timeAvailabilities = timeAvailabilities;
 	}
 
-	public List<ShopServiceRelation> getShopServices() {
+	public List<ServiceMasterShopRelation> getShopServices() {
 		return shopServices;
 	}
 
-	public void setShopServices(List<ShopServiceRelation> shopServices) {
+	public void setShopServices(List<ServiceMasterShopRelation> shopServices) {
 		this.shopServices = shopServices;
 	}
 
@@ -249,14 +248,6 @@ public class ShopDetails {
 		this.enableGiftCard = enableGiftCard;
 	}
 
-	public Boolean getPromotions() {
-		return promotions;
-	}
-
-	public void setPromotions(Boolean promotions) {
-		this.promotions = promotions;
-	}
-
 	public String getPinCode() {
 		return pinCode;
 	}
@@ -281,12 +272,6 @@ public class ShopDetails {
 		this.gstNo = gstNo;
 	}
 
-	public Boolean getCreateEmployee() {
-		return createEmployee;
-	}
-
-	public void setCreateEmployee(Boolean createEmployee) {
-		this.createEmployee = createEmployee;
-	}
+	
 
 }

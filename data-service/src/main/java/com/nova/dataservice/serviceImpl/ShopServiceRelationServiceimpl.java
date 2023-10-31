@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nova.dataservice.entity.ShopServiceRelation;
+import com.nova.dataservice.entity.ServiceMasterShopRelation;
 import com.nova.dataservice.repository.ShopServiceRelationRepository;
 import com.nova.dataservice.service.ShopServiceRelationServices;
 
@@ -17,19 +17,19 @@ public class ShopServiceRelationServiceimpl implements ShopServiceRelationServic
 	ShopServiceRelationRepository relationRepository;
 
 	@Override
-	public ShopServiceRelation saveShopServiceRelation(ShopServiceRelation serviceRelation) {
+	public ServiceMasterShopRelation saveShopServiceRelation(ServiceMasterShopRelation serviceRelation) {
 		// TODO Auto-generated method stub
 		return relationRepository.save(serviceRelation);
 	}
 
 	@Override
-	public List<ShopServiceRelation> findAllShopServiceRelation() {
+	public List<ServiceMasterShopRelation> findAllShopServiceRelation() {
 		// TODO Auto-generated method stub
 		return relationRepository.findAll();
 	}
 
 	@Override
-	public Optional<ShopServiceRelation> shopServiceRelationfindById(Long id) {
+	public Optional<ServiceMasterShopRelation> shopServiceRelationfindById(Long id) {
 		// TODO Auto-generated method stub
 		return relationRepository.findById(id);
 	}

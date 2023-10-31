@@ -1,5 +1,7 @@
 package com.nova.dataservice.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,177 +20,152 @@ public class AppontmentDetails {
     private Long id;
 
     @Column (name="slot_id")
-    private Boolean slotId;
+    private Long slotId;
     @Column (name="shop_id")
-    private Boolean shopId;
-    @Column (name="app_status")
-    private Boolean appStatus;
+    private Long shopId;
+    
     @Column(name = "appointment_status")
     private String appointmentStatus;
+    
     @Column (name="service_id")
-    private Boolean serviceId;
+    private Long serviceId;
     @Column (name="amount")
     private Float amount;
+    
     @Column (name="tax1")
     private Float tax1;
+    
     @Column (name="tax2")
     private Float tax2;
+    
     @Column (name="gst")
-    private Boolean gst;
+    private Float gst;
+    
     @Column (name="csgt")
-    private Boolean cgst;
-   @Column (name="sgst")
-   private Boolean sgst;
-   @Column (name="consumer_id")
-   private Boolean consumerId;
-   @Column (name="created_at")
-   private Boolean createdAt;
-   @Column (name="status")
-   private Boolean status;
-
+    private Float cgst;
+    
+    @Column (name="sgst")
+    private Float sgst;
+   
+    @Column (name="consumer_id")
+    private Long consumerId;
+    
+    @Column (name="created_at")
+    private LocalDate createdAt;
+    
+    @Column (name="status")
+    private Boolean status;
 
 	public Long getId() {
 		return id;
 	}
 
-
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-
-	public Boolean getSlotId() {
+	public Long getSlotId() {
 		return slotId;
 	}
 
-
-	public void setSlotId(Boolean slotId) {
+	public void setSlotId(Long slotId) {
 		this.slotId = slotId;
 	}
 
-
-	public Boolean getShopId() {
+	public Long getShopId() {
 		return shopId;
 	}
 
-
-	public void setShopId(Boolean shopId) {
+	public void setShopId(Long shopId) {
 		this.shopId = shopId;
 	}
 
-
-	public Boolean getAppStatus() {
-		return appStatus;
+	public String getAppointmentStatus() {
+		return appointmentStatus;
 	}
 
-
-	public void setAppStatus(Boolean appStatus) {
-		this.appStatus = appStatus;
+	public void setAppointmentStatus(String appointmentStatus) {
+		this.appointmentStatus = appointmentStatus;
 	}
 
-
-	public Boolean getServiceId() {
+	public Long getServiceId() {
 		return serviceId;
 	}
 
-
-	public void setServiceId(Boolean serviceId) {
+	public void setServiceId(Long serviceId) {
 		this.serviceId = serviceId;
 	}
-
 
 	public Float getAmount() {
 		return amount;
 	}
 
-
 	public void setAmount(Float amount) {
 		this.amount = amount;
 	}
-
 
 	public Float getTax1() {
 		return tax1;
 	}
 
-
 	public void setTax1(Float tax1) {
 		this.tax1 = tax1;
 	}
-
 
 	public Float getTax2() {
 		return tax2;
 	}
 
-
 	public void setTax2(Float tax2) {
 		this.tax2 = tax2;
 	}
 
-
-	public Boolean getGst() {
+	public Float getGst() {
 		return gst;
 	}
 
-
-	public void setGst(Boolean gst) {
+	public void setGst(Float gst) {
 		this.gst = gst;
 	}
 
-
-	public Boolean getCgst() {
+	public Float getCgst() {
 		return cgst;
 	}
 
-
-	public void setCgst(Boolean cgst) {
+	public void setCgst(Float cgst) {
 		this.cgst = cgst;
 	}
 
-
-	public Boolean getSgst() {
+	public Float getSgst() {
 		return sgst;
 	}
 
-
-	public void setSgst(Boolean sgst) {
+	public void setSgst(Float sgst) {
 		this.sgst = sgst;
 	}
 
-
-	public Boolean getConsumerId() {
+	public Long getConsumerId() {
 		return consumerId;
 	}
 
-
-	public void setConsumerId(Boolean consumerId) {
+	public void setConsumerId(Long consumerId) {
 		this.consumerId = consumerId;
 	}
 
-
-	public Boolean getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
 
-
-	public void setCreatedAt(Boolean createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
-
 
 	public Boolean getStatus() {
 		return status;
 	}
 
-
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 
-
-	public String getAppointmentStatus() {
-		return appointmentStatus;
-	}
-    
 }

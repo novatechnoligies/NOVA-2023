@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nova.dataservice.entity.ShopServiceRelation;
+import com.nova.dataservice.entity.ServiceMasterShopRelation;
 import com.nova.dataservice.service.ShopServiceRelationServices;
 
 @RestController
@@ -26,9 +26,9 @@ class ShopServiceRelationController {
 	ShopServiceRelationServices relationServices;
 	
 	@PostMapping(value = "saveShopServiceRelation")
-	public ResponseEntity<Object> saveShopServiceRelation(@RequestBody ShopServiceRelation serviceRelation) {
+	public ResponseEntity<Object> saveShopServiceRelation(@RequestBody ServiceMasterShopRelation serviceRelation) {
 		try {
-			ShopServiceRelation data =	relationServices.saveShopServiceRelation(serviceRelation);
+			ServiceMasterShopRelation data =	relationServices.saveShopServiceRelation(serviceRelation);
 			if (data!=null) {
 				return new ResponseEntity<Object>(data,HttpStatus.OK);
 			} else {
@@ -42,7 +42,7 @@ class ShopServiceRelationController {
 	@GetMapping(value="findAllShopServiceRelation")
 	public ResponseEntity<Object> findAllShopServiceRelation() {
 		try {
-			List<ShopServiceRelation> data = relationServices.findAllShopServiceRelation();
+			List<ServiceMasterShopRelation> data = relationServices.findAllShopServiceRelation();
 			if (data != null && !data.isEmpty()) {
 				return new ResponseEntity<Object>(data, HttpStatus.OK);
 
@@ -61,7 +61,7 @@ class ShopServiceRelationController {
 	@GetMapping(value="shopServiceRelationfindById/(prId)")
 	public ResponseEntity<Object> shopServiceRelationfindById(@PathVariable ("prId")long id) {
 try {
-	Optional<ShopServiceRelation> data=	relationServices.shopServiceRelationfindById(id);
+	Optional<ServiceMasterShopRelation> data=	relationServices.shopServiceRelationfindById(id);
 	
 	if (data.isPresent()) {
 		return new ResponseEntity<Object>(data.get(),HttpStatus.OK);

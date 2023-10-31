@@ -17,18 +17,25 @@ public class GiftCards {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
     private Long id;
+	
 	@Column(name = "start_date")
 	private LocalDate startDate;
+	
 	@Column(name = "exp_date")
 	private LocalDate expDate;
+	
 	@Column(name = "status")
 	private Boolean status;
+	
 	@Column(name = "is_deleyted" )
 	private Boolean isDeleted;
+	
 	@Column(name = "is_used")
 	private Boolean isUsed;
+	
 	@Column(name = "created_by")
 	private Long createdBy;
+	
 	@Column(name = "gift_amount")
 	private Float giftAmount;
 	

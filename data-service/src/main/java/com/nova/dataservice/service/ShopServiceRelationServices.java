@@ -5,14 +5,14 @@ import java.util.List;
 import java.util.Optional;
 
 
-import com.nova.dataservice.entity.ShopServiceRelation;
+import com.nova.dataservice.entity.ServiceMasterShopRelation;
 
 public interface ShopServiceRelationServices {
 
-	ShopServiceRelation saveShopServiceRelation(ShopServiceRelation serviceRelation);
+	ServiceMasterShopRelation saveShopServiceRelation(ServiceMasterShopRelation serviceRelation);
 
-	List<ShopServiceRelation> findAllShopServiceRelation();
+	List<ServiceMasterShopRelation> findAllShopServiceRelation();
 
-	Optional<ShopServiceRelation> shopServiceRelationfindById(Long id);
+	Optional<ServiceMasterShopRelation> shopServiceRelationfindById(Long id);
 
 }

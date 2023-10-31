@@ -25,38 +25,66 @@ public class UserDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
+	
 	@Column(name = "first_name")
 	private String firstName;
+	
 	@Column(name = "last_name")
 	private String lastName;
+	
 	@Column(name = "email")
 	private String email;
+	
 	@Column(name = "phone")
 	private String phone;
+	
 	@Column(name = "pin")
 	private String pin;
+	
 	@Column(name = "gender")
 	private String gender;
+	
 	@Column(name = "created_at")
 	private LocalDate createdAt;
+	
 	@Column(name = "status")
 	private Boolean status;
+	
 	@Column(name = "is_deleted")
 	private Boolean isDeleted;
+	
 	@Column(name = "owner_id")
 	private Long ownerId;
+	
 	@Column(name = "username")
 	private String username;
+	
 	@Column(name = "password")
 	private String password;
+	
 	@Column(name = "adhar_no")
 	private String adharNo;
+	
 	@Column(name = "adhar_photo")
 	private String adharPhoto;
+	
 	@Column(name = "owner_photo")
 	private String ownerPhoto;
+	
+	@Column(name = "otp")
+	private String otp;
+	
+	public String getOtp() {
+		return otp;
+	}
+
+	public void setOtp(String otp) {
+		this.otp = otp;
+	}
+
 	@Column(name = "is_phone_no_verified")
 	private Boolean isPhoneNoVerified;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "role_id")
 	@JsonIgnore
@@ -65,6 +93,10 @@ public class UserDetails {
 	@OneToMany(mappedBy = "owner")
 	@JsonIgnore
 	private List<ShopDetails> shops = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "own")
+	@JsonIgnore
+	private List<Organization> organization = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -184,6 +216,38 @@ public class UserDetails {
 
 	public void setShops(List<ShopDetails> shops) {
 		this.shops = shops;
+	}
+	
+	public String getAdharNo() {
+		return adharNo;
+	}
+
+	public void setAdharNo(String adharNo) {
+		this.adharNo = adharNo;
+	}
+
+	public String getAdharPhoto() {
+		return adharPhoto;
+	}
+
+	public void setAdharPhoto(String adharPhoto) {
+		this.adharPhoto = adharPhoto;
+	}
+
+	public String getOwnerPhoto() {
+		return ownerPhoto;
+	}
+
+	public void setOwnerPhoto(String ownerPhoto) {
+		this.ownerPhoto = ownerPhoto;
+	}
+
+	public Boolean getIsPhoneNoVerified() {
+		return isPhoneNoVerified;
+	}
+
+	public void setIsPhoneNoVerified(Boolean isPhoneNoVerified) {
+		this.isPhoneNoVerified = isPhoneNoVerified;
 	}
 
 //	@OneToMany(mappedBy = "shop")

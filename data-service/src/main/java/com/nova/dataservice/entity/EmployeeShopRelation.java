@@ -18,7 +18,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="shop_employee_relation")
-public class ShopEmployeeRelation {
+public class EmployeeShopRelation {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +33,7 @@ public class ShopEmployeeRelation {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "emp_id")
 	@JsonIgnore
-	private UserDetails empId;
+	private EmployeeDetails empId;
 	
 	@Column(name="employee_start_date")
 	private LocalDate employeeStartDate;
@@ -63,11 +63,11 @@ public class ShopEmployeeRelation {
 		this.shopId = shopId;
 	}
 
-	public UserDetails getEmpId() {
+	public EmployeeDetails getEmpId() {
 		return empId;
 	}
 
-	public void setEmpId(UserDetails empId) {
+	public void setEmpId(EmployeeDetails empId) {
 		this.empId = empId;
 	}
 

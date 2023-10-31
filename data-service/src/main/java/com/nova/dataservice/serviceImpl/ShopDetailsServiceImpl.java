@@ -1,5 +1,6 @@
 package com.nova.dataservice.serviceImpl;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +19,9 @@ public class ShopDetailsServiceImpl implements ShopDetailsService {
 
 	@Override
 	public ShopDetails saveShopDetails(ShopDetails details) {
-		// TODO Auto-generated method stub
+		details.setCreatedAt(LocalDate.now());
+		details.setStatus(true);
+		details.setIsDeleted(false);
 	return	detailsRepository.save(details);
 	}
 

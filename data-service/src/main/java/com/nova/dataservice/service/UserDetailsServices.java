@@ -17,5 +17,16 @@ public interface UserDetailsServices {
 
 	List<UserDetails> getAllUserDetailsOfOwner(String ownerName);
 
+	Optional<UserDetails> getUserByUserNameAndPassword(String userName, String password);
+
+	Optional<UserDetails> getUserDetailsByemail(String email);
+
+	Optional<UserDetails> getUserDetailsByPhone(String phone);
+
+	Optional<UserDetails> findUserByPhoneAndOtp(String phone, String otp);
+
+	Optional<UserDetails> findUserByEmailAndOtp(String email, String otp);
+
+	Optional<UserDetails> findUserByPhone(String phone);
 
 }
