@@ -87,7 +87,7 @@ public class UserDetails {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "role_id")
-	@JsonIgnore
+	//@JsonIgnore
 	private Role role;
 
 	@OneToMany(mappedBy = "owner")

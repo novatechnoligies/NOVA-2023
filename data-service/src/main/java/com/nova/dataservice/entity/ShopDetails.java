@@ -85,7 +85,7 @@ public class ShopDetails {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	@JsonIgnore
+	//@JsonIgnore
 	private UserDetails owner;
 	
 	@OneToMany(mappedBy = "shop")
