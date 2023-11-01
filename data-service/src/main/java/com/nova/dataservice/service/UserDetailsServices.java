@@ -4,22 +4,22 @@ package com.nova.dataservice.service;
 import java.util.List;
 import java.util.Optional;
 
-
+import com.nova.dataservice.DTO.UserDetailsDTO;
 import com.nova.dataservice.entity.UserDetails;
 
 public interface UserDetailsServices {
 
 	UserDetails saveUserDetails(UserDetails userDetails);
 
-	List<UserDetails> getAllUserDetails();
+	List<UserDetailsDTO> getAllUserDetails();
 
-	Optional<UserDetails> getUserDetailsById(Long id);
+	UserDetailsDTO getUserDetailsById(Long id);
 
-	List<UserDetails> getAllUserDetailsOfOwner(String ownerName);
+	List<UserDetailsDTO> getAllUserDetailsOfOwner(String ownerName);
 
-	Optional<UserDetails> getUserByUserNameAndPassword(String userName, String password);
+	UserDetailsDTO getUserByUserNameAndPassword(String userName, String password);
 
-	Optional<UserDetails> getUserDetailsByemail(String email);
+	UserDetailsDTO getUserDetailsByemail(String email);
 
 	Optional<UserDetails> getUserDetailsByPhone(String phone);
 

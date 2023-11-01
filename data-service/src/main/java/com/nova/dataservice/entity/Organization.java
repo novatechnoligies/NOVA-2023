@@ -59,15 +59,6 @@ public class Organization {
 	
 	@Column(name = "gst_no")
 	private String gstNo;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "own")
-	@JsonIgnore
-	private UserDetails own;
-	
-//	@OneToMany(mappedBy = "shop")
-//	@JsonIgnore
-//	private List<LocationDetails> localations = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -180,23 +171,5 @@ public class Organization {
 	public void setGstNo(String gstNo) {
 		this.gstNo = gstNo;
 	}
-
-	public UserDetails getOwn() {
-		return own;
-	}
-
-	public void setOwner(UserDetails owner) {
-		this.own = own;
-	}
-
-//	public List<LocationDetails> getLocalations() {
-//		return localations;
-//	}
-//
-//	public void setLocalations(List<LocationDetails> localations) {
-//		this.localations = localations;
-//	}
-
-	
 
 }

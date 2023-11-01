@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -85,18 +86,26 @@ public class UserDetails {
 	@Column(name = "is_phone_no_verified")
 	private Boolean isPhoneNoVerified;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "role_id")
-	@JsonIgnore
+	//@JsonIgnore
 	private Role role;
 
 	@OneToMany(mappedBy = "owner")
 	@JsonIgnore
 	private List<ShopDetails> shops = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "own")
-	@JsonIgnore
-	private List<Organization> organization = new ArrayList<>();
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "org_id")
+	private Organization organization;
+
+	public Organization getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(Organization organization) {
+		this.organization = organization;
+	}
 
 	public Long getId() {
 		return id;

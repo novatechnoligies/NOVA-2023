@@ -1,5 +1,6 @@
 package com.nova.dataservice.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.nova.dataservice.DTO.UserDetailsDTO;
 import com.nova.dataservice.entity.Role;
 import com.nova.dataservice.entity.UserDetails;
 import com.nova.dataservice.service.RoleService;
@@ -41,6 +42,7 @@ public class UserDetailsController {
 				return new ResponseEntity<>("fail to save data", HttpStatus.OK);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("somthing went wrong fail to save data , due to MYSQL is down", HttpStatus.OK);
 		}
 	}
@@ -48,7 +50,7 @@ public class UserDetailsController {
 	@GetMapping(value = "getAllUserDetails")
 	public ResponseEntity<Object> getAllUserDetails() {
     
-		List<UserDetails> data = detailsServices.getAllUserDetails();
+		List<UserDetailsDTO> data = detailsServices.getAllUserDetails();
 		if (data.isEmpty()) {
 			return new ResponseEntity<Object>("no data found", HttpStatus.OK);
 		} else {
@@ -56,11 +58,11 @@ public class UserDetailsController {
 		}
 	}
 	
-	@GetMapping(value = "getAllUserDetailsOfOwner")
+	@GetMapping(value = "searchOwnerByName")
 	public ResponseEntity<Object> getAllUserDetailsOfOwner(String ownerName) {
     
 		try {
-			List<UserDetails> data = detailsServices.getAllUserDetailsOfOwner(ownerName);
+			List<UserDetailsDTO> data = detailsServices.getAllUserDetailsOfOwner(ownerName);
 			if (data.isEmpty()) {
 				return new ResponseEntity<Object>("no data found", HttpStatus.OK);
 			} else {
@@ -77,9 +79,9 @@ public class UserDetailsController {
 	@GetMapping(value = "getUserDetailsById/{id}")
 	public ResponseEntity<Object> getUserDetailsById(@PathVariable("id") Long id) {
 		try {
-			Optional<UserDetails> data = detailsServices.getUserDetailsById(id);
-			if (data.isPresent()) {
-				return new ResponseEntity<Object>(data.get(), HttpStatus.OK);
+			UserDetailsDTO data = detailsServices.getUserDetailsById(id);
+			if (data != null) {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<Object>("no data found for this id", HttpStatus.OK);
 			}
@@ -91,9 +93,9 @@ public class UserDetailsController {
 	@PostMapping(value = "getUserByUserNameAndPassword")
 	public ResponseEntity<Object> getUserByUserNameAndPassword(String userName, String password) {
 		try {
-			Optional<UserDetails> data = detailsServices.getUserByUserNameAndPassword(userName, password);
-			if (data.isPresent()) {
-				return new ResponseEntity<Object>(data.get(), HttpStatus.OK);
+			UserDetailsDTO data = detailsServices.getUserByUserNameAndPassword(userName, password);
+			if (data != null) {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<Object>("username/password not found", HttpStatus.OK);
 			}
@@ -102,16 +104,12 @@ public class UserDetailsController {
 		}
 	}
 
-	@GetMapping(value = "/generateOtpForEmailVerification/{email}")
+	@GetMapping(value = "/sendOtpToEmailForForgetPassword/{email}")
 	public ResponseEntity<Object> getUserDetailsByemail(@PathVariable("email") String email) {
 		try {
-			Optional<UserDetails> data = detailsServices.getUserDetailsByemail(email);
-			if (data.isPresent()) {
-				int otp = generateOtp();
-				UserDetails ud = data.get();
-				ud.setOtp(otp + "");
-				detailsServices.saveUserDetails(ud);
-				return new ResponseEntity<Object>(data.get(), HttpStatus.OK);
+			UserDetailsDTO userDetailsDTO = detailsServices.getUserDetailsByemail(email);
+			if (userDetailsDTO != null) {
+				return new ResponseEntity<Object>(userDetailsDTO, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<Object>("not register email in our database", HttpStatus.OK);
 			}
@@ -121,59 +119,62 @@ public class UserDetailsController {
 		}
 	}
 
-	@GetMapping(value = "/generateOtpForPhoneVerification/{phone}")
-	public ResponseEntity<Object> getUserDetailsByPhone(@PathVariable("phone") String phone) {
-		try {
-			Optional<UserDetails> data = detailsServices.getUserDetailsByPhone(phone);
-			if (data.isPresent()) {
+//	@GetMapping(value = "/generateOtpForPhoneVerification/{phone}")
+//	public ResponseEntity<Object> getUserDetailsByPhone(@PathVariable("phone") String phone) {
+//		try {
+//			Optional<UserDetails> data = detailsServices.getUserDetailsByPhone(phone);
+//			if (data.isPresent()) {
+//
+//				int otp = generateOtp();
+//				UserDetails ud = data.get();
+//				ud.setOtp(otp + "");
+//				detailsServices.saveUserDetails(ud);
+//				return new ResponseEntity<Object>(data.get(), HttpStatus.OK);
+//			} else {
+//				return new ResponseEntity<Object>("not register phone in our database", HttpStatus.OK);
+//			}
+//
+//		} catch (Exception e) {
+//			return new ResponseEntity<Object>("somthing went wrong", HttpStatus.OK);
+//		}
+//	}
 
-				int otp = generateOtp();
-				UserDetails ud = data.get();
-				ud.setOtp(otp + "");
-				detailsServices.saveUserDetails(ud);
-				return new ResponseEntity<Object>(data.get(), HttpStatus.OK);
-			} else {
-				return new ResponseEntity<Object>("not register phone in our database", HttpStatus.OK);
-			}
+//	public int generateOtp() {
+//		Random random = new Random();
+//		int randomNumber = random.nextInt(900000) + 100000;
+//		return randomNumber;
+//
+//	}
 
-		} catch (Exception e) {
-			return new ResponseEntity<Object>("somthing went wrong", HttpStatus.OK);
-		}
-	}
-
-	public int generateOtp() {
-		Random random = new Random();
-		int randomNumber = random.nextInt(900000) + 100000;
-		return randomNumber;
-
-	}
-
-	@GetMapping(value = "/verifyOtpByPhoneAndOtp/{phone}/{otp}")
-	public ResponseEntity<Object> findUserByPhoneAndOtp(@PathVariable("phone") String phone,
-			@PathVariable("otp") String otp) {
-		try {
-			Optional<UserDetails> data = detailsServices.findUserByPhoneAndOtp(phone, otp);
-			if (data.isPresent()) {
-				return new ResponseEntity<Object>(data.get(), HttpStatus.OK);
-			} else {
-				return new ResponseEntity<Object>("enter valida phone and otp", HttpStatus.OK);
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			return new ResponseEntity<Object>("something went wrong", HttpStatus.OK);
-		}
-	}
+//	@GetMapping(value = "/verifyOtpByPhoneAndOtp/{phone}/{otp}")
+//	public ResponseEntity<Object> findUserByPhoneAndOtp(@PathVariable("phone") String phone,
+//			@PathVariable("otp") String otp) {
+//		try {
+//			Optional<UserDetails> data = detailsServices.findUserByPhoneAndOtp(phone, otp);
+//			if (data.isPresent()) {
+//				return new ResponseEntity<Object>(data.get(), HttpStatus.OK);
+//			} else {
+//				return new ResponseEntity<Object>("enter valida phone and otp", HttpStatus.OK);
+//			}
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			return new ResponseEntity<Object>("something went wrong", HttpStatus.OK);
+//		}
+//	}
 
 	@GetMapping(value = "/verifyEmail/{email}/{otp}")
 	public ResponseEntity<Object> findUserByEmailAndOtp(@PathVariable("email") String email,
 			@PathVariable("otp") String otp) {
 		try {
 			Optional<UserDetails> data = detailsServices.findUserByEmailAndOtp(email, otp);
+			HashMap<String, Boolean> map = new HashMap<>();
 			if (data.isPresent()) {
-				return new ResponseEntity<Object>(data.get(), HttpStatus.OK);
+				map.put("isVerified", true);
+				return new ResponseEntity<Object>(map, HttpStatus.OK);
 
 			} else {
-				return new ResponseEntity<Object>("enter Valid Email and otp", HttpStatus.OK);
+				map.put("isVerified", false);
+				return new ResponseEntity<Object>(map, HttpStatus.OK);
 
 			}
 
@@ -183,38 +184,41 @@ public class UserDetailsController {
 		}
 
 	}
-	@GetMapping(value="/updtaePasswordByPhone/{phone}/{otp}/{password}")
-	public ResponseEntity<Object> updatePasswordByPhone(@PathVariable("phone") String phone,@PathVariable("otp") String otp,@PathVariable ("password")String password) {
-	try {
-		Optional<UserDetails> data = detailsServices.findUserByPhoneAndOtp(phone,otp);
-		if (data.isPresent()) {
-			UserDetails ud= data.get();
-			ud.setPassword(password);
-			detailsServices.saveUserDetails(ud);
-			return new ResponseEntity<Object>("password updated successfully",HttpStatus.OK);
-			
-		} else {
-			return new ResponseEntity<Object>("phoneNumber not Valid",HttpStatus.OK);
-
-		}
-		
-	} catch (Exception e) {
-		// TODO: handle exception
-		return new ResponseEntity<Object>("Something Went wrong",HttpStatus.OK);
-	}
-	}
+//	@GetMapping(value="/updtaePasswordByPhone/{phone}/{otp}/{password}")
+//	public ResponseEntity<Object> updatePasswordByPhone(@PathVariable("phone") String phone,@PathVariable("otp") String otp,@PathVariable ("password")String password) {
+//	try {
+//		Optional<UserDetails> data = detailsServices.findUserByPhoneAndOtp(phone,otp);
+//		if (data.isPresent()) {
+//			UserDetails ud= data.get();
+//			ud.setPassword(password);
+//			detailsServices.saveUserDetails(ud);
+//			return new ResponseEntity<Object>("password updated successfully",HttpStatus.OK);
+//			
+//		} else {
+//			return new ResponseEntity<Object>("phoneNumber not Valid",HttpStatus.OK);
+//
+//		}
+//		
+//	} catch (Exception e) {
+//		// TODO: handle exception
+//		return new ResponseEntity<Object>("Something Went wrong",HttpStatus.OK);
+//	}
+//	}
 	@GetMapping(value="/updtaePasswordByEmail/{email}/{otp}/{password}")
 	public ResponseEntity<Object> updtaePasswordByEmail(@PathVariable("email")String email,@PathVariable("otp") String otp,@PathVariable("password")String password) {
 	try {
 		Optional<UserDetails>data =	detailsServices.findUserByEmailAndOtp(email, otp);
+		HashMap<String, Boolean> map = new HashMap<>();
 		if (data.isPresent()) {
 		UserDetails ud=	data.get();
 		ud.setPassword(password);
 		detailsServices.saveUserDetails(ud);
-		return new ResponseEntity<Object>("password updated successfully",HttpStatus.OK);
+		map.put("updaed", true);
+		return new ResponseEntity<Object>(map,HttpStatus.OK);
 			
 		} else {
-			return new ResponseEntity<Object>("enter Valid Email",HttpStatus.OK);
+			map.put("updaed", true);
+			return new ResponseEntity<Object>(map,HttpStatus.OK);
 
 		}
 		

@@ -22,11 +22,11 @@ public class Role {
     private String status;
 
     
-    private List<UserDetails> users;
+//    private List<UserDetails> users;
 
     @Id
     @GeneratedValue(strategy  = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "role_id")
 	public Long getId() {
 		return id;
 	}
@@ -62,13 +62,13 @@ public class Role {
 		this.status = status;
 	}
 
-	@OneToMany(mappedBy = "role")
-	public List<UserDetails> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<UserDetails> users) {
-		this.users = users;
-	}
+//	@OneToMany(mappedBy = "role")
+//	public List<UserDetails> getUsers() {
+//		return users;
+//	}
+//
+//	public void setUsers(List<UserDetails> users) {
+//		this.users = users;
+//	}
 
 }
