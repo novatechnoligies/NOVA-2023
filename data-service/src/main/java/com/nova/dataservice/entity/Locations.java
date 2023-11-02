@@ -1,26 +1,29 @@
 package com.nova.dataservice.entity;
+
 import java.time.LocalDate;
-import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
 @Entity
-@Table(name = "organization_details")
-public class Organization {
+@Table(name = "locations_details")
+public class Locations {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 	
-	@Column(name = "org_name")
+	@Column(name = "location")
 	private String orgName;
 	
-	@Column(name = "org_address")
+	@Column(name = "address")
 	private String shopAddress;
 	
 	@Column(name = "latitude")
@@ -56,15 +59,16 @@ public class Organization {
 	@Column(name = "gst_no")
 	private String gstNo;
 	
-	@OneToMany(mappedBy = "organization")
-	private List<Locations> locations;
+	@ManyToOne
+	@JoinColumn(name = "org_id") // This assumes the 'org_id' column in the 'locations_details' table
+	private Organization organization;
 
-	public List<Locations> getLocations() {
-		return locations;
+	public Organization getOrganization() {
+		return organization;
 	}
 
-	public void setLocations(List<Locations> locations) {
-		this.locations = locations;
+	public void setOrganization(Organization organization) {
+		this.organization = organization;
 	}
 
 	public Long getId() {
@@ -178,5 +182,7 @@ public class Organization {
 	public void setGstNo(String gstNo) {
 		this.gstNo = gstNo;
 	}
+
+
 
 }
