@@ -3,6 +3,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -80,17 +82,19 @@ public class ShopDetails {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "shop_type_id")
-	@JsonIgnore
+	//@JsonIgnore
 	private ShopType shopType;
+	
+	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	@JsonIgnore
+	//@JsonIgnore
 	private UserDetails owner;
 	
-	@OneToMany(mappedBy = "shop")
-	@JsonIgnore
-	private List<ShopAvalibility> timeAvailabilities = new ArrayList<>();
+//	@OneToMany(mappedBy = "shop")
+//	@JsonIgnore
+//	private List<ShopAvalibility> timeAvailabilities = new ArrayList<>();
 
 	@OneToMany(mappedBy = "shop")
 	@JsonIgnore
@@ -200,13 +204,13 @@ public class ShopDetails {
 		this.owner = owner;
 	}
 
-	public List<ShopAvalibility> getTimeAvailabilities() {
-		return timeAvailabilities;
-	}
-
-	public void setTimeAvailabilities(List<ShopAvalibility> timeAvailabilities) {
-		this.timeAvailabilities = timeAvailabilities;
-	}
+//	public List<ShopAvalibility> getTimeAvailabilities() {
+//		return timeAvailabilities;
+//	}
+//
+//	public void setTimeAvailabilities(List<ShopAvalibility> timeAvailabilities) {
+//		this.timeAvailabilities = timeAvailabilities;
+//	}
 
 	public List<ServiceMasterShopRelation> getShopServices() {
 		return shopServices;

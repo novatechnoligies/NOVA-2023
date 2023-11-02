@@ -22,8 +22,8 @@ public class ShopType {
 	
 	private String type;
 	
-	@OneToMany(mappedBy = "shopType")
-    private List<ShopDetails> shopDetails = new ArrayList<>();
+	//@OneToMany(mappedBy = "shopType")
+   // private List<ShopDetails> shopDetails = new ArrayList<>();
  @Column
 	public Long getId() {
 		return id;
@@ -41,15 +41,15 @@ public class ShopType {
 	public void setType(String type) {
 		this.type = type;
 	}
-	@Column
+	//@Column
 
-	public List<ShopDetails> getShopDetails() {
-		return shopDetails;
-	}
-
-	public void setShopDetails(List<ShopDetails> shopDetails) {
-		this.shopDetails = shopDetails;
-	}
+//	public List<ShopDetails> getShopDetails() {
+//		return shopDetails;
+//	}
+//
+//	public void setShopDetails(List<ShopDetails> shopDetails) {
+//		this.shopDetails = shopDetails;
+//	}
 	
 	
 }

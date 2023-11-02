@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nova.dataservice.DTO.ShopAvalibilityDTO;
 import com.nova.dataservice.entity.ShopAvalibility;
 import com.nova.dataservice.service.ShopsAvilabilityService;
 
@@ -35,11 +36,12 @@ public class ShopsAvailabilityController {
 				return new ResponseEntity<Object>("save failed", HttpStatus.OK);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
 		}
 	}
 
-	@GetMapping("value=findAllShopAvailability")
+	@GetMapping(value="findAllShopAvailability")
 	public ResponseEntity<Object> findAllShopAvailability() {
 		try {
 			List<ShopAvalibility> data = avilabilityService.findAllShopAvailability();
@@ -58,10 +60,10 @@ public class ShopsAvailabilityController {
 
 	}
 
-	@GetMapping("value=getShopAvaibilityById/{prId}")
+	@GetMapping(value="getShopAvaibilityById/{prId}")
 	public ResponseEntity<Object> getShopAvaibilityById(@PathVariable("prId") long id) {
 		try {
-			Optional<ShopAvalibility> data = avilabilityService.getShopAvaibilityById(id);
+			Optional<ShopAvalibilityDTO> data = avilabilityService.getShopAvaibilityById(id);
 			if (data.isPresent()) {
 				return new ResponseEntity<Object>(data.get(), HttpStatus.OK);
 
@@ -72,6 +74,7 @@ public class ShopsAvailabilityController {
 
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 			return new ResponseEntity<Object>("not Found", HttpStatus.OK);
 		}
 	}
