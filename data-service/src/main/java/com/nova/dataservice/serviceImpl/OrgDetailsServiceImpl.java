@@ -2,6 +2,7 @@ package com.nova.dataservice.serviceImpl;
 
 import java.time.LocalDate;
 import java.util.List;
+
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Service;
 
 import com.nova.dataservice.DTO.OrganizationDTO;
 import com.nova.dataservice.DTO.UserDetailsDTO;
+import com.nova.dataservice.entity.Locations;
 import com.nova.dataservice.entity.Organization;
+import com.nova.dataservice.entity.UserDetails;
 import com.nova.dataservice.repository.OrgDetailsRepository;
 import com.nova.dataservice.service.OrgDetailsService;
 
@@ -34,6 +37,27 @@ public class OrgDetailsServiceImpl implements OrgDetailsService{
 
 
 	@Override
+	public List<Organization> getOrgListByOwnerId(Long ownerId) {
+		// TODO Auto-generated method stub
+		UserDetails ud = new UserDetails();
+		ud.setId(ownerId);
+		return orgDetailsRepository.findByOwn(ud);
+	}
+
+	@Override
+	public List<Organization> getAllOrgList() {
+		// TODO Auto-generated method stub
+		return orgDetailsRepository.findAll();
+	}
+
+
+	@Override
+	public List<Organization> getAllOrgList() {
+		// TODO Auto-generated method stub
+		return orgDetailsRepository.findAll();
+	}
+	
+
 	public List<OrganizationDTO> searchOrgsByName(String orgName) {
 		List<Organization> orgDetailsList = orgDetailsRepository.findByName(orgName);
 		List<OrganizationDTO> orgDetailsDTOList = orgDetailsList.stream()
