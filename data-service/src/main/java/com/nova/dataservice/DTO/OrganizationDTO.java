@@ -1,71 +1,46 @@
-package com.nova.dataservice.entity;
+package com.nova.dataservice.DTO;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-@Entity
-@Table(name = "organization_details")
-public class Organization {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+public class OrganizationDTO {
 	private Long id;
 	
-	@Column(name = "org_name")
 	private String orgName;
 	
-	@Column(name = "org_address")
 	private String shopAddress;
 	
-	@Column(name = "latitude")
 	private Long latitude;
 	
-	@Column(name = "longitude")
 	private Long longitude;
 	
-	@Column(name = "email")
 	private String email;
 	
-	@Column(name = "phone")
 	private String phone;
 	
-	@Column(name = "created_at")
 	private LocalDate createdAt;
 	
-	@Column(name = "status")
 	private Boolean status;
 	
-	@Column(name = "is_deleted")
 	private Boolean isDeleted;
 
-	@Column(name = "logo")
 	private String logo;
 	
-	@Column(name = "pin_code")
 	private String pinCode;
 	
-	@Column(name = "org_code")
 	private String orgCode;
 	
-	@Column(name = "gst_no")
 	private String gstNo;
-	
-	@OneToMany(mappedBy = "organization")
-	private List<Locations> locations;
-
-	public List<Locations> getLocations() {
-		return locations;
-	}
-
-	public void setLocations(List<Locations> locations) {
-		this.locations = locations;
-	}
 
 	public Long getId() {
 		return id;

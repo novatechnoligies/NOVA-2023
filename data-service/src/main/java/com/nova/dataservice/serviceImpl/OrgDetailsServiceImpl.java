@@ -3,6 +3,9 @@ package com.nova.dataservice.serviceImpl;
 import java.time.LocalDate;
 import java.util.List;
 
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,10 @@ public class OrgDetailsServiceImpl implements OrgDetailsService{
 
 	@Autowired
 	OrgDetailsRepository orgDetailsRepository;
+	
+	@Autowired
+	private ModelMapper modelMapper;
+
 	
 	@Override
 	public Organization saveOrgDetails(Organization details) {
@@ -50,5 +57,13 @@ public class OrgDetailsServiceImpl implements OrgDetailsService{
 		return orgDetailsRepository.findAll();
 	}
 	
+
+	public List<OrganizationDTO> searchOrgsByName(String orgName) {
+		List<Organization> orgDetailsList = orgDetailsRepository.findByName(orgName);
+		List<OrganizationDTO> orgDetailsDTOList = orgDetailsList.stream()
+		        .map(orgDetails -> modelMapper.map(orgDetails, OrganizationDTO.class))
+		        .collect(Collectors.toList());
+		return orgDetailsDTOList;
+	}
 
 }
