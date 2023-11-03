@@ -2,6 +2,8 @@ package com.nova.dataservice.service;
 
 import java.util.List;
 
+import com.nova.dataservice.DTO.OrganizationDTO;
+import com.nova.dataservice.entity.Locations;
 import com.nova.dataservice.entity.Organization;
 
 public interface OrgDetailsService {
@@ -12,5 +14,7 @@ public interface OrgDetailsService {
 
 	List<Organization> getAllOrgList();
 
+
+	List<Organization> getAllOrgList();
 
 }

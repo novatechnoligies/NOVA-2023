@@ -6,6 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nova.dataservice.DTO.OrganizationDTO;
+import com.nova.dataservice.DTO.UserDetailsDTO;
+import com.nova.dataservice.entity.Locations;
 import com.nova.dataservice.entity.Organization;
 import com.nova.dataservice.entity.UserDetails;
 import com.nova.dataservice.repository.OrgDetailsRepository;
@@ -39,5 +42,13 @@ public class OrgDetailsServiceImpl implements OrgDetailsService{
 		// TODO Auto-generated method stub
 		return orgDetailsRepository.findAll();
 	}
+
+
+	@Override
+	public List<Organization> getAllOrgList() {
+		// TODO Auto-generated method stub
+		return orgDetailsRepository.findAll();
+	}
+	
 
 }

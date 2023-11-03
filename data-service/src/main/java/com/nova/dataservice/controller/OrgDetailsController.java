@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nova.dataservice.DTO.OrganizationDTO;
+import com.nova.dataservice.entity.Locations;
 import com.nova.dataservice.entity.Organization;
 import com.nova.dataservice.entity.Pramotions;
 import com.nova.dataservice.service.OrgDetailsService;
@@ -77,4 +79,15 @@ public class OrgDetailsController {
 			return new ResponseEntity<Object>("wrong", HttpStatus.OK);
 		}
 	}
+	@GetMapping(value = "getAllOrgList")
+	public ResponseEntity<Object> getAllOrgList() {
+		List<Organization> data = orgDetailsService.getAllOrgList();
+		if (data.isEmpty()) {
+			return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Object>(data, HttpStatus.OK);
+		}
+		
+	}
+
 }
