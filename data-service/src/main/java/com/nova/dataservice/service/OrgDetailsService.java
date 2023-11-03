@@ -16,9 +16,6 @@ public interface OrgDetailsService {
 
 	List<Organization> getAllOrgList();
 
-
-	List<Organization> getAllOrgList();
-
 	List<OrganizationDTO> searchOrgsByName(String orgName);
 
 

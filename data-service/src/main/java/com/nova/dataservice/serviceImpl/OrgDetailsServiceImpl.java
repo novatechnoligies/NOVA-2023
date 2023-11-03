@@ -49,13 +49,6 @@ public class OrgDetailsServiceImpl implements OrgDetailsService{
 		// TODO Auto-generated method stub
 		return orgDetailsRepository.findAll();
 	}
-
-
-	@Override
-	public List<Organization> getAllOrgList() {
-		// TODO Auto-generated method stub
-		return orgDetailsRepository.findAll();
-	}
 	
 
 	public List<OrganizationDTO> searchOrgsByName(String orgName) {
