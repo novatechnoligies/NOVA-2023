@@ -108,15 +108,6 @@ public class OrgDetailsController {
 			return new ResponseEntity<Object>("wrong", HttpStatus.OK);
 		}
 	}
-	@GetMapping(value = "getAllOrgList")
-	public ResponseEntity<Object> getAllOrgList() {
-		List<Organization> data = orgDetailsService.getAllOrgList();
-		if (data.isEmpty()) {
-			return new ResponseEntity<Object>("no data found", HttpStatus.OK);
-		} else {
-			return new ResponseEntity<Object>(data, HttpStatus.OK);
-		}
-		
-	}
+	
 
 }
