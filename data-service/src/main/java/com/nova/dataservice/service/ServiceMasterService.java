@@ -3,14 +3,15 @@ package com.nova.dataservice.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.nova.dataservice.DTO.ServiceMasterDTO;
 import com.nova.dataservice.entity.ServiceMaster;
 
 public interface ServiceMasterService {
 
 	ServiceMaster saveServiceMaster(ServiceMaster serviceMaster);
 
-	List<ServiceMaster> findAllMaster();
+	List<ServiceMasterDTO> findAllMaster();
 
-	Optional<ServiceMaster> getMasterById(Long id);
+	ServiceMasterDTO getMasterById(Long id);
 
 }

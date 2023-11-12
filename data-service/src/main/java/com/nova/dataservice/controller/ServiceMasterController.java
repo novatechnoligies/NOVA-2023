@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nova.dataservice.DTO.ServiceMasterDTO;
 import com.nova.dataservice.entity.Role;
 import com.nova.dataservice.entity.ServiceMaster;
 import com.nova.dataservice.service.RoleService;
@@ -44,7 +45,7 @@ public class ServiceMasterController {
 	
 	@GetMapping(value = "findAllMaster")
 	public ResponseEntity<Object> findAllMaster() {
-		List<ServiceMaster> data = serviceMasterService.findAllMaster();
+		List<ServiceMasterDTO> data = serviceMasterService.findAllMaster();
 		if (data.isEmpty()) {
 			return new ResponseEntity<Object>("no data found", HttpStatus.OK);
 		} else {
@@ -54,9 +55,9 @@ public class ServiceMasterController {
 	
 	@GetMapping(value = "getMasterById/{id}")
 	public ResponseEntity<Object> getMasterById(@PathVariable("id") Long id) {
-		Optional<ServiceMaster> data = serviceMasterService.getMasterById(id);
-		if (data.isPresent()) {
-			return new ResponseEntity<Object>(data.get(),HttpStatus.OK);
+		ServiceMasterDTO data = serviceMasterService.getMasterById(id);
+		if (data != null) {
+			return new ResponseEntity<Object>(data,HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Object>("no data found for this id",HttpStatus.OK);
 		}

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nova.dataservice.DTO.ShopRatingDTO;
 import com.nova.dataservice.entity.ShopRating;
 import com.nova.dataservice.service.ShopRatingService;
 
@@ -38,6 +39,7 @@ public class ShopRatingController {
 		
 	} catch (Exception e) {
 		// TODO: handle exception
+		e.printStackTrace();
 		return new ResponseEntity<Object>("something went wrong ",HttpStatus.OK);
 	}
 	}
@@ -45,7 +47,7 @@ public class ShopRatingController {
 	@GetMapping(value="/findAllShopRating")
 	public ResponseEntity<Object> findAllShopRating() {
 		try {
-			List<ShopRating> data = shopRatingService.findAllShopRataing();
+			List<ShopRatingDTO> data = shopRatingService.findAllShopRataing();
 			if (data != null) {
 				return new ResponseEntity<Object>(data, HttpStatus.OK);
 

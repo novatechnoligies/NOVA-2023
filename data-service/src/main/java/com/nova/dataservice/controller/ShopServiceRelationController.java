@@ -3,6 +3,7 @@ package com.nova.dataservice.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nova.dataservice.DTO.ServiceMasterShopRelationDTO;
 import com.nova.dataservice.entity.ServiceMasterShopRelation;
 import com.nova.dataservice.service.ShopServiceRelationServices;
 
@@ -25,6 +27,8 @@ class ShopServiceRelationController {
 	@Autowired
 	ShopServiceRelationServices relationServices;
 	
+	
+	
 	@PostMapping(value = "saveShopServiceRelation")
 	public ResponseEntity<Object> saveShopServiceRelation(@RequestBody ServiceMasterShopRelation serviceRelation) {
 		try {
@@ -35,6 +39,7 @@ class ShopServiceRelationController {
 				return new ResponseEntity<Object>("data not saved",HttpStatus.OK);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<Object>("somthing went wrong",HttpStatus.OK);
 		}
 	}
@@ -42,7 +47,7 @@ class ShopServiceRelationController {
 	@GetMapping(value="findAllShopServiceRelation")
 	public ResponseEntity<Object> findAllShopServiceRelation() {
 		try {
-			List<ServiceMasterShopRelation> data = relationServices.findAllShopServiceRelation();
+			List<ServiceMasterShopRelationDTO> data = relationServices.findAllShopServiceRelation();
 			if (data != null && !data.isEmpty()) {
 				return new ResponseEntity<Object>(data, HttpStatus.OK);
 
@@ -53,6 +58,7 @@ class ShopServiceRelationController {
 
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 			return new ResponseEntity<Object>("data not found", HttpStatus.OK);
 		}
 
