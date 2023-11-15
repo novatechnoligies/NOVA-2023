@@ -26,9 +26,9 @@ public class ServiceMaster {
     private String name;
 	
 
-	@OneToMany(mappedBy = "service")
-	@JsonIgnore
-    private List<ServiceMasterShopRelation> shopServices = new ArrayList<>();
+//	@OneToMany(mappedBy = "service")
+//	@JsonIgnore
+//    private List<ServiceMasterShopRelation> shopServices = new ArrayList<>();
 
 
 	public Long getId() {
@@ -51,14 +51,14 @@ public class ServiceMaster {
 	}
 
 
-	public List<ServiceMasterShopRelation> getShopServices() {
-		return shopServices;
-	}
-
-
-	public void setShopServices(List<ServiceMasterShopRelation> shopServices) {
-		this.shopServices = shopServices;
-	}
+//	public List<ServiceMasterShopRelation> getShopServices() {
+//		return shopServices;
+//	}
+//
+//
+//	public void setShopServices(List<ServiceMasterShopRelation> shopServices) {
+//		this.shopServices = shopServices;
+//	}
 	
 	
 }

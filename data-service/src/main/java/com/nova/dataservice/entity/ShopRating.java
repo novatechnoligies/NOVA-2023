@@ -13,25 +13,27 @@ import jakarta.persistence.Table;
 @Table(name = "shop_rating")
 public class ShopRating {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	    @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    
+	    @Column(name = "id")
+	    private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "consumer_id")
-    private UserDetails consumer;
+//    @ManyToOne
+//    @JoinColumn(name = "consumer_id")
+//    private UserDetails consumer;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "shop_id")
+//    private ShopDetails shop;
+	    
+  @Column(name = "rating")
+   private int rating;
 
-    @ManyToOne
-    @JoinColumn(name = "shop_id")
-    private ShopDetails shop;
-
-    private int rating;
-
-    private String comment;
-    // Add other fields and getters/setters
+   @Column(name = "comment")
+   private String comment;
     
-    @Id
-    @Column
+   // @Id
 
 	public Long getId() {
 		return id;
@@ -40,9 +42,7 @@ public class ShopRating {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	@Column
-
-
+	
 	public String getComment() {
 		return comment;
 	}

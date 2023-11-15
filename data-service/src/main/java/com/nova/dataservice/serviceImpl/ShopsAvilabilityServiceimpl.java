@@ -5,9 +5,12 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nova.dataservice.DTO.ShopAvalibilityDTO;
+import com.nova.dataservice.DTO.ShopDetailsDTO;
 import com.nova.dataservice.entity.ShopAvalibility;
 import com.nova.dataservice.entity.SlotAvailability;
 import com.nova.dataservice.repository.ShopsAvilabilityRepository;
@@ -22,6 +25,9 @@ public class ShopsAvilabilityServiceimpl implements ShopsAvilabilityService {
 	
 	@Autowired
 	SlotAvailabilityRepository slaRepo;
+	
+	@Autowired
+	private ModelMapper modelMapper;
 	
 	@Override
 	public ShopAvalibility saveShopAvailability(ShopAvalibility avalibility) {
@@ -57,9 +63,11 @@ public class ShopsAvilabilityServiceimpl implements ShopsAvilabilityService {
 	}
 
 	@Override
-	public Optional<ShopAvalibility> getShopAvaibilityById(Long id) {
+	public Optional<ShopAvalibilityDTO> getShopAvaibilityById(Long id) {
 		// TODO Auto-generated method stub
-		return avilabilityRepository.findById(id);
+		ShopAvalibilityDTO shopDetailsDTO = modelMapper.map(avilabilityRepository.findById(id).get(), ShopAvalibilityDTO.class);
+		return Optional.of(shopDetailsDTO);	}
+		//return avilabilityRepository.findById(id);
 	}
 
-}
+

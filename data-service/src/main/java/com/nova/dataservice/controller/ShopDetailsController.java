@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nova.dataservice.DTO.ShopDetailsDTO;
 import com.nova.dataservice.entity.ShopDetails;
 import com.nova.dataservice.service.ShopDetailsService;
 
@@ -37,6 +38,7 @@ public class ShopDetailsController {
 			}
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			// TODO: handle exception
 			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
 		}
@@ -45,7 +47,7 @@ public class ShopDetailsController {
 	@GetMapping("findAllShopDetails")
 	public ResponseEntity<Object> findAllShopDetails() {
 		try {
-			List<ShopDetails> data = detailsService.findAllShopDetails();
+			List<ShopDetailsDTO> data = detailsService.findAllShopDetails();
 			if (data != null && !data.isEmpty()) {
 				return new ResponseEntity<Object>(data, HttpStatus.OK);
 			} else {
@@ -60,7 +62,7 @@ public class ShopDetailsController {
 	@GetMapping(value = "/findByIdShopDetails/{prId}")
 	public ResponseEntity<Object> findByIdShopDetails(@PathVariable("prId") Long id) {
 		try {
-			Optional<ShopDetails> data = detailsService.findByIdShopDetails(id);
+			Optional<ShopDetailsDTO> data = detailsService.findByIdShopDetails(id);
 			if (data.isPresent()) {
 				return new ResponseEntity<Object>(data.get(), HttpStatus.OK);
 
