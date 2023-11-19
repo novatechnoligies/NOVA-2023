@@ -1,15 +1,12 @@
 package com.nova.consumer.daoImpl;
 
 
-import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 import org.hibernate.query.NativeQuery;
 import org.hibernate.transform.Transformers;

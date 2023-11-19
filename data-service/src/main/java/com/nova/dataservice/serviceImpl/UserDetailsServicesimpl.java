@@ -8,11 +8,12 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.nova.dataservice.DTO.UserDetailsDTO;
+import com.nova.dataservice.dao.UserServiceDao;
 import com.nova.dataservice.entity.Role;
 import com.nova.dataservice.entity.UserDetails;
 import com.nova.dataservice.repository.RoleRepo;
@@ -28,6 +29,9 @@ public class UserDetailsServicesimpl implements UserDetailsServices {
 	
 	@Autowired
 	RoleRepo roleRepo;
+	
+	@Autowired
+	UserServiceDao serviceDao;
 	
 	@Autowired
 	private ModelMapper modelMapper;
@@ -73,7 +77,14 @@ public class UserDetailsServicesimpl implements UserDetailsServices {
 	
 	@Override
 	public UserDetailsDTO getUserByUserNameAndPassword(String userName, String password) {
-		UserDetailsDTO userDetailsDTO = modelMapper.map(detailsRepository.findByUsernameAndPassword(userName,password).get(), UserDetailsDTO.class);
+		//UserDetailsDTO userDetailsDTO = modelMapper.map(data.get(), UserDetailsDTO.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+		Optional<UserDetails> data = serviceDao.findByUsernameAndPassword(userName,password);
+		UserDetails userDetails = data.orElse(null);
+
+	    // Convert UserDetails to UserDetailsDTO
+	    UserDetailsDTO userDetailsDTO = modelMapper.map(userDetails, UserDetailsDTO.class);
 
 		return userDetailsDTO;
 	}

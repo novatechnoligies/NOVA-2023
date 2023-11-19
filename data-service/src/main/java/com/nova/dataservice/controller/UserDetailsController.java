@@ -100,6 +100,7 @@ public class UserDetailsController {
 				return new ResponseEntity<Object>("username/password not found", HttpStatus.OK);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<Object>("somthing went wrong", HttpStatus.OK);
 		}
 	}

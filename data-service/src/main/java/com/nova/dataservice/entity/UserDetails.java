@@ -1,10 +1,7 @@
 package com.nova.dataservice.entity;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -15,7 +12,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -88,12 +84,7 @@ public class UserDetails {
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "role_id")
-	//@JsonIgnore
 	private Role role;
-
-	@OneToMany(mappedBy = "owner")
-	@JsonIgnore
-	private List<ShopDetails> shops = new ArrayList<>();
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "org_id")
@@ -217,14 +208,6 @@ public class UserDetails {
 
 	public void setRole(Role role) {
 		this.role = role;
-	}
-
-	public List<ShopDetails> getShops() {
-		return shops;
-	}
-
-	public void setShops(List<ShopDetails> shops) {
-		this.shops = shops;
 	}
 	
 	public String getAdharNo() {

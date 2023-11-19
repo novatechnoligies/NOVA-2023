@@ -91,23 +91,23 @@ public class OrgDetailsController {
 		}
 
 	}
-	@GetMapping(value = "getOrgListByOwnerId")
-	public ResponseEntity<Object> getOrgListByOwnerId(Long ownerId) {
-		try {
-			List<Organization> data = orgDetailsService.getOrgListByOwnerId(ownerId);
-			if (data != null && !data.isEmpty()) {
-				return new ResponseEntity<Object>(data, HttpStatus.OK);
-
-			} else {
-				return new ResponseEntity<Object>("not found", HttpStatus.OK);
-
-			}
-
-		} catch (Exception e) {
-			// TODO: handle exception
-			return new ResponseEntity<Object>("wrong", HttpStatus.OK);
-		}
-	}
+//	@GetMapping(value = "getOrgListByOwnerId")
+//	public ResponseEntity<Object> getOrgListByOwnerId(Long ownerId) {
+//		try {
+//			List<Organization> data = orgDetailsService.getOrgListByOwnerId(ownerId);
+//			if (data != null && !data.isEmpty()) {
+//				return new ResponseEntity<Object>(data, HttpStatus.OK);
+//
+//			} else {
+//				return new ResponseEntity<Object>("not found", HttpStatus.OK);
+//
+//			}
+//
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			return new ResponseEntity<Object>("wrong", HttpStatus.OK);
+//		}
+//	}
 	
 
 }
