@@ -77,14 +77,9 @@ public class UserDetailsServicesimpl implements UserDetailsServices {
 	
 	@Override
 	public UserDetailsDTO getUserByUserNameAndPassword(String userName, String password) {
-		//UserDetailsDTO userDetailsDTO = modelMapper.map(data.get(), UserDetailsDTO.class);
-		ObjectMapper objectMapper = new ObjectMapper();
-		objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 		Optional<UserDetails> data = serviceDao.findByUsernameAndPassword(userName,password);
-		UserDetails userDetails = data.orElse(null);
-
-	    // Convert UserDetails to UserDetailsDTO
-	    UserDetailsDTO userDetailsDTO = modelMapper.map(userDetails, UserDetailsDTO.class);
+		UserDetailsDTO userDetailsDTO = data.map(userDetails ->
+        									modelMapper.map(userDetails, UserDetailsDTO.class)).orElse(null);
 
 		return userDetailsDTO;
 	}

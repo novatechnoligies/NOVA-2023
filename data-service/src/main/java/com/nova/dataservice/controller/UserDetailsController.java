@@ -91,9 +91,9 @@ public class UserDetailsController {
 	}
 	
 	@PostMapping(value = "getUserByUserNameAndPassword")
-	public ResponseEntity<Object> getUserByUserNameAndPassword(String userName, String password) {
+	public ResponseEntity<Object> getUserByUserNameAndPassword(String username, String password) {
 		try {
-			UserDetailsDTO data = detailsServices.getUserByUserNameAndPassword(userName, password);
+			UserDetailsDTO data = detailsServices.getUserByUserNameAndPassword(username, password);
 			if (data != null) {
 				return new ResponseEntity<Object>(data, HttpStatus.OK);
 			} else {
