@@ -26,7 +26,7 @@ import com.nova.dataservice.service.UserDetailsServices;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/api/v1")
+@RequestMapping(value = "/dataservice")
 public class UserDetailsController {
 	
 	@Autowired
