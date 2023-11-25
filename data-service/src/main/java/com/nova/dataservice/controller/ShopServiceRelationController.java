@@ -21,7 +21,7 @@ import com.nova.dataservice.service.ShopServiceRelationServices;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/api/v1")
+@RequestMapping(value = "/dataservice")
 class ShopServiceRelationController {
 	
 	@Autowired

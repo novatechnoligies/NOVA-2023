@@ -20,7 +20,7 @@ import com.nova.dataservice.service.SlotAvailabilityServices;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/api/v1")
+@RequestMapping(value = "/dataservice")
 public class SlotAvailabilityController {
 
 	@Autowired

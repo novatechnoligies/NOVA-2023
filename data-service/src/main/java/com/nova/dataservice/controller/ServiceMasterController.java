@@ -22,7 +22,7 @@ import com.nova.dataservice.service.ServiceMasterService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/api/v1")
+@RequestMapping(value = "/dataservice")
 public class ServiceMasterController {
 
 	

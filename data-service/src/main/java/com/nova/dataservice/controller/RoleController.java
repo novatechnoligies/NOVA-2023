@@ -19,7 +19,7 @@ import com.nova.dataservice.service.RoleService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/api/v1")
+@RequestMapping(value = "/dataservice")
 public class RoleController {
 	
 	@Autowired

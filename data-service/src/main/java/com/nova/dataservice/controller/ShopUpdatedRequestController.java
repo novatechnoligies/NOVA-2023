@@ -14,7 +14,7 @@ import com.nova.dataservice.service.ShopUpdateRequestService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/api/v1")
+@RequestMapping(value = "/dataservice")
 public class ShopUpdatedRequestController {
 	@Autowired
 	ShopUpdateRequestService requestService;

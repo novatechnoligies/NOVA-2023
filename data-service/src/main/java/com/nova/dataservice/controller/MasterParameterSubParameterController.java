@@ -19,7 +19,7 @@ import com.nova.dataservice.service.MasterParameterSubParameterService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/api/v1")
+@RequestMapping(value = "/dataservice")
 public class MasterParameterSubParameterController {
 	
 	@Autowired
