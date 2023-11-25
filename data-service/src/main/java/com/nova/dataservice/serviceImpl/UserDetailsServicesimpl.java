@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -35,6 +37,9 @@ public class UserDetailsServicesimpl implements UserDetailsServices {
 	
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	RestTemplate restTemplate;
 
 	@Override
 	public UserDetails saveUserDetails(UserDetails userDetails) {
@@ -92,10 +97,12 @@ public class UserDetailsServicesimpl implements UserDetailsServices {
 			UserDetails ud = data.get();
 			ud.setOtp(otp + "");
 			detailsRepository.save(ud);
+			restTemplate.getForObject("http://localhost:8083/mailservice/sendMail?tomail="+data.get().getEmail()+"&otp="+otp, Object.class);
+		
 		} 
 		// write Logic here to send opt mail
-		
-		UserDetailsDTO userDetailsDTO = modelMapper.map(data.get(), UserDetailsDTO.class);
+		UserDetailsDTO userDetailsDTO = data.map(userDetails ->
+										modelMapper.map(userDetails, UserDetailsDTO.class)).orElse(null);
 
 		return userDetailsDTO;
 	}

@@ -10,7 +10,7 @@ import com.nova.mail.service.MailServiceInter;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/api/v1")
+@RequestMapping(value = "mailservice")
 public class MailController {
 
 	@Autowired
@@ -18,8 +18,8 @@ public class MailController {
 
 
 	@GetMapping(value = "/sendMail")
-	public String sendMail() {
-		inter.sendMail("raviroogi5@gmail.com", "test", "i Love you boss i need to make this project ASAP thanks for support...!");
+	public String sendMail(String tomail,String otp) {
+		inter.sendMail(tomail, "test", "i Love you boss i need to make this project ASAP thanks for support...!"+otp);
 		return "done";
 	}
 }
