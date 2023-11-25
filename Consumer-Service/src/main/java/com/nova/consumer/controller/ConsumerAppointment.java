@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nova.consumer.dto.ConsumerAppoinemtDTO;
@@ -17,6 +18,7 @@ import com.nova.consumer.service.ConsumerReportService;
 
 @RestController
 @CrossOrigin(origins = "*")
+@RequestMapping(value = "/consumerservice")
 public class ConsumerAppointment {
 
 	@Autowired

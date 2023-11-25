@@ -18,6 +18,7 @@ public interface ConsumerReportService {
 	List<ServiceDetailDTO> findAllServicesByShopName(String shopName);
 
 	List<ConsumerAppoinemtDTO> getConsumerAppontmentDetails(LocalDate fromDate, LocalDate toDate);
+
 	
 
 }

@@ -19,4 +19,5 @@ public interface ConsumerReportDao {
 
 	List<ConsumerAppoinemtDTO> getConsumerAppontmentDetails(LocalDate fromDate, LocalDate toDate);
 
+
 }

@@ -19,7 +19,7 @@ import com.nova.consumer.service.ConsumerReportService;
 public class ConsumerReportServiceImpl implements ConsumerReportService{
 	
 	@Autowired
-	ConsumerReportDao consumerReportDao;
+	ConsumerReportDao consumerReportDao; 
 
 	@Override
 	public ConsumerReportDTO getConsumerReportDetails(Long conId, Long appId) throws JsonMappingException, JsonProcessingException {
