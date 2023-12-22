@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.nova.dataservice.DTO.ServiceMasterShopRelationDTO;
+import com.nova.dataservice.DTO.ServiceMasterShoplistDto;
 import com.nova.dataservice.entity.ServiceMasterShopRelation;
 
 public interface ShopServiceRelationServices {
@@ -14,5 +15,9 @@ public interface ShopServiceRelationServices {
 	List<ServiceMasterShopRelationDTO> findAllShopServiceRelation();
 
 	Optional<ServiceMasterShopRelation> shopServiceRelationfindById(Long id);
+
+	List<ServiceMasterShopRelation> saveShopServiceList(List<ServiceMasterShopRelation> serviceRelation);
+
+	ServiceMasterShoplistDto saveServiceListForMultiShop(ServiceMasterShoplistDto serviceRelation);
 
 }

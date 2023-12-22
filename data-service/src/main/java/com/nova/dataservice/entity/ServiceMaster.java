@@ -25,6 +25,18 @@ public class ServiceMaster {
 	@Column(name = "name")
     private String name;
 	
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+	@Column(name = "description")
+    private String description;
 
 //	@OneToMany(mappedBy = "service")
 //	@JsonIgnore

@@ -14,4 +14,6 @@ public interface ShopDetailsService {
 
 	Optional<ShopDetailsDTO> findByIdShopDetails(Long id);
 
+	List<ShopDetailsDTO> searchLabByNameAndOwner(String labName, Long ownerId);
+
 }

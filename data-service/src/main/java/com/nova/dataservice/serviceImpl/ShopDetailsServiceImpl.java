@@ -35,13 +35,12 @@ public class ShopDetailsServiceImpl implements ShopDetailsService {
 	@Override
 	public List<ShopDetailsDTO> findAllShopDetails() {
 		// TODO Auto-generated method stub
-List<ShopDetails> shopDetailsList = detailsRepository.findAll(); // Retrieve a list of UserDetails entities
-		
+		List<ShopDetails> shopDetailsList = detailsRepository.findAll(); // Retrieve a list of UserDetails entities
+
 		List<ShopDetailsDTO> shopDetailsDTOList = shopDetailsList.stream()
-		    .map(userDetails -> modelMapper.map(userDetails, ShopDetailsDTO.class))
-		    .collect(Collectors.toList());
+				.map(shopDe -> modelMapper.map(shopDe, ShopDetailsDTO.class)).collect(Collectors.toList());
 		return shopDetailsDTOList;
-	//	return detailsRepository.findAll();
+		// return detailsRepository.findAll();
 	}
 
 	@Override
@@ -49,5 +48,15 @@ List<ShopDetails> shopDetailsList = detailsRepository.findAll(); // Retrieve a l
 		// TODO Auto-generated method stub
 		ShopDetailsDTO shopDetailsDTO = modelMapper.map(detailsRepository.findById(id).get(), ShopDetailsDTO.class);
 		return Optional.of(shopDetailsDTO);	}
+
+	@Override
+	public List<ShopDetailsDTO> searchLabByNameAndOwner(String labName, Long ownerId) {
+		List<ShopDetails> shopDetailsList = detailsRepository.searchLabByNameAndOwner(labName); // Retrieve a list of UserDetails entities
+
+		List<ShopDetailsDTO> shopDetailsDTOList = shopDetailsList.stream()
+				.map(shopDe -> modelMapper.map(shopDe, ShopDetailsDTO.class)).collect(Collectors.toList());
+		return shopDetailsDTOList;
+		// return detailsRepository.findAll();
+	}
 
 }

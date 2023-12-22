@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nova.dataservice.DTO.ShopDetailsDTO;
+import com.nova.dataservice.DTO.UserDetailsDTO;
 import com.nova.dataservice.entity.ShopDetails;
 import com.nova.dataservice.service.ShopDetailsService;
 
@@ -75,6 +76,22 @@ public class ShopDetailsController {
 			e.printStackTrace();
 			return new ResponseEntity<Object>("something went wrong", HttpStatus.OK);
 		}
+	}
+	@GetMapping(value = "searchLabByName")
+	public ResponseEntity<Object> searchLabByNameAndOwner(String labName, Long ownerId) {
+    
+		try {
+			List<ShopDetailsDTO> data = detailsService.searchLabByNameAndOwner(labName, ownerId);
+			if (data.isEmpty()) {
+				return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		return new ResponseEntity<Object>("Something went wrong",HttpStatus.OK);
+	}
+		
 	}
 
 }

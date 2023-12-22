@@ -19,6 +19,9 @@ public class ServiceMasterDTO {
 
     private String name;
 	
+    private String description;
+    
+    
 
 //	@OneToMany(mappedBy = "service")
 //	@JsonIgnore
@@ -42,6 +45,16 @@ public class ServiceMasterDTO {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 
