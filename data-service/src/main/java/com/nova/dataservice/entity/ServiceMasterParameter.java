@@ -10,6 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -19,14 +21,12 @@ import jakarta.persistence.Table;
 public class ServiceMasterParameter {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
 	@Column(name="id")
 	private Long id;
 	
-//	@OneToMany(mappedBy = "service_master_id")
-//	@JsonIgnore
-//	@Column(name="service_master_id")
-//	private ServiceMaster service_master_id;
+    @ManyToOne
+	@JoinColumn(name="service_master_id")
+	private ServiceMaster service_master_id;
 	
 	@Column(name="min_value")
 	private String minValue;
@@ -49,11 +49,26 @@ public class ServiceMasterParameter {
 	@Column(name="parameter_name")
 	private String parameterName;
 	
-	@Column(name="gender")
-	private String gender;
+	@ManyToOne
+    @JoinColumn(name = "parent_parameter_id")
+    private ServiceMasterParameter parentParameter;
 	
-	@Column(name="has_sub_parameter")
-	private Boolean hasSubParameter;
+	
+	public ServiceMaster getService_master_id() {
+		return service_master_id;
+	}
+
+	public void setService_master_id(ServiceMaster service_master_id) {
+		this.service_master_id = service_master_id;
+	}
+
+	public ServiceMasterParameter getParentParameter() {
+		return parentParameter;
+	}
+
+	public void setParentParameter(ServiceMasterParameter parentParameter) {
+		this.parentParameter = parentParameter;
+	}
 
 	public Long getId() {
 		return id;
@@ -62,14 +77,6 @@ public class ServiceMasterParameter {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-//	public ServiceMaster getService_master_id() {
-//		return service_master_id;
-//	}
-//
-//	public void setService_master_id(ServiceMaster service_master_id) {
-//		this.service_master_id = service_master_id;
-//	}
 
 	public String getMinValue() {
 		return minValue;
@@ -127,20 +134,4 @@ public class ServiceMasterParameter {
 		this.parameterName = parameterName;
 	}
 
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	public Boolean getHasSubParameter() {
-		return hasSubParameter;
-	}
-
-	public void setHasSubParameter(Boolean hasSubParameter) {
-		this.hasSubParameter = hasSubParameter;
-	}
-	
 }

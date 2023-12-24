@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nova.dataservice.DTO.ServiceDetailDTO;
 import com.nova.dataservice.DTO.ServiceMasterShopRelationDTO;
 import com.nova.dataservice.DTO.ServiceMasterShoplistDto;
 import com.nova.dataservice.entity.ServiceMasterShopRelation;
@@ -103,4 +104,21 @@ class ShopServiceRelationController {
 			return new ResponseEntity<Object>("somthing went wrong", HttpStatus.OK);
 		}
 	}
+	
+	@GetMapping(value = "findAllShopServiceByLab/{labId}/{service}")
+	public ResponseEntity<Object> findAllShopServiceByLab(@PathVariable("labId") Long labId, @PathVariable("service") String service) {
+		try {
+			 List<ServiceDetailDTO> data = relationServices.findAllShopServiceByLab(labId, service);
+			if (data != null && !data.isEmpty()) {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Object>("data not found", HttpStatus.OK);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("data not found", HttpStatus.OK);
+		}
+	}
+
 }

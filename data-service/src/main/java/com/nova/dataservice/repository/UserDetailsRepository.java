@@ -21,7 +21,8 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, Long> 
 
 	Optional<UserDetails> findByEmail(String email);
 
-	Optional<UserDetails> findByPhone(String phone);
+	@Query(nativeQuery = true, value ="Select * from user_details as c where c.phone like :phone%")
+	List<UserDetails> findByPhone(String phone);
 
 	Optional<UserDetails> findUserByPhoneAndOtp(String phone, String otp);
 

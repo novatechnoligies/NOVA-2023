@@ -109,7 +109,8 @@ public class UserDetailsServicesimpl implements UserDetailsServices {
 
 	@Override
 	public Optional<UserDetails> getUserDetailsByPhone(String phone) {
-		return detailsRepository.findByPhone(phone);
+		//return detailsRepository.findByPhone(phone);
+		return null;
 	}
 
 
@@ -124,8 +125,12 @@ public class UserDetailsServicesimpl implements UserDetailsServices {
 	}
 
 	@Override
-	public Optional<UserDetails> findUserByPhone(String phone) {
-		return detailsRepository.findByPhone(phone);
+	public List<UserDetailsDTO> findUserByPhone(String phone) {
+		List<UserDetails> userDetailsList = detailsRepository.findByPhone(phone);
+		List<UserDetailsDTO> userDetailsDTOList = userDetailsList.stream()
+			    .map(userDetails -> modelMapper.map(userDetails, UserDetailsDTO.class))
+			    .collect(Collectors.toList());
+			return userDetailsDTOList;
 	}
 
 }

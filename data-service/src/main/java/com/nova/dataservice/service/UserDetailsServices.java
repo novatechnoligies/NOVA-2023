@@ -27,6 +27,6 @@ public interface UserDetailsServices {
 
 	Optional<UserDetails> findUserByEmailAndOtp(String email, String otp);
 
-	Optional<UserDetails> findUserByPhone(String phone);
+	List<UserDetailsDTO> findUserByPhone(String phone);
 
 }

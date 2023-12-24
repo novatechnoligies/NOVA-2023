@@ -231,7 +231,7 @@ public class UserDetailsController {
 	
 	@GetMapping(value = "getUserByPhone/{phone}")
 	public ResponseEntity<Object> findUserByPhone(@PathVariable("phone") String phone) {
-	 Optional<UserDetails> data=	detailsServices.findUserByPhone(phone);
+	 List<UserDetailsDTO> data=	detailsServices.findUserByPhone(phone);
 	 return new ResponseEntity<Object>(data, HttpStatus.OK);
 	}
 }

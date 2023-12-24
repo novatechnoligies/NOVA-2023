@@ -9,8 +9,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nova.dataservice.DTO.ServiceDetailDTO;
 import com.nova.dataservice.DTO.ServiceMasterShopRelationDTO;
 import com.nova.dataservice.DTO.ServiceMasterShoplistDto;
+import com.nova.dataservice.dao.UserServiceDao;
 import com.nova.dataservice.entity.ServiceMaster;
 import com.nova.dataservice.entity.ServiceMasterShopRelation;
 import com.nova.dataservice.entity.ShopDetails;
@@ -25,6 +27,9 @@ public class ShopServiceRelationServiceimpl implements ShopServiceRelationServic
 
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	UserServiceDao ServiceDao;
 
 	@Override
 	public ServiceMasterShopRelation saveShopServiceRelation(ServiceMasterShopRelation serviceRelation) {
@@ -72,5 +77,17 @@ public class ShopServiceRelationServiceimpl implements ShopServiceRelationServic
 		}
 		return serviceRelation;
 	}
+
+	@Override
+	public List<ServiceDetailDTO> findAllShopServiceByLab(Long labId, String service) {
+		List<ServiceDetailDTO> serivceMastershopRelationList = ServiceDao.findAllShopServiceByLab(labId, service);
+//		List<ServiceMasterShopRelationDTO> serviceMasterShopDtoList = serivceMastershopRelationList.stream()
+//				.map(ServiceMasterShopRelation -> modelMapper.map(ServiceMasterShopRelation,
+//						ServiceMasterShopRelationDTO.class))
+//				.collect(Collectors.toList());
+		return serivceMastershopRelationList;
+	}
+	
+	
 
 }
