@@ -53,7 +53,7 @@ public class UserServiceDaoImpl implements UserServiceDao{
 		
 		Query query = entityManager.createNativeQuery(sql.toString())
 				.setParameter("serviceName", "%" + service + "%")
-		.setParameter("labId",  labId ); 
+				.setParameter("labId",  labId ); 
 		
 		query.unwrap(NativeQuery.class)
 		.addScalar("shopName",StandardBasicTypes.STRING)
