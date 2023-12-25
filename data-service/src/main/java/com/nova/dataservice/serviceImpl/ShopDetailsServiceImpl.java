@@ -24,6 +24,7 @@ public class ShopDetailsServiceImpl implements ShopDetailsService {
 	
 	@Autowired
 	private ModelMapper modelMapper;
+	
 	@Override
 	public ShopDetails saveShopDetails(ShopDetails details) {
 		details.setCreatedAt(LocalDate.now());
