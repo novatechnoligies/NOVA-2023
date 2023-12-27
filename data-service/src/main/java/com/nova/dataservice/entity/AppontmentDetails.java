@@ -48,7 +48,7 @@ public class AppontmentDetails {
     private Float sgst;
    
     @Column (name="consumer_id")
-    private Long consumerId;
+    private Long patientId;
     
     @Column (name="created_at")
     private LocalDate createdAt;
@@ -144,12 +144,12 @@ public class AppontmentDetails {
 		this.sgst = sgst;
 	}
 
-	public Long getConsumerId() {
-		return consumerId;
+	public Long getPatientId() {
+		return patientId;
 	}
 
-	public void setConsumerId(Long consumerId) {
-		this.consumerId = consumerId;
+	public void setPatientId(Long patientId) {
+		this.patientId = patientId;
 	}
 
 	public LocalDate getCreatedAt() {

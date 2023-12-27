@@ -1,5 +1,6 @@
 package com.nova.dataservice.serviceImpl;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nova.dataservice.entity.AppontmentDetails;
+import com.nova.dataservice.entity.SlotAvailability;
+import com.nova.dataservice.entity.UserDetails;
 import com.nova.dataservice.repository.AppointmentDetailsRepository;
+import com.nova.dataservice.repository.SlotAvailabilityRepository;
 import com.nova.dataservice.service.AppointmentDetailservice;
 
 @Service
@@ -16,9 +20,23 @@ public class AppointmentDetailsserviceimpl implements AppointmentDetailservice{
 	@Autowired
 	AppointmentDetailsRepository appRepo;
 	
+	@Autowired
+	SlotAvailabilityRepository availabilityRepository;
+	
 	@Override
 	public AppontmentDetails saveAppointment(AppontmentDetails rl) {
-		// TODO Auto-generated method stub
+		
+		rl.setCreatedAt(LocalDate.now());
+		rl.setStatus(true);
+		rl.setAppointmentStatus("BOOKED");
+		
+		SlotAvailability slotAvailability = availabilityRepository.findById(rl.getSlotId()).get();
+		slotAvailability.setAppintmentStatus("BOOKED");
+		UserDetails details = new UserDetails();
+		details.setId(rl.getId());
+		rl.setId(null);
+		slotAvailability.setUserDetails(details);
+		availabilityRepository.save(slotAvailability);
 		return appRepo.save(rl);
 	}
 

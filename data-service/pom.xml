@@ -8,12 +8,16 @@
 		<version>3.1.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	
+	
 	<groupId>com.nova</groupId>
 	<artifactId>data-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>data-service</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
+    	<maven.compiler.source>17</maven.compiler.source>
+    	<maven.compiler.target>17</maven.compiler.target>
 		<java.version>11</java.version>
 		<spring-cloud.version>2021.0.3</spring-cloud.version>
 	</properties>
@@ -64,6 +68,28 @@
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
 			<version>2.4.4</version> <!-- Use the latest version available -->
+		</dependency>
+		
+		<!-- Cucumber Dependencies -->
+		<dependency>
+		    <groupId>io.cucumber</groupId>
+		    <artifactId>cucumber-java</artifactId>
+		    <version>6.10.3</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>io.cucumber</groupId>
+		    <artifactId>cucumber-junit</artifactId>
+		    <version>6.10.3</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<!-- JUnit Dependency -->
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>4.13.1</version>
+		    <scope>test</scope>
 		</dependency>
 	</dependencies>
 
