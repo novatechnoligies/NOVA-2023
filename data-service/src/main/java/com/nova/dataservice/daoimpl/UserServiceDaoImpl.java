@@ -1,6 +1,7 @@
 package com.nova.dataservice.daoimpl;
 
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nova.dataservice.DTO.ServiceDetailDTO;
+import com.nova.dataservice.DTO.SlotAvailabilityDTO;
 import com.nova.dataservice.dao.UserServiceDao;
 import com.nova.dataservice.entity.ServiceMasterShopRelation;
 import com.nova.dataservice.entity.UserDetails;
@@ -68,6 +70,35 @@ public class UserServiceDaoImpl implements UserServiceDao{
         
         if (result != null) {
 			return(List<ServiceDetailDTO>)result;
+		}else {
+			return null;
+		}
+	
+	}
+
+	@Override
+	public List<SlotAvailabilityDTO> getAllSlotAvailabilityByLabIdAndDate(LocalDate date, Long labId) {
+		String sql = "SELECT sa.id as id,sa.app_date as appDate, sa.appointment_status AS appStatus, sa.slot_time AS slot,sa.shop_id AS shopId "
+				+ " FROM slot_availibility AS sa "
+				+ " where shop_id = :labId and app_date = :date ";
+		
+		Query query = entityManager.createNativeQuery(sql.toString())
+				.setParameter("labId", labId)
+		.setParameter("date",  date ); 
+		
+		query.unwrap(NativeQuery.class)
+		.addScalar("id",StandardBasicTypes.LONG)
+        .addScalar("appDate", StandardBasicTypes.LOCAL_DATE)
+        .addScalar("appStatus", StandardBasicTypes.STRING)
+        .addScalar("slot", StandardBasicTypes.LOCAL_TIME)
+        .addScalar("shopId", StandardBasicTypes.LONG);
+		
+        ((NativeQuery) query).setResultTransformer(Transformers.aliasToBean(SlotAvailabilityDTO.class));
+        
+        Object result = query.getResultList();
+        
+        if (result != null) {
+			return(List<SlotAvailabilityDTO>)result;
 		}else {
 			return null;
 		}
