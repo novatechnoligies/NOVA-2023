@@ -1,5 +1,6 @@
 package com.nova.dataservice.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nova.dataservice.DTO.AppoinmentDTO;
+import com.nova.dataservice.DTO.ShopDetailsDTO;
 import com.nova.dataservice.entity.AppontmentDetails;
 import com.nova.dataservice.service.AppointmentDetailservice;
 
@@ -69,5 +72,19 @@ public class AppointmentDetailsController {
 		}
 	
 	}
-
+	@GetMapping(value = "getTodaysAppointemtsByLabId")
+	public ResponseEntity<Object> getTodaysAppointemtsByLabId(LocalDate date, Long labId, LocalDate fromDate,LocalDate toDate) {
+    
+		try {
+			List<AppoinmentDTO> data = appService.getTodaysAppointemtsByLabId(date, labId, fromDate, toDate);
+			if (data.isEmpty()) {
+				return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		return new ResponseEntity<Object>("Something went wrong",HttpStatus.OK);
+	}
+}
 }
