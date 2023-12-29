@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nova.dataservice.DTO.AppoinmentDTO;
+import com.nova.dataservice.dao.AppointmentDao;
 import com.nova.dataservice.entity.AppontmentDetails;
 import com.nova.dataservice.entity.SlotAvailability;
 import com.nova.dataservice.entity.UserDetails;
@@ -22,6 +24,9 @@ public class AppointmentDetailsserviceimpl implements AppointmentDetailservice{
 	
 	@Autowired
 	SlotAvailabilityRepository availabilityRepository;
+	
+	@Autowired
+	AppointmentDao appointmentDao;
 	
 	@Override
 	public AppontmentDetails saveAppointment(AppontmentDetails rl) {
@@ -50,6 +55,11 @@ public class AppointmentDetailsserviceimpl implements AppointmentDetailservice{
 	public Optional<AppontmentDetails> findAppointmentById(Long id) {
 		// TODO Auto-generated method stub
 		return appRepo.findById(id);
+	}
+
+	@Override
+	public List<AppoinmentDTO> getTodaysAppointemtsByLabId(LocalDate date, Long labId ,LocalDate fromDate, LocalDate toDate) {
+		return appointmentDao.findTodaysAppoinmentsById(date, labId, fromDate, toDate);
 	}
 
 }
