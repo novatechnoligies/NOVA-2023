@@ -71,7 +71,4 @@ public class AppoinmentDTO {
 		this.appointmentTime = appointmentTime;
 	}
 	
-	
-	
-
 }

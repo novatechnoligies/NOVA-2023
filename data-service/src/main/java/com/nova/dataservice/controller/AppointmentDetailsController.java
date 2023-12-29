@@ -72,9 +72,11 @@ public class AppointmentDetailsController {
 		}
 	
 	}
+
 	@GetMapping(value = "getTodaysAppointemtsByLabId")
-	public ResponseEntity<Object> getTodaysAppointemtsByLabId(LocalDate date, Long labId, LocalDate fromDate,LocalDate toDate) {
-    
+	public ResponseEntity<Object> getTodaysAppointemtsByLabId(LocalDate date, Long labId, LocalDate fromDate,
+			LocalDate toDate) {
+
 		try {
 			List<AppoinmentDTO> data = appService.getTodaysAppointemtsByLabId(date, labId, fromDate, toDate);
 			if (data.isEmpty()) {
@@ -84,7 +86,7 @@ public class AppointmentDetailsController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		return new ResponseEntity<Object>("Something went wrong",HttpStatus.OK);
+			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
+		}
 	}
-}
 }
