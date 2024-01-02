@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nova.dataservice.DTO.AppoinmentDTO;
+import com.nova.dataservice.DTO.AppoinmentDetailDTO;
 import com.nova.dataservice.DTO.ShopDetailsDTO;
 import com.nova.dataservice.entity.AppontmentDetails;
 import com.nova.dataservice.service.AppointmentDetailservice;
@@ -89,4 +90,21 @@ public class AppointmentDetailsController {
 			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
 		}
 	}
+	@GetMapping(value = "getAllServicesByAppointmentIdAndPatientId")
+	public ResponseEntity<Object> getAllServicesByAppointmentIdAndPatientId(Long appointmentId, Long patientId) {
+
+		try {
+			List<AppoinmentDetailDTO> data = appService.getAllServicesByAppointmentIdAndPatientId(appointmentId, patientId);
+			if (data.isEmpty()) {
+				return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
+		}
+	}
+	
+	
 }
