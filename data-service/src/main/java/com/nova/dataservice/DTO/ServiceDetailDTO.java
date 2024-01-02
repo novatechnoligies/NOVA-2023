@@ -6,22 +6,26 @@ public class ServiceDetailDTO {
 	
 	private String serviceName;
 	
-	private Float amount;
+	private Float ServiceAmount;
 	
-	private Long shopId;
+	private Long labId;
 	
 	private Long serviceId;
+	
+	private String serviceDiscription;
+	
+	private String serviceStatus;
 
 	public ServiceDetailDTO() {
 		super();
 	}
 
-	public ServiceDetailDTO(String shopName, String serviceName, Float amount, Long shopId, Long serviceId) {
+	public ServiceDetailDTO(String shopName, String serviceName, Float ServiceAmount, Long labId, Long serviceId) {
 		super();
 		this.shopName = shopName;
 		this.serviceName = serviceName;
-		this.amount = amount;
-		this.shopId = shopId;
+		this.ServiceAmount = ServiceAmount;
+		this.labId = labId;
 		this.serviceId = serviceId;
 	}
 
@@ -42,19 +46,19 @@ public class ServiceDetailDTO {
 	}
 
 	public Float getAmount() {
-		return amount;
+		return ServiceAmount;
 	}
 
 	public void setAmount(Float amount) {
-		this.amount = amount;
+		this.ServiceAmount = amount;
 	}
 
-	public Long getShopId() {
-		return shopId;
+	public Long getLabId() {
+		return labId;
 	}
 
-	public void setShopId(Long shopId) {
-		this.shopId = shopId;
+	public void setLabId(Long labId) {
+		this.labId = labId;
 	}
 
 	public Long getServiceId() {
@@ -63,6 +67,22 @@ public class ServiceDetailDTO {
 
 	public void setServiceId(Long serviceId) {
 		this.serviceId = serviceId;
+	}
+
+	public String getServiceDiscription() {
+		return serviceDiscription;
+	}
+
+	public void setServiceDiscription(String serviceDiscription) {
+		this.serviceDiscription = serviceDiscription;
+	}
+
+	public String getServiceStatus() {
+		return serviceStatus;
+	}
+
+	public void setServiceStatus(String serviceStatus) {
+		this.serviceStatus = serviceStatus;
 	}
 
 	

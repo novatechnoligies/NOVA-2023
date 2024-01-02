@@ -8,9 +8,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nova.dataservice.DTO.AppoinmentDTO;
 import com.nova.dataservice.DTO.ServiceMasterDTO;
 import com.nova.dataservice.DTO.ShopDetailsDTO;
 import com.nova.dataservice.DTO.UserDetailsDTO;
+import com.nova.dataservice.dao.AppointmentDao;
+import com.nova.dataservice.dao.ServiceDetaildao;
 import com.nova.dataservice.entity.ServiceMaster;
 import com.nova.dataservice.entity.ShopDetails;
 import com.nova.dataservice.entity.UserDetails;
@@ -25,6 +28,9 @@ public class ServiceMasterServiceImpl implements ServiceMasterService{
 	
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	ServiceDetaildao serDao;
 
 	@Override
 	public ServiceMaster saveServiceMaster(ServiceMaster serviceMaster) {
@@ -51,6 +57,12 @@ List<ServiceMaster> serviceMasterList = serviceMasterRepository.findAll(); // Re
 		
 		
 		//return serviceMasterRepository.findById(id);
+	}
+
+	@Override
+	public List<ServiceMasterDTO> getAllServicesByLabId(Long labId) {
+		// TODO Auto-generated method stub
+		return serDao.findAllServicesByLabId(labId);
 	}
 }
 

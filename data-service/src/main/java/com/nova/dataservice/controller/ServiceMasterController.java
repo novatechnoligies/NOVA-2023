@@ -1,5 +1,6 @@
 package com.nova.dataservice.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nova.dataservice.DTO.AppoinmentDTO;
 import com.nova.dataservice.DTO.ServiceMasterDTO;
 import com.nova.dataservice.entity.Role;
 import com.nova.dataservice.entity.ServiceMaster;
@@ -62,6 +64,21 @@ public class ServiceMasterController {
 			return new ResponseEntity<Object>("no data found for this id",HttpStatus.OK);
 		}
 		
+	}
+	@GetMapping(value = "getAllServicesByLabId")
+	public ResponseEntity<Object> getAllServicesByLabId( Long labId) {
+
+		try {
+			List<ServiceMasterDTO> data = serviceMasterService.getAllServicesByLabId( labId);
+			if (data.isEmpty()) {
+				return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
+		}
 	}
 
 }
