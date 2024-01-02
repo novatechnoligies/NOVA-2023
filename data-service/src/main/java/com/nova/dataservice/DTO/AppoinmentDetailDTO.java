@@ -3,8 +3,7 @@ package com.nova.dataservice.DTO;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class AppoinmentDTO {
-	
+public class AppoinmentDetailDTO {
 	private Long appointmentId;
 	private String patientName;
 	private LocalDate appointmentDate;
@@ -14,9 +13,17 @@ public class AppoinmentDTO {
 	private String appointmentStatus;
 	private String patientAdhar;
 	private Long shopId;
+	private Long masterId;
+	private Long serviceId;
+	private String serviceName;
+	private Float ammount;
+	private String status;
+	private String tax;
 	private Long patientId;
+	private Float serviceAmount;
+	private String serviceStatus;
 	
-	public Long getAppointmentId() {
+	public Long getAppointmentId() { 
 		return appointmentId;
 	}
 	public void setAppointmentId(Long appointmentId) {
@@ -34,7 +41,12 @@ public class AppoinmentDTO {
 	public void setAppointmentDate(LocalDate appointmentDate) {
 		this.appointmentDate = appointmentDate;
 	}
-	
+	public LocalTime getAppointmentTime() {
+		return appointmentTime;
+	}
+	public void setAppointmentTime(LocalTime appointmentTime) {
+		this.appointmentTime = appointmentTime;
+	}
 	public String getPhoto() {
 		return photo;
 	}
@@ -65,11 +77,41 @@ public class AppoinmentDTO {
 	public void setShopId(Long shopId) {
 		this.shopId = shopId;
 	}
-	public LocalTime getAppointmentTime() {
-		return appointmentTime;
+	public Long getMasterId() {
+		return masterId;
 	}
-	public void setAppointmentTime(LocalTime appointmentTime) {
-		this.appointmentTime = appointmentTime;
+	public void setMasterId(Long masterId) {
+		this.masterId = masterId;
+	}
+	public Long getServiceId() {
+		return serviceId;
+	}
+	public void setServiceId(Long serviceId) {
+		this.serviceId = serviceId;
+	}
+	public String getServiceName() {
+		return serviceName;
+	}
+	public void setServiceName(String serviceName) {
+		this.serviceName = serviceName;
+	}
+	public Float getAmmount() {
+		return ammount;
+	}
+	public void setAmmount(Float ammount) {
+		this.ammount = ammount;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getTax() {
+		return tax;
+	}
+	public void setTax(String tax) {
+		this.tax = tax;
 	}
 	public Long getPatientId() {
 		return patientId;
@@ -77,5 +119,18 @@ public class AppoinmentDTO {
 	public void setPatientId(Long patientId) {
 		this.patientId = patientId;
 	}
+	public Float getServiceAmount() {
+		return serviceAmount;
+	}
+	public void setServiceAmount(Float serviceAmount) {
+		this.serviceAmount = serviceAmount;
+	}
+	public String getServiceStatus() {
+		return serviceStatus;
+	}
+	public void setServiceStatus(String serviceStatus) {
+		this.serviceStatus = serviceStatus;
+	}
 	
+
 }
