@@ -11,6 +11,6 @@ import com.nova.dataservice.entity.EmployeTracking;
 @Repository
 public interface EmployeTrackingRepository extends JpaRepository<EmployeTracking, Long>{
 
-	List<EmployeTracking> findByEmpIdAndCreatedAtBetween(Long empId, LocalDate fromDate, LocalDate toDate);
+	//List<EmployeTracking> findByEmpIdAndCreatedAtBetween(Long empId, LocalDate fromDate, LocalDate toDate);
 
 }

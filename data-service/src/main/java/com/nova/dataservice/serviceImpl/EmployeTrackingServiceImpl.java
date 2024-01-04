@@ -25,6 +25,7 @@ public class EmployeTrackingServiceImpl implements EmployeTrackingService{
 	@Override
 	public List<EmployeTracking> getEmployeDataByEmpIdAndDateRange(Long empId, LocalDate fromDate, LocalDate toDate) {
 		// TODO Auto-generated method stub
-		return employeTrackingRepository.findByEmpIdAndCreatedAtBetween(empId, fromDate, toDate);
+		return null;
+				//employeTrackingRepository.findByEmpIdAndCreatedAtBetween(empId, fromDate, toDate);
 	}
 }
