@@ -74,6 +74,9 @@ public class ShopDetails {
 	@Column(name = "gst_no")
 	private String gstNo;
 	
+	@Column(name = "shop_photo")
+	private String shopPhoto;
+	
 	@Column(name = "capacity")// indiactes employee count and no of appointments handle in same slot
 	private Long capacity;
 	
@@ -276,6 +279,12 @@ public class ShopDetails {
 		this.gstNo = gstNo;
 	}
 
-	
+	public String getShopPhoto() {
+		return shopPhoto;
+	}
+
+	public void setShopPhoto(String shopPhoto) {
+		this.shopPhoto = shopPhoto;
+	}
 
 }

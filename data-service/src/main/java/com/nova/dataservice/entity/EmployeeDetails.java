@@ -74,6 +74,17 @@ public class EmployeeDetails
 	
 	@Column(name = "documents")
 	private String documents;
+	
+	@Column(name = "employe_photo")
+	private String photo;
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 
 	public Long getId() {
 		return id;

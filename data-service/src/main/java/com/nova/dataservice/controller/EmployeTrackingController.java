@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nova.dataservice.DTO.AppoinmentDTO;
+import com.nova.dataservice.DTO.TrackingDTO;
 import com.nova.dataservice.entity.EmployeTracking;
 import com.nova.dataservice.service.EmployeTrackingService;
 
@@ -40,20 +41,34 @@ public class EmployeTrackingController {
 		}
 	}
 
-	@GetMapping(value = "getEmployeDataByEmpIdAndDateRange")
-	public ResponseEntity<Object> getEmployeDataByEmpIdAndDateRange(@PathVariable("empId") Long empId,@PathVariable("fromDate") LocalDate fromDate
-			,@PathVariable LocalDate toDate) {
-
+	/*
+	 * @GetMapping(value = "getEmployeDataByEmpIdAndDateRange") public
+	 * ResponseEntity<Object>
+	 * getEmployeDataByEmpIdAndDateRange(@PathVariable("empId") Long
+	 * empId,@PathVariable("fromDate") LocalDate fromDate ,@PathVariable LocalDate
+	 * toDate) {
+	 * 
+	 * try { List<EmployeTracking> data =
+	 * employeTrackingService.getEmployeDataByEmpIdAndDateRange(empId, fromDate,
+	 * toDate); if (data.isEmpty()) { return new
+	 * ResponseEntity<Object>("no data found", HttpStatus.OK); } else { return new
+	 * ResponseEntity<Object>(data, HttpStatus.OK); } } catch (Exception e) {
+	 * e.printStackTrace(); return new
+	 * ResponseEntity<Object>("Something went wrong", HttpStatus.OK); } }
+	 */
+	
+	@GetMapping(value = "/getEmployeeDetailsByShopIdAndOwnerId")
+	public ResponseEntity<Object> getEmployeeDetailsByShopIdAndOwnerId(@PathVariable("shopId") Long shopId,@PathVariable ("ownerId") Long ownerId){
 		try {
-			List<EmployeTracking> data = employeTrackingService.getEmployeDataByEmpIdAndDateRange(empId, fromDate, toDate);
-			if (data.isEmpty()) {
-				return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+			List<TrackingDTO> trackingData = employeTrackingService.getEmployeeDetailsByShopIdAndOwnerId(shopId,ownerId);
+			if (trackingData!= null && !trackingData.isEmpty()) {
+				return new ResponseEntity<Object>(trackingData,HttpStatus.OK);
 			} else {
-				return new ResponseEntity<Object>(data, HttpStatus.OK);
+				return new ResponseEntity<Object>("fail to get tracking data",HttpStatus.OK);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
+			// TODO: handle exception
+		return new ResponseEntity<Object>("something went wrong while fetching the data",HttpStatus.OK);
 		}
 	}
 }
