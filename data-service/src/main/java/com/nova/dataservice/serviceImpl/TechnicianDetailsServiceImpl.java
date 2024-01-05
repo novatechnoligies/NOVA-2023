@@ -15,8 +15,12 @@ public class TechnicianDetailsServiceImpl implements TechnicianDetailsService {
 
 	@Override
 	public TechnicianDetails saveTechnicianDetails(TechnicianDetails technician) {
-		// TODO Auto-generated method stub
 		return techRepo.save(technician);
+	}
+
+	@Override
+	public TechnicianDetails getTechnicianNotesByPatientIdAndTechnicianId(Long patientId, Long technicianId) {
+		return techRepo.findTechnicianNotesByPatientIdAndTechnicianId(patientId,technicianId);
 	}
 
 }
