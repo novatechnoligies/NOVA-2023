@@ -28,15 +28,15 @@ public class EmployeTrackingServiceImpl implements EmployeTrackingService{
 	}
 
 	@Override
+
+	public List<EmployeTracking> getEmployeDataByEmpIdAndDateRange(Long empId, LocalDate fromDate, LocalDate toDate) {
+		// TODO Auto-generated method stub
+		return null;
+				//employeTrackingRepository.findByEmpIdAndCreatedAtBetween(empId, fromDate, toDate);
+  }
 	public List<TrackingDTO> getEmployeeDetailsByShopIdAndOwnerId(Long shopId, Long ownerId) {
 	List<TrackingDTO> trackingDataList = employeTrackingDao.findAllParams(shopId,ownerId);
 		return trackingDataList;
-	}
 
-	/*
-	 * @Override public List<EmployeTracking> getEmployeDataByEmpIdAndDateRange(Long
-	 * empId, LocalDate fromDate, LocalDate toDate) { // TODO Auto-generated method
-	 * stub return employeTrackingRepository.findByEmpIdAndCreatedAtBetween(empId,
-	 * fromDate, toDate); }
-	 */
+	}
 }
