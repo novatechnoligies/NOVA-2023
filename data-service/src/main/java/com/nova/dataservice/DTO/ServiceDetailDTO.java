@@ -15,6 +15,26 @@ public class ServiceDetailDTO {
 	private String serviceDiscription;
 	
 	private String serviceStatus;
+	
+	private Long shopId;
+	
+	private String testDescription;
+
+	public Float getServiceAmount() {
+		return ServiceAmount;
+	}
+
+	public void setServiceAmount(Float serviceAmount) {
+		ServiceAmount = serviceAmount;
+	}
+
+	public Long getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(Long shopId) {
+		this.shopId = shopId;
+	}
 
 	public ServiceDetailDTO() {
 		super();
@@ -83,6 +103,14 @@ public class ServiceDetailDTO {
 
 	public void setServiceStatus(String serviceStatus) {
 		this.serviceStatus = serviceStatus;
+	}
+
+	public String getTestDescription() {
+		return testDescription;
+	}
+
+	public void setTestDescription(String testDescription) {
+		this.testDescription = testDescription;
 	}
 
 	

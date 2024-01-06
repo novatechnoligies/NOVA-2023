@@ -125,8 +125,18 @@ public class UserDetailsServicesimpl implements UserDetailsServices {
 	}
 
 	@Override
-	public List<UserDetailsDTO> findUserByPhone(String phone) {
-		List<UserDetails> userDetailsList = detailsRepository.findByPhone(phone);
+	public List<UserDetailsDTO> getConsumerByPhone(String phone) {
+		List<UserDetails> userDetailsList = detailsRepository.findByPhoneAndRole(phone, 4l);
+		List<UserDetailsDTO> userDetailsDTOList = userDetailsList.stream()
+			    .map(userDetails -> modelMapper.map(userDetails, UserDetailsDTO.class))
+			    .collect(Collectors.toList());
+			return userDetailsDTOList;
+	}
+
+	@Override
+	public List<UserDetailsDTO> getAllUserDetailsByCreadtedBy(Long userId) {
+		
+		List<UserDetails> userDetailsList = detailsRepository.findByCreatedBy(userId);
 		List<UserDetailsDTO> userDetailsDTOList = userDetailsList.stream()
 			    .map(userDetails -> modelMapper.map(userDetails, UserDetailsDTO.class))
 			    .collect(Collectors.toList());

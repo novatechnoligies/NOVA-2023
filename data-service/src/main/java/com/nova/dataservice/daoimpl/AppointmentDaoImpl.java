@@ -35,8 +35,9 @@ public class AppointmentDaoImpl implements AppointmentDao{
 				+ "    WHERE sa.shop_id = :labId and sa.app_date = :toDayDatate " + "GROUP BY  "
 				+ "    sa.id, ud.username, ud.adhar_photo, ud.phone, ap.appointment_status ";
 
-		Query query = entityManager.createNativeQuery(sql.toString()).setParameter("toDayDatate", date)
-				.setParameter("labId", labId);
+		Query query = entityManager.createNativeQuery(sql.toString())
+									.setParameter("toDayDatate", date)
+									.setParameter("labId", labId);
 
 		query.unwrap(NativeQuery.class).addScalar("appointmentId", StandardBasicTypes.LONG)
 				.addScalar("patientName", StandardBasicTypes.STRING)

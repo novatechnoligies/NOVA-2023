@@ -87,6 +87,12 @@ public class ShopServiceRelationServiceimpl implements ShopServiceRelationServic
 //				.collect(Collectors.toList());
 		return serivceMastershopRelationList;
 	}
+
+	@Override
+	public List<ServiceDetailDTO> findAllShopServiceByLab(Long labId) {
+		List<ServiceDetailDTO> serivceMastershopRelationList = ServiceDao.findAllShopServiceByLab(labId);
+		return serivceMastershopRelationList;
+	}
 	
 	
 

@@ -23,4 +23,6 @@ public interface ShopServiceRelationServices {
 
 	List<ServiceDetailDTO> findAllShopServiceByLab(Long labId,String service);
 
+	List<ServiceDetailDTO> findAllShopServiceByLab(Long labId);
+
 }

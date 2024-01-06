@@ -78,4 +78,23 @@ public class ShopsAvailabilityController {
 			return new ResponseEntity<Object>("not Found", HttpStatus.OK);
 		}
 	}
+	
+	@GetMapping(value="getShopAvaibilityByShopId/{shopId}")
+	public ResponseEntity<Object> getShopAvaibilityByShopId(@PathVariable("shopId") Long id) {
+		try {
+			Optional<ShopAvalibilityDTO> data = avilabilityService.getShopAvaibilityByShopId(id);
+			if (data.isPresent()) {
+				return new ResponseEntity<Object>(data.get(), HttpStatus.OK);
+
+			} else {
+				return new ResponseEntity<Object>("user not found ById", HttpStatus.OK);
+
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return new ResponseEntity<Object>("not Found", HttpStatus.OK);
+		}
+	}
 }

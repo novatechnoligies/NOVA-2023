@@ -50,8 +50,8 @@ public class UserDetails {
 	@Column(name = "is_deleted")
 	private Boolean isDeleted;
 	
-	@Column(name = "owner_id")
-	private Long ownerId;
+	@Column(name = "created_by")
+	private Long createdBy;
 	
 	@Column(name = "username")
 	private String username;
@@ -178,12 +178,12 @@ public class UserDetails {
 		this.isDeleted = isDeleted;
 	}
 
-	public Long getOwnerId() {
-		return ownerId;
+	public Long getCreatedBy() {
+		return createdBy;
 	}
 
-	public void setOwnerId(Long ownerId) {
-		this.ownerId = ownerId;
+	public void setCreatedBy(Long createdBy) {
+		this.createdBy = createdBy;
 	}
 
 	public String getUsername() {

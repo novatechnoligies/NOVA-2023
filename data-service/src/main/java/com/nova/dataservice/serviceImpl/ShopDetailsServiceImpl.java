@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.nova.dataservice.DTO.ShopDetailsDTO;
 import com.nova.dataservice.DTO.UserDetailsDTO;
-import com.nova.dataservice.dao.ShopDetailsDao;
 import com.nova.dataservice.entity.ShopDetails;
 import com.nova.dataservice.entity.UserDetails;
 import com.nova.dataservice.repository.ShopDetailsRepository;

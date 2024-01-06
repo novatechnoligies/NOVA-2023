@@ -120,5 +120,21 @@ class ShopServiceRelationController {
 			return new ResponseEntity<Object>("data not found", HttpStatus.OK);
 		}
 	}
+	
+	@GetMapping(value = "findAllShopServiceByLab/{labId}")
+	public ResponseEntity<Object> findAllShopServiceByLab(@PathVariable("labId") Long labId) {
+		try {
+			 List<ServiceDetailDTO> data = relationServices.findAllShopServiceByLab(labId);
+			if (data != null && !data.isEmpty()) {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Object>("data not found", HttpStatus.OK);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("data not found", HttpStatus.OK);
+		}
+	}
 
 }

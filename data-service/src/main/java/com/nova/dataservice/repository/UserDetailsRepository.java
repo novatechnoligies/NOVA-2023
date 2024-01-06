@@ -21,11 +21,13 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, Long> 
 
 	Optional<UserDetails> findByEmail(String email);
 
-	@Query(nativeQuery = true, value ="Select * from user_details as c where c.phone like :phone%")
-	List<UserDetails> findByPhone(String phone);
+	@Query(nativeQuery = true, value ="Select * from user_details as c where c.phone like :phone% and c.role_id = :roleId")
+	List<UserDetails> findByPhoneAndRole(String phone,Long roleId);
 
 	Optional<UserDetails> findUserByPhoneAndOtp(String phone, String otp);
 
 	Optional<UserDetails> findUserByEmailAndOtp(String email, String otp);
+
+	List<UserDetails> findByCreatedBy(Long userId);
 
 }

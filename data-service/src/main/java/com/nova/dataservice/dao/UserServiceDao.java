@@ -16,4 +16,6 @@ public interface UserServiceDao {
 
 	List<SlotAvailabilityDTO> getAllSlotAvailabilityByLabIdAndDate(LocalDate date, Long labId);
 
+	List<ServiceDetailDTO> findAllShopServiceByLab(Long labId);
+
 }

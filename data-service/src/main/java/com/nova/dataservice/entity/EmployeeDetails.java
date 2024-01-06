@@ -21,18 +21,15 @@ public class EmployeeDetails
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Long id;
-	
-	@Column(name = "emp_id")
-	private Long empId; 
+	private Long id; 
 	
 	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
 	@JoinColumn (name="shop_id")
 	private ShopDetails shopDetails;
 	
 	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "user_id")
-	private UserDetails userDetails;
+	@JoinColumn(name = "")
+	private UserDetails employeeId;
 	
 	@Column (name="emp_code")
 	private String empCode;
@@ -43,8 +40,6 @@ public class EmployeeDetails
 	@Column (name="is_deleted")
 	private Boolean isDeleted;
 	
-	@Column (name="first_name")
-	private String firstName;
 	
 	@Column (name="join_date")
 	private LocalDate joinDate;
@@ -58,16 +53,8 @@ public class EmployeeDetails
 	
 	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "owner_id")
-	private UserDetails userDetail;
+	private UserDetails ownerId;
 	
-	@Column (name="last_name")
-	private String lastName;
-	
-	@Column (name="phone")
-	private String phone;
-	
-	@Column (name="email")
-	private String email;
 	
 	@Column (name="created_at")
 	private LocalDateTime createdAt;
@@ -78,14 +65,6 @@ public class EmployeeDetails
 	@Column(name = "employe_photo")
 	private String photo;
 
-	public String getPhoto() {
-		return photo;
-	}
-
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -94,14 +73,6 @@ public class EmployeeDetails
 		this.id = id;
 	}
 
-	public Long getEmpId() {
-		return empId;
-	}
-
-	public void setEmpId(Long empId) {
-		this.empId = empId;
-	}
-	
 	public ShopDetails getShopDetails() {
 		return shopDetails;
 	}
@@ -110,12 +81,12 @@ public class EmployeeDetails
 		this.shopDetails = shopDetails;
 	}
 
-	public UserDetails getUserDetails() {
-		return userDetails;
+	public UserDetails getEmployeeId() {
+		return employeeId;
 	}
 
-	public void setUserDetails(UserDetails userDetails) {
-		this.userDetails = userDetails;
+	public void setEmployeeId(UserDetails employeeId) {
+		this.employeeId = employeeId;
 	}
 
 	public String getEmpCode() {
@@ -142,14 +113,6 @@ public class EmployeeDetails
 		this.isDeleted = isDeleted;
 	}
 
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
 	public LocalDate getJoinDate() {
 		return joinDate;
 	}
@@ -174,36 +137,12 @@ public class EmployeeDetails
 		this.relevingDate = relevingDate;
 	}
 
-	public UserDetails getUserDetail() {
-		return userDetail;
+	public UserDetails getOwnerId() {
+		return ownerId;
 	}
 
-	public void setUserDetail(UserDetails userDetail) {
-		this.userDetail = userDetail;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setOwnerId(UserDetails ownerId) {
+		this.ownerId = ownerId;
 	}
 
 	public LocalDateTime getCreatedAt() {
@@ -222,7 +161,13 @@ public class EmployeeDetails
 		this.documents = documents;
 	}
 
-	
-	
-	
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+		
 }

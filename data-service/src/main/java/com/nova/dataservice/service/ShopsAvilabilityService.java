@@ -14,4 +14,6 @@ public interface ShopsAvilabilityService {
 
 	Optional<ShopAvalibilityDTO> getShopAvaibilityById(Long id);
 
+	Optional<ShopAvalibilityDTO> getShopAvaibilityByShopId(Long id);
+
 }

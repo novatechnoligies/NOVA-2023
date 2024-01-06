@@ -229,9 +229,20 @@ public class UserDetailsController {
 	}
 	}
 	
-	@GetMapping(value = "getUserByPhone/{phone}")
-	public ResponseEntity<Object> findUserByPhone(@PathVariable("phone") String phone) {
-	 List<UserDetailsDTO> data=	detailsServices.findUserByPhone(phone);
+	@GetMapping(value = "getConsumerByPhone/{phone}")
+	public ResponseEntity<Object> getConsumerByPhone(@PathVariable("phone") String phone) {
+	 List<UserDetailsDTO> data=	detailsServices.getConsumerByPhone(phone);
 	 return new ResponseEntity<Object>(data, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "getAllUserDetailsByCreadtedBy")
+	public ResponseEntity<Object> getAllUserDetailsByCreadtedBy(Long userId) {
+    
+		List<UserDetailsDTO> data = detailsServices.getAllUserDetailsByCreadtedBy(userId);
+		if (data.isEmpty()) {
+			return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Object>(data, HttpStatus.OK);
+		}
 	}
 }

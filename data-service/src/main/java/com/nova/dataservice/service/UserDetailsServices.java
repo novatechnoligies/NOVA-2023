@@ -27,6 +27,8 @@ public interface UserDetailsServices {
 
 	Optional<UserDetails> findUserByEmailAndOtp(String email, String otp);
 
-	List<UserDetailsDTO> findUserByPhone(String phone);
+	List<UserDetailsDTO> getConsumerByPhone(String phone);
+
+	List<UserDetailsDTO> getAllUserDetailsByCreadtedBy(Long userId);
 
 }
