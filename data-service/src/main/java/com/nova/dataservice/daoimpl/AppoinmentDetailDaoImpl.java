@@ -2,6 +2,7 @@ package com.nova.dataservice.daoimpl;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.hibernate.query.NativeQuery;
 import org.hibernate.transform.Transformers;
@@ -11,9 +12,13 @@ import org.springframework.stereotype.Repository;
 
 import com.nova.dataservice.DTO.AppoinmentDTO;
 import com.nova.dataservice.DTO.AppoinmentDetailDTO;
+import com.nova.dataservice.DTO.AppointmentTrackingDTO;
+import com.nova.dataservice.DTO.TrackingDTO;
 import com.nova.dataservice.dao.AppointmentDetailDAO;
+import com.nova.dataservice.entity.UserDetails;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 
 @Repository
@@ -80,6 +85,41 @@ public class AppoinmentDetailDaoImpl implements AppointmentDetailDAO{
 			return null;
 		}
 
+	}
+
+	@Override
+	public List<AppointmentTrackingDTO> getCurrentAppointmentByAppointmentIdPatientIdAndLabId(Long appointmentId,
+			Long patientId, Long labId) {
+		String sql = "SELECT *"
+				+ "FROM appointment_details as ad"
+				+ "JOIN user_details as ud ON ud.id = ad.id"
+				+ "JOIN employee_details as ed ON ed.id = ad.id"
+				+ "WHERE ad.id = appointmentId AND ed.id = patientId";
+
+	    Query query = entityManager.createNativeQuery(sql, AppointmentTrackingDTO.class)
+	            .setParameter("appointmentId", appointmentId)
+	            .setParameter("patientId", patientId)
+	    		.setParameter("labId", labId);
+
+	    query.unwrap(NativeQuery.class)
+		
+		.addScalar("appointmentId",StandardBasicTypes.LONG)
+        .addScalar("patientId", StandardBasicTypes.LONG)
+        .addScalar("labId", StandardBasicTypes.LONG)
+        .addScalar("AppointmentDate", StandardBasicTypes.LOCAL_DATE)
+        .addScalar("AppointmentTime", StandardBasicTypes.LOCAL_TIME)
+		.addScalar("testName", StandardBasicTypes.STRING)
+		.addScalar("technicianName", StandardBasicTypes.STRING)
+		.addScalar("technicianId", StandardBasicTypes.LONG)
+		.addScalar("AppointmentStatus", StandardBasicTypes.BOOLEAN);
+		
+		
+		((NativeQuery) query).setResultTransformer(Transformers.aliasToBean(AppointmentTrackingDTO.class));
+		
+		List<AppointmentTrackingDTO> result = query.getResultList();
+			return result;
+		
+		
 	}
 
 	

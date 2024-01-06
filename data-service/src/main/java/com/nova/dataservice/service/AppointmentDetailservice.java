@@ -8,6 +8,7 @@ import org.modelmapper.internal.bytebuddy.asm.Advice.Local;
 
 import com.nova.dataservice.DTO.AppoinmentDTO;
 import com.nova.dataservice.DTO.AppoinmentDetailDTO;
+import com.nova.dataservice.DTO.AppointmentTrackingDTO;
 import com.nova.dataservice.entity.AppontmentDetails;
 
 public interface AppointmentDetailservice {
@@ -21,5 +22,8 @@ public interface AppointmentDetailservice {
 	List<AppoinmentDTO> getTodaysAppointemtsByLabId(LocalDate date, Long labId, LocalDate fromDate, LocalDate toDate);
 
 	List<AppoinmentDetailDTO> getAllServicesByAppointmentIdAndPatientId(Long appointmentId, Long patientId);
+
+	List<AppointmentTrackingDTO> getCurrentAppointmentByAppointmentIdPatientIdAndLabId(Long appointmentId,
+			Long patientId, Long labId);
 
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nova.dataservice.DTO.AppoinmentDTO;
 import com.nova.dataservice.DTO.AppoinmentDetailDTO;
+import com.nova.dataservice.DTO.AppointmentTrackingDTO;
 import com.nova.dataservice.DTO.ShopDetailsDTO;
 import com.nova.dataservice.entity.AppontmentDetails;
 import com.nova.dataservice.service.AppointmentDetailservice;
@@ -106,5 +107,20 @@ public class AppointmentDetailsController {
 		}
 	}
 	
+	@GetMapping(value = "/getCurrentAppointmentByAppointmentIdPatientIdAndLabId/{appointmentId}/{patientId}/{labId}")
+	public ResponseEntity<Object> getCurrentAppointmentByAppointmentIdPatientIdAndLabId(@PathVariable("appointmentId") 
+	Long appointmentId,@PathVariable("patientId") Long patientId,@PathVariable("labId") Long labId){
+		List<AppointmentTrackingDTO> appointmentData = appService.getCurrentAppointmentByAppointmentIdPatientIdAndLabId(appointmentId,patientId,labId);
+		try {
+			if (appointmentData.isEmpty()) {
+				return new ResponseEntity<Object>("There is no appointment list found for this Id",HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Object>(appointmentData,HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<Object>("something went wrong while fatching data",HttpStatus.NOT_FOUND);
+		}
+				
+	}
 	
 }

@@ -15,6 +15,8 @@ public interface EmployeTrackingService {
 
 	List<TrackingDTO> getEmployeeDetailsByShopIdAndOwnerId(Long shopId, Long ownerId);
 
+	List<EmployeTracking> getEmployeDataByEmpIdAndDateRange(Long empId, LocalDate fromDate, LocalDate toDate);
+
 	/*
 	 * List<EmployeTracking> getEmployeDataByEmpIdAndDateRange(Long empId, LocalDate
 	 * fromDate, LocalDate toDate);

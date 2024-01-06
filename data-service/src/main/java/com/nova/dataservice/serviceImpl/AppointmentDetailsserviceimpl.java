@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.nova.dataservice.DTO.AppoinmentDTO;
 import com.nova.dataservice.DTO.AppoinmentDetailDTO;
+import com.nova.dataservice.DTO.AppointmentTrackingDTO;
 import com.nova.dataservice.dao.AppointmentDao;
 import com.nova.dataservice.dao.AppointmentDetailDAO;
 import com.nova.dataservice.entity.AppontmentDetails;
@@ -71,6 +72,13 @@ public class AppointmentDetailsserviceimpl implements AppointmentDetailservice{
 	public List<AppoinmentDetailDTO> getAllServicesByAppointmentIdAndPatientId(Long appointmentId, Long patientId) {
 		// TODO Auto-generated method stub
 		return appDetailDao.findAllServicesByAppointmentIdAndPatientId(appointmentId, patientId);
+	}
+
+	@Override
+	public List<AppointmentTrackingDTO> getCurrentAppointmentByAppointmentIdPatientIdAndLabId(Long appointmentId,
+			Long patientId, Long labId) {
+		// TODO Auto-generated method stub
+		return appDetailDao.getCurrentAppointmentByAppointmentIdPatientIdAndLabId(appointmentId, patientId,labId);
 	}
 
 	
