@@ -15,4 +15,6 @@ public interface ShopsAvilabilityRepository extends JpaRepository<ShopAvalibilit
 
 	Optional<ShopAvalibilityDTO> findFirstByShop(ShopDetails shop);
 
+	Optional<ShopAvalibility> findByShop(ShopDetails shop);
+
 }

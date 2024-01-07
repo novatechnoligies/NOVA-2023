@@ -59,6 +59,12 @@ public class ShopServiceRelationServiceimpl implements ShopServiceRelationServic
 	@Override
 	public ServiceMasterShoplistDto saveServiceListForMultiShop(ServiceMasterShoplistDto serviceRelation) {
 		for (Long shopId : serviceRelation.getShopIds()) {
+			List<ServiceDetailDTO> serivceMastershopRelationList = ServiceDao.findAllShopServiceByLab(shopId);
+			
+			serviceRelation.getMasterShopRelationDTOs()
+			    .removeIf(relationDTO -> serivceMastershopRelationList.stream()
+			        .anyMatch(serviceDetailDTO -> serviceDetailDTO.getServiceId().equals(relationDTO.getId())));
+
 			 for (ServiceMasterShopRelationDTO serviceMasterId : serviceRelation.getMasterShopRelationDTOs()) {
 				 ServiceMasterShopRelation masterShopRelation = new ServiceMasterShopRelation();
 				 
@@ -66,7 +72,7 @@ public class ShopServiceRelationServiceimpl implements ShopServiceRelationServic
 				 seriveM.setId(serviceMasterId.getId());
 				 masterShopRelation.setService(seriveM );
 				 ShopDetails shop = new ShopDetails();
-				 shop.setId(shopId);
+				 shop.setId(shopId); 
 				 
 				 masterShopRelation.setShop(shop);
 				 masterShopRelation.setAmount(serviceMasterId.getAmount());

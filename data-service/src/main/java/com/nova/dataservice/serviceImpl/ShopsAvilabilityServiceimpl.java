@@ -33,27 +33,62 @@ public class ShopsAvilabilityServiceimpl implements ShopsAvilabilityService {
 	@Override
 	public ShopAvalibility saveShopAvailability(ShopAvalibility avalibility) {
 
-		LocalDate currentDate = avalibility.getFromDate();
-		while (!currentDate.isAfter(avalibility.getToDate())) {
-			if (!avalibility.getHolidays().contains(currentDate.getDayOfWeek().toString())) {
-				LocalTime currentTime = avalibility.getFromTime();
-				while (!currentTime.isAfter(avalibility.getToTime())) {
-					SlotAvailability sla = new SlotAvailability();
-					sla.setAppDate(currentDate);
-					sla.setAppintmentStatus("OPEN");
-					sla.setIsDeleted(false);
-					sla.setLastUpdate(LocalDate.now());
-					sla.setShopId(avalibility.getShop());
-					sla.setSlotTime(currentTime);
-					sla.setStatus(true);
-					slaRepo.save(sla);
-					currentTime = currentTime.plusMinutes(avalibility.getTimeInterval());
+		Optional<ShopAvalibility> pastAvailablityDateAndTime = avilabilityRepository.findByShop(avalibility.getShop());
+		if (pastAvailablityDateAndTime.isPresent()) {
+			LocalDate pastFromDate = pastAvailablityDateAndTime.get().getFromDate();
+			LocalDate pastEndDate = pastAvailablityDateAndTime.get().getToDate();
+			LocalDate availabilityFromDate = avalibility.getFromDate();
+			boolean isWithinRange = availabilityFromDate.isAfter(pastFromDate) && availabilityFromDate.isBefore(pastEndDate);
+			if (!isWithinRange) {
+				LocalDate currentDate = avalibility.getFromDate();
+				while (!currentDate.isAfter(avalibility.getToDate())) {
+					if (!avalibility.getHolidays().contains(currentDate.getDayOfWeek().toString())) {
+						LocalTime currentTime = avalibility.getFromTime();
+						while (!currentTime.isAfter(avalibility.getToTime())) {
+							SlotAvailability sla = new SlotAvailability();
+							sla.setAppDate(currentDate);
+							sla.setAppintmentStatus("OPEN");
+							sla.setIsDeleted(false);
+							sla.setLastUpdate(LocalDate.now());
+							sla.setShopId(avalibility.getShop());
+							sla.setSlotTime(currentTime);
+							sla.setStatus(true);
+							slaRepo.save(sla);
+							currentTime = currentTime.plusMinutes(avalibility.getTimeInterval());
+						}
+					}
+					currentDate = currentDate.plusDays(1);
 				}
-			}
-			currentDate = currentDate.plusDays(1);
-		}
 
-		return avilabilityRepository.save(avalibility);
+				return avilabilityRepository.save(avalibility);
+			}
+		} else {
+
+			LocalDate currentDate = avalibility.getFromDate();
+			while (!currentDate.isAfter(avalibility.getToDate())) {
+				if (!avalibility.getHolidays().contains(currentDate.getDayOfWeek().toString())) {
+					LocalTime currentTime = avalibility.getFromTime();
+					while (!currentTime.isAfter(avalibility.getToTime())) {
+						SlotAvailability sla = new SlotAvailability();
+						sla.setAppDate(currentDate);
+						sla.setAppintmentStatus("OPEN");
+						sla.setIsDeleted(false);
+						sla.setLastUpdate(LocalDate.now());
+						sla.setShopId(avalibility.getShop());
+						sla.setSlotTime(currentTime);
+						sla.setStatus(true);
+						slaRepo.save(sla);
+						currentTime = currentTime.plusMinutes(avalibility.getTimeInterval());
+					}
+				}
+				currentDate = currentDate.plusDays(1);
+			}
+
+			return avilabilityRepository.save(avalibility);
+		
+		}
+		return avalibility;
+		
 	}
 
 	@Override
