@@ -16,6 +16,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 public class ShopDetailsDTO {
+			
 	private Long id;
 	
 	private String shopName;
@@ -56,9 +57,11 @@ public class ShopDetailsDTO {
 	
 	private String amenities;
 	
+	private String ownerName;
 	
+	private Long ownerId;
 	
-	
+	private String shopPhoto;
 	
 	public Long getId() {
 		return id;
@@ -204,6 +207,46 @@ public class ShopDetailsDTO {
 
 	public void setGstNo(String gstNo) {
 		this.gstNo = gstNo;
+	}
+
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+
+	public Long getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(Long capacity) {
+		this.capacity = capacity;
+	}
+
+	public String getAmenities() {
+		return amenities;
+	}
+
+	public void setAmenities(String amenities) {
+		this.amenities = amenities;
+	}
+
+	public String getShopPhoto() {
+		return shopPhoto;
+	}
+
+	public void setShopPhoto(String shopPhoto) {
+		this.shopPhoto = shopPhoto;
+	}
+
+	public Long getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(Long ownerId) {
+		this.ownerId = ownerId;
 	}
 
 	

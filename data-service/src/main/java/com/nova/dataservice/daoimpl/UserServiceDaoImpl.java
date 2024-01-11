@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nova.dataservice.DTO.ServiceDetailDTO;
+import com.nova.dataservice.DTO.ShopDetailsDTO;
 import com.nova.dataservice.DTO.SlotAvailabilityDTO;
 import com.nova.dataservice.dao.UserServiceDao;
 import com.nova.dataservice.entity.ServiceMasterShopRelation;
@@ -130,6 +131,47 @@ public class UserServiceDaoImpl implements UserServiceDao{
         
         if (result != null) {
 			return(List<ServiceDetailDTO>)result;
+		}else {
+			return null;
+		}
+	
+	}
+
+	@Override
+	public List<ShopDetailsDTO> getAllLabListByOwnerId(Long ownerId) {
+		String sql = "SELECT sd.id AS id,sd.email AS email,sd.gst_no AS gstNo,sd.logo AS logo,sd.phone AS phone,sd.latitude AS latitude "
+				+ ",sd.longitude AS longitude ,sd.created_at AS createdAt, sd.shop_address AS shopAddress,sd.shop_code AS shopCode,sd.shop_photo AS shopPhoto, "
+				+ "ud.id as OwnerId, ud.username AS ownerName "
+				+ "FROM shop_details AS sd "
+				+ "JOIN user_details AS ud ON ud.id= sd.user_id "
+				+ "where sd.user_id = :ownerId";
+		
+		Query query = entityManager.createNativeQuery(sql.toString())
+				.setParameter("ownerId",  ownerId ); 
+		
+		query.unwrap(NativeQuery.class)
+		.addScalar("id",StandardBasicTypes.LONG)
+		.addScalar("email",StandardBasicTypes.STRING)
+		.addScalar("gstNo",StandardBasicTypes.STRING)
+        .addScalar("logo", StandardBasicTypes.STRING)
+        .addScalar("phone", StandardBasicTypes.STRING)
+        .addScalar("latitude", StandardBasicTypes.STRING)
+        .addScalar("longitude", StandardBasicTypes.STRING)
+        .addScalar("shopAddress", StandardBasicTypes.STRING)
+		.addScalar("shopCode", StandardBasicTypes.STRING)
+		.addScalar("shopPhoto", StandardBasicTypes.STRING)
+		.addScalar("OwnerId", StandardBasicTypes.LONG)
+		.addScalar("createdAt", StandardBasicTypes.LOCAL_DATE)
+		.addScalar("ownerName", StandardBasicTypes.STRING);
+		
+		
+		
+        ((NativeQuery) query).setResultTransformer(Transformers.aliasToBean(ShopDetailsDTO.class));
+        
+        Object result = query.getResultList();
+        
+        if (result != null) {
+			return(List<ShopDetailsDTO>)result;
 		}else {
 			return null;
 		}

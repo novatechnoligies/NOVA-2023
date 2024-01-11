@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.nova.dataservice.DTO.ServiceDetailDTO;
+import com.nova.dataservice.DTO.ShopDetailsDTO;
 import com.nova.dataservice.DTO.SlotAvailabilityDTO;
 import com.nova.dataservice.entity.UserDetails;
 
@@ -17,5 +18,7 @@ public interface UserServiceDao {
 	List<SlotAvailabilityDTO> getAllSlotAvailabilityByLabIdAndDate(LocalDate date, Long labId);
 
 	List<ServiceDetailDTO> findAllShopServiceByLab(Long labId);
+
+	List<ShopDetailsDTO> getAllLabListByOwnerId(Long ownerId);
 
 }
