@@ -32,7 +32,11 @@ public class TechnicianDetails {
 	
 	@Column(name = "created_at")
 	private LocalDate createdAt;
+	
+	@Column(name="appointmentId")
+	private Long appointmentId;
 
+	
 	/**
 	 * @return the id
 	 */
@@ -117,6 +121,16 @@ public class TechnicianDetails {
 		this.createdAt = createdAt;
 	}
 	
+	public Long getAppointmentId() {
+		return appointmentId;
+	}
+
+	/**
+	 * @param createdAt the createdAt to set
+	 */
+	public void setAppointmentId(Long appointmentId) {
+		this.appointmentId = appointmentId;
+	}
 	
 	
 	
