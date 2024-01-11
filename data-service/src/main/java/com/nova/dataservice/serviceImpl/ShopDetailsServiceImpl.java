@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.nova.dataservice.DTO.ShopDetailsDTO;
 import com.nova.dataservice.DTO.UserDetailsDTO;
+import com.nova.dataservice.dao.UserServiceDao;
 import com.nova.dataservice.entity.ShopDetails;
 import com.nova.dataservice.entity.UserDetails;
 import com.nova.dataservice.repository.ShopDetailsRepository;
@@ -24,6 +25,9 @@ public class ShopDetailsServiceImpl implements ShopDetailsService {
 	
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	UserServiceDao userServiceDao;
 	
 	
 	@Override
@@ -66,10 +70,13 @@ public class ShopDetailsServiceImpl implements ShopDetailsService {
 		// TODO Auto-generated method stub
 		UserDetails owner = new UserDetails();
 		owner.setId(ownerId);
-		List<ShopDetails> data = detailsRepository.findByOwner(owner);
-		List<ShopDetailsDTO> shopDetailsDTOList = data.stream()
-				.map(shopDe -> modelMapper.map(shopDe, ShopDetailsDTO.class)).collect(Collectors.toList());
-		return shopDetailsDTOList;
+		
+		return userServiceDao.getAllLabListByOwnerId(ownerId);
+//		List<ShopDetails> shopDetails = detailsRepository.findByOwner(owner);
+//		
+//		List<ShopDetailsDTO> shopDetailsDTOList = shopDetails.stream()
+//				.map(shopDe -> modelMapper.map(shopDe, ShopDetailsDTO.class)).collect(Collectors.toList());
+//		return shopDetailsDTOList;
 	}
 
 }
