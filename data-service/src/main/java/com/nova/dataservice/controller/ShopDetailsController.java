@@ -109,5 +109,21 @@ public class ShopDetailsController {
 			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
 		}
 	}
+	
+	@GetMapping(value = "getAllLabListForTabletByOwnerId")
+	public ResponseEntity<Object> getAllLabListForTabletByOwnerId( Long ownerId) {
+
+		try {
+			List<ShopDetailsDTO> data = detailsService.getAllLabListForTabletByOwnerId( ownerId);
+			if (data.isEmpty()) {
+				return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
+		}
+	}
 
 }
