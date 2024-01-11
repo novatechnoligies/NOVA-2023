@@ -10,7 +10,7 @@ import com.nova.dataservice.entity.InventoryShopRelation;
 
 public interface InventoryShopRelationRepository extends JpaRepository<InventoryShopRelation, Long>{
 
-	InventoryShopRelation uploadCSV(MultipartFile file);
+//	InventoryShopRelation uploadCSV(MultipartFile file);
 
 	
 	

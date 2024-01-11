@@ -52,5 +52,21 @@ public class TechnicianDetailsController {
 			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
 		}
 	}
+	@GetMapping(value = "getAllTechnicianNotesByAppointmentIdAndTechnicianId")
+	public ResponseEntity<Object> getAllTechnicianNotesByAppointmentIdAndTechnicianId(Long appointmentId, Long technicianId) {
+
+		try {
+			List<TechnicianDetails> data = techSer.getAllTechnicianNotesByAppointmentIdAndTechnicianId(appointmentId, technicianId);
+			if (data.isEmpty()) {
+				return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
+		}
+	}
+	
 	
 }
