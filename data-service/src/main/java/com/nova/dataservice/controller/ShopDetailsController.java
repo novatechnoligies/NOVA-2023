@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nova.dataservice.DTO.ServiceMasterDTO;
 import com.nova.dataservice.DTO.ShopDetailsDTO;
-import com.nova.dataservice.DTO.UserDetailsDTO;
 import com.nova.dataservice.entity.ShopDetails;
 import com.nova.dataservice.service.ShopDetailsService;
 
