@@ -18,4 +18,6 @@ public interface ShopDetailsService {
 
 	List<ShopDetailsDTO> getAllLabListByOwnerId(Long ownerId);
 
+	List<ShopDetailsDTO> getAllLabListForTabletByOwnerId(Long ownerId);
+
 }
