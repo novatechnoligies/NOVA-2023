@@ -28,7 +28,7 @@ public class PatientDetailsDaoImpl implements PatientDetailsDao {
     @Override
     public PatientDetailsDTO findPatientDetailsByAppointmentId(Long appointmentId) {
         String sql = "SELECT ap.id AS appointmentId, ap.consumer_id AS patientId, ap.created_at AS appointmentDate, "
-                + "ud.adhar_photo AS profilePhoto, ud.email AS emailId, ud.gender AS gender, ud.phone AS phoneNumber, ud.pin AS zipCode "
+                + "ud.adhar_photo AS profilePhoto, ud.email AS emailId, ud.gender AS gender, ud.phone AS phoneNumber, ud.pin AS zipCode,ud.username AS patientName "
                 + " FROM  appointment_details AS ap "
                 + " JOIN user_details As ud ON ud.id=ap.consumer_id "
                 + " WHERE ap.id= :appointmentId ";
@@ -43,7 +43,9 @@ public class PatientDetailsDaoImpl implements PatientDetailsDao {
                 .addScalar("emailId", StandardBasicTypes.STRING)
                 .addScalar("gender", StandardBasicTypes.STRING)
                 .addScalar("phoneNumber", StandardBasicTypes.STRING)
-                .addScalar("zipCode", StandardBasicTypes.STRING);
+                .addScalar("zipCode", StandardBasicTypes.STRING)
+                .addScalar("patientName", StandardBasicTypes.STRING);
+                
 
         ((NativeQuery) query).setResultTransformer(Transformers.aliasToBean(PatientDetailsDTO.class));
 
