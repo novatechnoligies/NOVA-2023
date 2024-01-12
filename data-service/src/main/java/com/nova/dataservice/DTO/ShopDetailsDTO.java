@@ -57,7 +57,7 @@ public class ShopDetailsDTO {
 	
 	private String amenities;
 	
-	private String ownerName;
+	//private String ownerName;
 	
 	private Long ownerId;
 	
@@ -209,13 +209,13 @@ public class ShopDetailsDTO {
 		this.gstNo = gstNo;
 	}
 
-	public String getOwnerName() {
-		return ownerName;
-	}
-
-	public void setOwnerName(String ownerName) {
-		this.ownerName = ownerName;
-	}
+//	public String getOwnerName() {
+//		return ownerName;
+//	}
+//
+//	public void setOwnerName(String ownerName) {
+//		this.ownerName = ownerName;
+//	}
 
 	public Long getCapacity() {
 		return capacity;
