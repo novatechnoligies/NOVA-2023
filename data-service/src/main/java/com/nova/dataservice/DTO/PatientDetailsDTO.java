@@ -31,6 +31,8 @@ public class PatientDetailsDTO {
 	private String memberStatus;
 	
 	private Long appointmentId;
+	
+	private String patientName;
 
 	/**
 	 * @return the petienttId
@@ -225,6 +227,14 @@ public class PatientDetailsDTO {
 
 	public void setPatientId(Long patientId) {
 		this.patientId = patientId;
+	}
+
+	public String getPatientName() {
+		return patientName;
+	}
+
+	public void setPatientName(String patientName) {
+		this.patientName = patientName;
 	}
 	
 }
