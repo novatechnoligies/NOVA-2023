@@ -24,7 +24,8 @@ public class InventoryShopRelationServiceImpl implements InventoryShopRelationSe
 
 	public InventoryShopRelation uploadCSV(MultipartFile file) {
 		// TODO Auto-generated method stub
-		return relationRepository.uploadCSV(file);
+		return null;
+				//relationRepository.uploadCSV(file);
 		
 	}
 

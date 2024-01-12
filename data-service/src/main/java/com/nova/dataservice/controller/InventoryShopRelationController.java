@@ -49,15 +49,15 @@ public class InventoryShopRelationController {
 	
 
   
-    @PostMapping("/upload")
-    public ResponseEntity<String> uploadCSV(@RequestParam("file") MultipartFile file) {
-    	InventoryShopRelation data = InventoryShopRelationService.uploadCSV(file);
-        if (file.isEmpty()) {
-            return ResponseEntity.badRequest().body("Please provide a CSV file");
-        }
-
-        return ResponseEntity.ok("CSV uploaded successfully");
-    }
-    
+//    @PostMapping("/upload")
+//    public ResponseEntity<String> uploadCSV(@RequestParam("file") MultipartFile file) {
+//    	InventoryShopRelation data = InventoryShopRelationService.uploadCSV(file);
+//        if (file.isEmpty()) {
+//            return ResponseEntity.badRequest().body("Please provide a CSV file");
+//        }
+//
+//        return ResponseEntity.ok("CSV uploaded successfully");
+//    }
+//    
    
 }
