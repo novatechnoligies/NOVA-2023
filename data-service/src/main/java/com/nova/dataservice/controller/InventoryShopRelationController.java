@@ -48,7 +48,6 @@ public class InventoryShopRelationController {
 }
 	
 
-  
 //    @PostMapping("/upload")
 //    public ResponseEntity<String> uploadCSV(@RequestParam("file") MultipartFile file) {
 //    	InventoryShopRelation data = InventoryShopRelationService.uploadCSV(file);
@@ -59,5 +58,7 @@ public class InventoryShopRelationController {
 //        return ResponseEntity.ok("CSV uploaded successfully");
 //    }
 //    
+
    
+
 }
