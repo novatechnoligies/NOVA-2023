@@ -10,10 +10,9 @@ import com.nova.dataservice.entity.MasterInventory;
 
 public interface MasterInventoryRepository extends JpaRepository<MasterInventory, Long> {
 
-//	static MasterInventory uploadCSV(MultipartFile file) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
+	static MasterInventory uploadCSV(MultipartFile file) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
