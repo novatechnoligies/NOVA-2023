@@ -57,32 +57,79 @@ public class PdfLabReportGenaratorController {
 			
 			Document document=new Document(pdfdoc);
 			
-			Paragraph headerParagraph = new Paragraph()
-                    .setFontColor(com.itextpdf.kernel.color.Color.BLACK)  // Set the font color
-                    .setFontSize(12)  // Set the font size
-                    .setBold();
+//			Paragraph headerParagraph = new Paragraph()
+//                    .setFontColor(com.itextpdf.kernel.color.Color.BLACK)  
+//                    .setFontSize(12)  
+//                    .setBold();
 			
 			
-			Table table = new Table(UnitValue.createPercentArray(new float[]{10.33f, 70.33f, 20.33f}))
+			Table labTable = new Table(UnitValue.createPercentArray(new float[]{10.00f, 70.00f, 20.00f}))
                     .useAllAvailableWidth();  
 			
-			 // Create a cell with colored text for "Column 1"
             Text column1Text = new Text("Column 1")
                     .setBold()
-                    .setFontColor(com.itextpdf.kernel.color.Color.RED);
+                    .setFontColor(com.itextpdf.kernel.color.Color.BLUE);
 
-            // Create a cell with an empty border
             Cell cell1 = new Cell().add(new Paragraph(column1Text));
 
 
-            // Add content to the table
-            table.addCell(cell1);
-            table.addCell(new Cell().add("Column 2").setBorder(null));
-            table.addCell(new Cell().add("Column 3").setBorder(null));
+            labTable.addCell(cell1.setBorder(null));
+            
+            Text labName = new Text("   APOLO LAB KODIGEHALLI")
+                    .setBold()
+                    .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
+                    .setFontSize(10.0f);
+            Cell labNameCell = new Cell().add(new Paragraph(labName));
+            		
+            labTable.addCell(labNameCell.setBorder(null).setTextAlignment(TextAlignment.CENTER));
+            
+            labTable.addCell(new Cell().add("Column 3").setBorder(null));
 
            
             // Add the table to the document
-            document.add(table);
+            //document.add(labTable);
+            
+            
+            Table patientTable = new Table(UnitValue.createPercentArray(new float[]{30.00f, 30.00f, 30.00f}))
+                    .useAllAvailableWidth();  
+			
+            Text paname = new Text("Name: "+"Santosh")
+                    .setBold()
+                    .setFontColor(com.itextpdf.kernel.color.Color.BLUE);
+
+            Cell patNameCell = new Cell().add(new Paragraph(paname));
+
+
+            patientTable.addCell(patNameCell.setBorderLeft(null).setBorderTop(null).setBorderBottom(null));
+            
+            Text ptAddress = new Text("Address:"+ "APOLO LAB KODIGEHALLI")
+                    .setBold()
+                    .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
+                    .setFontSize(10.0f);
+            Cell ptAddressCell = new Cell().add(new Paragraph(ptAddress));
+            		
+            patientTable.addCell(ptAddressCell.setBorder(null));
+            
+            patientTable.addCell(new Cell().add("email: "+"san@nova-tech.in").setBorder(null));
+
+            Table testNameTable = new Table(UnitValue.createPercentArray(new float[]{100.00f}))
+                    .useAllAvailableWidth(); 
+           
+            Text testNameText = new Text("COMPLTE BLOOD COUNT(CBC)")
+                    .setBold()
+                    .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
+                    .setTextAlignment(TextAlignment.CENTER);
+
+            Cell testNameTextCell = new Cell().add(new Paragraph(testNameText));
+
+
+            testNameTable.addCell(testNameTextCell.setTextAlignment(TextAlignment.CENTER));
+            
+            // Add the table to the document
+            document.add(labTable);
+            document.add(patientTable);
+            document.add(testNameTable);
+            
 
             // Close the document
             document.close();
