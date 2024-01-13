@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nova.dataservice.entity.Locations;
 import com.nova.dataservice.entity.MasterInventory;
@@ -38,5 +40,24 @@ public class MasterInventoryController {
 			return new ResponseEntity<>("somthing went wrong fail to save data , due to MYSQL is down", HttpStatus.OK);
 		}
 	}
+	
+	@PostMapping(value = "uploadMasterInventoryByCsv")
+	public ResponseEntity<Object> uploadMasterInventoryByCsv(@RequestParam("file")  MultipartFile inventoryFile) {
+		try {
+		    boolean data = inventoryService.uploadMasterInventoryByCsv(inventoryFile);
+
+		    if (data) {
+		        return new ResponseEntity<>(data, HttpStatus.OK);
+		    } else {
+		        return new ResponseEntity<>("Failed to save data", HttpStatus.OK);
+		    }
+		} catch (Exception e) {
+		    e.printStackTrace();
+		    return new ResponseEntity<>("Something went wrong; failed to save data due to MYSQL being down", HttpStatus.OK);
+		}
+
+	}
+	
+	
 
 }
