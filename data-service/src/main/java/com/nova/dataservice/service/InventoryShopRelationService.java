@@ -10,6 +10,10 @@ public interface InventoryShopRelationService {
 
 	InventoryShopRelation uploadCSV(MultipartFile file);
 
+	boolean uploadInventoryShopRelationByCsv(MultipartFile inventoryFile);
+
+	
+
 	
 
 }
