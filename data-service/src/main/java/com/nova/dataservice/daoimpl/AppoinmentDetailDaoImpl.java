@@ -29,9 +29,11 @@ public class AppoinmentDetailDaoImpl implements AppointmentDetailDAO{
 				+ "	JOIN user_details AS ud ON ud.id = ap.consumer_id "
 				+ "	JOIN   slot_availibility AS sa ON sa.id = ap.slot_id "
 				+ "	JOIN service_master As sm ON sm.id = ap.service_id "
-				+ "	JOIN shop_service_relation AS ssr ON ssr.id=ap.shop_id " + "	WHERE sa.id = :appointmentId";
+				+ "	JOIN shop_service_relation AS ssr ON ssr.id=ap.shop_id " 
+				+ "	WHERE sa.id = :appointmentId";
 
-		Query query = entityManager.createNativeQuery(sql.toString()).setParameter("appointmentId", appointmentId);
+		Query query = entityManager.createNativeQuery(sql.toString())
+				.setParameter("appointmentId", appointmentId);
 
 		query.unwrap(NativeQuery.class).addScalar("appointmentId", StandardBasicTypes.LONG)
 				.addScalar("patientName", StandardBasicTypes.STRING)
