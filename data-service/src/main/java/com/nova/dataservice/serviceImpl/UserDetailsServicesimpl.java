@@ -14,10 +14,13 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.nova.dataservice.DTO.AccessPermissionsDTO;
 import com.nova.dataservice.DTO.UserDetailsDTO;
 import com.nova.dataservice.dao.UserServiceDao;
+import com.nova.dataservice.entity.AccessPermissions;
 import com.nova.dataservice.entity.Role;
 import com.nova.dataservice.entity.UserDetails;
+import com.nova.dataservice.repository.AccessPermissionsRepository;
 import com.nova.dataservice.repository.RoleRepo;
 import com.nova.dataservice.repository.UserDetailsRepository;
 import com.nova.dataservice.service.UserDetailsServices;
@@ -40,6 +43,9 @@ public class UserDetailsServicesimpl implements UserDetailsServices {
 	
 	@Autowired
 	RestTemplate restTemplate;
+	
+	@Autowired
+	AccessPermissionsRepository accessPermissionsRepository;
 
 	@Override
 	public UserDetails saveUserDetails(UserDetails userDetails) {
@@ -83,9 +89,23 @@ public class UserDetailsServicesimpl implements UserDetailsServices {
 	@Override
 	public UserDetailsDTO getUserByUserNameAndPassword(String userName, String password) {
 		Optional<UserDetails> data = serviceDao.findByUsernameAndPassword(userName,password);
+		
+		List<AccessPermissions> accePermissions = null;
+		if (data.isPresent()) {
+		 accePermissions =	accessPermissionsRepository.findByEmployeeDetails(data.get());
+		}
+		
 		UserDetailsDTO userDetailsDTO = data.map(userDetails ->
         									modelMapper.map(userDetails, UserDetailsDTO.class)).orElse(null);
-
+		
+		//set to acc dto
+		List<AccessPermissionsDTO> accePermissionsDto = accePermissions.stream()
+	    .map(userDetails -> modelMapper.map(userDetails, AccessPermissionsDTO.class))
+	    .collect(Collectors.toList());
+		AccessPermissionsDTO accessPermissionsDTO =data.map(AccessPermissions ->
+		                                    modelMapper.map(AccessPermissions, AccessPermissionsDTO.class)).orElse(null);
+		
+		userDetailsDTO.setAccePermissions(accePermissionsDto);
 		return userDetailsDTO;
 	}
 
