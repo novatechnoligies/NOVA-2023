@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nova.dataservice.entity.AccessPermissions;
 import com.nova.dataservice.entity.Organization;
 import com.nova.dataservice.entity.Role;
 import com.nova.dataservice.entity.ShopDetails;
@@ -58,6 +59,22 @@ public class UserDetailsDTO {
 	private Boolean isPhoneNoVerified;
 
 	private RoleDTO role;
+	
+	/**
+	 * @return the accePermissions
+	 */
+	public List<AccessPermissionsDTO> getAccePermissions() {
+		return accePermissions;
+	}
+
+	/**
+	 * @param accePermissions the accePermissions to set
+	 */
+	public void setAccePermissions(List<AccessPermissionsDTO> accePermissions) {
+		this.accePermissions = accePermissions;
+	}
+
+	List<AccessPermissionsDTO> accePermissions;
 
 	public Long getId() {
 		return id;
