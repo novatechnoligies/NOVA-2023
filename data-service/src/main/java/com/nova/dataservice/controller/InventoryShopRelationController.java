@@ -47,18 +47,22 @@ public class InventoryShopRelationController {
 
 }
 	
+	
 
-//    @PostMapping("/upload")
-//    public ResponseEntity<String> uploadCSV(@RequestParam("file") MultipartFile file) {
-//    	InventoryShopRelation data = InventoryShopRelationService.uploadCSV(file);
-//        if (file.isEmpty()) {
-//            return ResponseEntity.badRequest().body("Please provide a CSV file");
-//        }
-//
-//        return ResponseEntity.ok("CSV uploaded successfully");
-//    }
-//    
+	@PostMapping(value = "uploadInventoryShopRelationByCsv")
+	public ResponseEntity<Object> uploadInventoryShopRelationByCsv(@RequestParam("file")  MultipartFile inventoryFile) {
+		try {
+		    boolean data = relationService.uploadInventoryShopRelationByCsv(inventoryFile);
 
-   
+		    if (data) {
+		        return new ResponseEntity<>(data, HttpStatus.OK);
+		    } else {
+		        return new ResponseEntity<>("Failed to save data", HttpStatus.OK);
+		    }
+		} catch (Exception e) {
+		    e.printStackTrace();
+		    return new ResponseEntity<>("Something went wrong; failed to save data due to MYSQL being down", HttpStatus.OK);
+		}
 
+	}
 }
