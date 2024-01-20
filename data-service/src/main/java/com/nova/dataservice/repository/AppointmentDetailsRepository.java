@@ -14,4 +14,6 @@ import com.nova.dataservice.entity.AppontmentDetails;
 @Repository
 public interface AppointmentDetailsRepository extends JpaRepository<AppontmentDetails, Long> {
 
+	List<AppoinmentDTO> findAllAppointmentsByLabId(Long labId);
+
 }

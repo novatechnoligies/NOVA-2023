@@ -25,4 +25,7 @@ public interface AppointmentDetailservice {
 
 	PatientDetailsDTO getPatientDetailsByAppointmentId(Long appointmentId);
 
+	List<AppoinmentDetailDTO> getTotalAppointmentsByLabId(Long labId);
+
+
 }

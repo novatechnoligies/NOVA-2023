@@ -12,16 +12,19 @@ public class AppoinmentDetailDTO {
 	private String patientPhone;
 	private String appointmentStatus;
 	private String patientAdhar;
-	private Long shopId;
+	private Long labId;
 	private Long masterId;
 	private Long serviceId;
 	private String serviceName;
-	private Float ammount;
+	private Float amount;
 	private String status;
 	private String tax;
 	private Long patientId;
 	private Float serviceAmount;
 	private String serviceStatus;
+	private String labAddress;
+	private String labCode;
+	private String labName;
 	
 	public Long getAppointmentId() { 
 		return appointmentId;
@@ -71,11 +74,11 @@ public class AppoinmentDetailDTO {
 	public void setPatientAdhar(String patientAdhar) {
 		this.patientAdhar = patientAdhar;
 	}
-	public Long getShopId() {
-		return shopId;
+	public Long getLabId() {
+		return labId;
 	}
-	public void setShopId(Long shopId) {
-		this.shopId = shopId;
+	public void setLabId(Long labId) {
+		this.labId = labId;
 	}
 	public Long getMasterId() {
 		return masterId;
@@ -95,11 +98,11 @@ public class AppoinmentDetailDTO {
 	public void setServiceName(String serviceName) {
 		this.serviceName = serviceName;
 	}
-	public Float getAmmount() {
-		return ammount;
+	public Float getAmount() {
+		return amount;
 	}
-	public void setAmmount(Float ammount) {
-		this.ammount = ammount;
+	public void setAmount(Float amount) {
+		this.amount = amount;
 	}
 	public String getStatus() {
 		return status;
@@ -130,6 +133,24 @@ public class AppoinmentDetailDTO {
 	}
 	public void setServiceStatus(String serviceStatus) {
 		this.serviceStatus = serviceStatus;
+	}
+	public String getLabAddress() {
+		return labAddress;
+	}
+	public void setLabAddress(String labAddress) {
+		this.labAddress = labAddress;
+	}
+	public String getLabCode() {
+		return labCode;
+	}
+	public void setLabCode(String labCode) {
+		this.labCode = labCode;
+	}
+	public String getLabName() {
+		return labName;
+	}
+	public void setLabName(String labName) {
+		this.labName = labName;
 	}
 	
 

@@ -105,6 +105,21 @@ public class AppointmentDetailsController {
 			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
 		}
 	}
+	@GetMapping(value = "getTotalAppointmentsByLabId")
+	public ResponseEntity<Object> getTotalAppointmentsByLabId(Long labId) {
+
+		try {
+			List<AppoinmentDetailDTO> data = appService.getTotalAppointmentsByLabId(labId);
+			if (data==null) {
+				return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
+		}
+	}
 	
 	
 }

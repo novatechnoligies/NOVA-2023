@@ -21,8 +21,9 @@ public class AppontmentDetails {
 
     @Column (name="slot_id")
     private Long slotId;
-    @Column (name="shop_id")
-    private Long shopId;
+    
+    @Column (name="lab_id")
+    private Long labId;
     
     @Column(name = "appointment_status")
     private String appointmentStatus;
@@ -72,12 +73,12 @@ public class AppontmentDetails {
 		this.slotId = slotId;
 	}
 
-	public Long getShopId() {
-		return shopId;
+	public Long getLabId() {
+		return labId;
 	}
 
-	public void setShopId(Long shopId) {
-		this.shopId = shopId;
+	public void setLabId(Long labId) {
+		this.labId = labId;
 	}
 
 	public String getAppointmentStatus() {

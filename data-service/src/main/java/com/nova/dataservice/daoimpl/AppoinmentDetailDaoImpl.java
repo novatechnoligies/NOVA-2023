@@ -8,6 +8,7 @@ import org.hibernate.type.StandardBasicTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nova.dataservice.DTO.AppoinmentDTO;
 import com.nova.dataservice.DTO.AppoinmentDetailDTO;
 import com.nova.dataservice.dao.AppointmentDetailDAO;
 
@@ -57,8 +58,43 @@ public class AppoinmentDetailDaoImpl implements AppointmentDetailDAO{
 		} else {
 			return null;
 		}
-
+		
 	}
+
+	@Override
+	public List<AppoinmentDetailDTO> findAllAppointmentsByLabId(Long labId) {
+		String sql = "SELECT ad.id AS appointmentId, ad.amount AS amount, ad.shop_id AS labId, ad.consumer_id AS patientId,ad.created_at AS appointmentDate, "
+				+ "ad.appointment_status AS appointmentStatus, "
+				+ "sd.shop_address AS labAddress,sd.shop_code AS labCode,sd.shop_name AS labName "
+				+ " FROM appointment_details AS ad "
+				+ " JOIN shop_details sd ON sd.id=ad.shop_id "
+				+ " WHERE sd.id = :labId";
+
+		Query query = entityManager.createNativeQuery(sql.toString())
+				.setParameter("labId", labId);
+
+		query.unwrap(NativeQuery.class).addScalar("labId", StandardBasicTypes.LONG)
+		        .addScalar("appointmentId", StandardBasicTypes.LONG)
+				.addScalar("amount", StandardBasicTypes.FLOAT)
+				.addScalar("patientId", StandardBasicTypes.LONG)
+				.addScalar("appointmentDate", StandardBasicTypes.LOCAL_DATE)
+				.addScalar("appointmentStatus", StandardBasicTypes.STRING)
+				.addScalar("labAddress", StandardBasicTypes.STRING)
+				.addScalar("labCode", StandardBasicTypes.STRING)
+				.addScalar("labName", StandardBasicTypes.STRING);
+				
+		((NativeQuery) query).setResultTransformer(Transformers.aliasToBean(AppoinmentDetailDTO.class));
+
+		Object result = query.getResultList();
+
+		if (result != null) {
+			return (List<AppoinmentDetailDTO>) result;
+		} else {
+			return null;
+		}
+		
+	}
+
 
 	
 }

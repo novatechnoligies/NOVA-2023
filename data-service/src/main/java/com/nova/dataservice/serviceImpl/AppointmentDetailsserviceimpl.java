@@ -83,6 +83,12 @@ public class AppointmentDetailsserviceimpl implements AppointmentDetailservice{
 		return patientDao.findPatientDetailsByAppointmentId(appointmentId);
 	}
 
+	@Override
+	public List<AppoinmentDetailDTO> getTotalAppointmentsByLabId(Long labId) {
+		// TODO Auto-generated method stub
+		return appDetailDao.findAllAppointmentsByLabId(labId);
+	}
+
 	
 
 }
