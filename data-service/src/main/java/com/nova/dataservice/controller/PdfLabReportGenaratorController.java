@@ -56,8 +56,8 @@ public class PdfLabReportGenaratorController {
 	
 	@GetMapping(value = "createPdfReportAndSave")
 	public void createPdfReportAndSave(Long appointmentId, Long testId, String result) {
-		//Optional<ShopDetailsDTO> labData = shopDetailsService.findByIdShopDetails(1l);
-		//UserDetailsDTO userData = userDetailsServices.getUserDetailsById(1l);
+		Optional<ShopDetailsDTO> labData = shopDetailsService.findByIdShopDetails(4l);
+		UserDetailsDTO userData = userDetailsServices.getUserDetailsById(1l);
 		LabMasterDTO report = labReportGenaratorMasterService.labReportGenaratorMaster(1l);
 		
 		String filepath="D:\\labreportdev\\darshan.pdf";
@@ -83,37 +83,83 @@ public class PdfLabReportGenaratorController {
             labTable.addCell(imageCell.setTextAlignment(TextAlignment.CENTER));
 			//logo ends here
             
-            
-            //lab name starts here
-            String labNameStr = "APOLO LAB KODIGEHALLI";
+          //lab name starts here
+            if (labData.isPresent()) {
+				ShopDetailsDTO shopDetailsDTO = labData.get();
+				
+				String labNameStr = shopDetailsDTO.getShopName();
+				
+			
+           // String labNameStr = "APOLO LAB KODIGEHALLI";
             int indexOfSpace = labNameStr.indexOf(" ");
-            String firstWord = labNameStr.substring(0, indexOfSpace);
-            String remainingText = labNameStr.substring(indexOfSpace + 1);
-
-            // Add the first word in black
-            Text firstWordText = new Text(firstWord)
-                    .setBold()
-                    .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
-                    .setFontSize(20.0f);
-
-            // Add the remaining text in red
-            Text remainingTextElement = new Text(remainingText)
-                    .setBold()
-                    .setFontColor(com.itextpdf.kernel.color.Color.RED)
-                    .setFontSize(20.0f);
-
-            // Create a paragraph with both text elements
-            Paragraph labNameParagraph = new Paragraph().add(firstWordText).add(remainingTextElement);
             
-            Paragraph labVisionParagraph = new Paragraph("Accurate | Caring | Instant")
-                    .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
-                    .setFontSize(15.0f);
-            
-            Cell labNameCell = new Cell().add(labNameParagraph).add(labVisionParagraph);
-            
-            labTable.addCell(labNameCell.setPaddingLeft(20).setTextAlignment(TextAlignment.LEFT));
+            if (indexOfSpace >= 0) {
+            	String firstWord = labNameStr.substring(0, indexOfSpace);
+                String remainingText = labNameStr.substring(indexOfSpace + 1);
 
-            //phone icon 
+                // Add the first word in black
+                Text firstWordText = new Text(firstWord)
+                        .setBold()
+                        .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
+                        .setFontSize(20.0f);
+
+                // Add the remaining text in red
+                Text remainingTextElement = new Text(remainingText)
+                        .setBold()
+                        .setFontColor(com.itextpdf.kernel.color.Color.RED)
+                        .setFontSize(20.0f);
+
+                // Create a paragraph with both text elements
+                Paragraph labNameParagraph = new Paragraph().add(firstWordText).add(remainingTextElement);
+                
+                Paragraph labVisionParagraph = new Paragraph("Accurate | Caring | Instant")
+                        .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
+                        .setFontSize(15.0f);
+                
+                Cell labNameCell = new Cell().add(labNameParagraph).add(labVisionParagraph);
+                
+                labTable.addCell(labNameCell.setPaddingLeft(20).setTextAlignment(TextAlignment.LEFT));
+			}else {
+				Paragraph labNameParagraph = new Paragraph(labNameStr)
+		                .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
+		                .setFontSize(20.0f);
+
+		        Paragraph labVisionParagraph = new Paragraph("Accurate | Caring | Instant")
+		                .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
+		                .setFontSize(15.0f);
+
+		        Cell labNameCell = new Cell().add(labNameParagraph).add(labVisionParagraph);
+
+		        labTable.addCell(labNameCell.setPaddingLeft(20).setTextAlignment(TextAlignment.LEFT));
+		    }
+			
+            
+            }else {
+            	String defaultLabName = "N/A";
+                Paragraph defaultLabNameParagraph = new Paragraph(defaultLabName)
+                        .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
+                        .setFontSize(20.0f);
+
+                Paragraph defaultLabVisionParagraph = new Paragraph("Accurate | Caring | Instant")
+                        .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
+                        .setFontSize(15.0f);
+
+                Cell defaultLabNameCell = new Cell().add(defaultLabNameParagraph).add(defaultLabVisionParagraph);
+
+                labTable.addCell(defaultLabNameCell.setPaddingLeft(20).setTextAlignment(TextAlignment.LEFT));
+            
+			}
+            //Lab name ends here
+            
+            //phone icon,phoneNumber and email icon,emailId starts here
+            
+            if (labData.isPresent()) {
+                ShopDetailsDTO shopDetailsDTO = labData.get();
+
+                // Retrieve email and phone number from ShopDetailsDTO
+                String email = shopDetailsDTO.getEmail();
+                String phoneNumber = shopDetailsDTO.getPhone();
+            
             
             Image phoneIcon = new Image(ImageDataFactory.create("D:\\labreportdev\\phone.png"))
                     .scaleToFit(10, 10)
@@ -122,18 +168,18 @@ public class PdfLabReportGenaratorController {
             Image emailIcon = new Image(ImageDataFactory.create("D:\\labreportdev\\email.png"))
                     .scaleToFit(10, 10);
                     
-            Text emailId = new Text("darshandattu66@gmail.com")
+            Text emailId = new Text(email)
                     .setFontSize(8)
                     .setFontColor(com.itextpdf.kernel.color.Color.BLACK);
             
-            Text phoneNumber = new Text("9731717195/9483255645")
+            Text phone = new Text(phoneNumber)
                     .setFontSize(8)
                     .setFontColor(com.itextpdf.kernel.color.Color.BLACK);
             
             Paragraph phoneDetailsParagraph = new Paragraph()
                     .add(phoneIcon)
                     .add("  ")
-                    .add(phoneNumber)
+                    .add(phone)
                     .add("\n")
                     .add(emailIcon)
                     .add("  ")
@@ -144,54 +190,152 @@ public class PdfLabReportGenaratorController {
             
             labTable.addCell(phoneCell.setPaddingLeft(10).setTextAlignment(TextAlignment.LEFT));
             
+            }else {
+            	String defaultEmail = "default@example.com";
+                String defaultPhoneNumber = "N/A";
+
+                Image phoneIcon = new Image(ImageDataFactory.create("D:\\labreportdev\\phone.png"))
+                        .scaleToFit(10, 10)
+                        .setMarginTop(10);
+
+                Image emailIcon = new Image(ImageDataFactory.create("D:\\labreportdev\\email.png"))
+                        .scaleToFit(10, 10);
+
+                Text emaiId = new Text(defaultEmail)
+                        .setFontSize(8)
+                        .setFontColor(com.itextpdf.kernel.color.Color.BLACK);
+
+                Text phoneNumber = new Text(defaultPhoneNumber)
+                        .setFontSize(8)
+                        .setFontColor(com.itextpdf.kernel.color.Color.BLACK);
+
+                Paragraph phoneDetailsParagraph = new Paragraph()
+                        .add(phoneIcon)
+                        .add("  ")
+                        .add(phoneNumber)
+                        .add("\n")
+                        .add(emailIcon)
+                        .add("  ")
+                        .add(emaiId);
+
+                Cell phoneCell = new Cell().add(phoneDetailsParagraph);
+                phoneCell.setTextAlignment(TextAlignment.LEFT);
+
+                labTable.addCell(phoneCell.setPaddingLeft(10).setTextAlignment(TextAlignment.LEFT));
+			}
+            
+          //phone icon,phoneNumber and email icon,emailId ends here
+            
             ///lab address Table starts here
             
             Table labAddressTable = new Table(UnitValue.createPercentArray(new float[]{100f}))
                     .useAllAvailableWidth();
             
-            Text labAddress = new Text("123 Main Street City, Country ZIP Code")
+            
+            if (labData.isPresent()) {
+				ShopDetailsDTO shopDetailsDTO = labData.get();
+				
+				String labAddress = shopDetailsDTO.getShopAddress();
+            
+            Text labAddressDetails = new Text(labAddress)
             		.setFontSize(10)
             		.setFontColor(com.itextpdf.kernel.color.Color.BLACK);
 
-            Cell labAddressCell = new Cell().add(new Paragraph(labAddress));
+            Cell labAddressCell = new Cell().add(new Paragraph(labAddressDetails));
 
             labAddressTable.addCell(labAddressCell.setTextAlignment(TextAlignment.LEFT).setPaddingLeft(70));
-            
+            }else {
+            	String labAddress = ("N/A");
+                
+                Text labAddressDetails = new Text(labAddress)
+                		.setFontSize(10)
+                		.setFontColor(com.itextpdf.kernel.color.Color.BLACK);
+
+                Cell labAddressCell = new Cell().add(new Paragraph(labAddressDetails));
+
+                labAddressTable.addCell(labAddressCell.setTextAlignment(TextAlignment.LEFT).setPaddingLeft(70));
+               
+			}
             //lab address Table ends here
             
             Table paramsTable = new Table(UnitValue.createPercentArray(new float[]{21.00f,19.00f ,30.00f, 30.00f}))
                     .useAllAvailableWidth();
             
+            if (userData != null) {
+				String patientName = userData.getUsername();
+				String gender = userData.getGender();
+				String phone = userData.getPhone();
+				String age = userData.getAge();
+				
          // Add patient information starts
-            Text patientDetails = new Text("YASH M. Patel")
+            Text patientNameDetails = new Text(patientName)
             		.setBold()
-            		.setFontColor(com.itextpdf.kernel.color.Color.BLACK)
+            		.setFontColor(com.itextpdf.kernel.color.Color.BLUE)
             		.setTextAlignment(TextAlignment.LEFT);
             
-            Text age = new Text("Age : 21 Years")
-                    .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
-                    .setFontSize(10);
-            
-            Text sex = new Text("Sex : Male")
+			
+			  Text ageDetails = new Text(age)
+					  .setFontColor(com.itextpdf.kernel.color.Color.BLACK) 
+					  .setFontSize(10);
+			 
+            Text genderDetails = new Text(gender)
                     .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
                     .setFontSize(10);
 
-            Text pid = new Text("PID : 555")
+			/*
+			 * Text pid = new Text("PID : 555")
+			 * .setFontColor(com.itextpdf.kernel.color.Color.BLACK) .setFontSize(10);
+			 */
+            Text phoneDetails = new Text(phone)
                     .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
-                    .setFontSize(10);        
+                    .setFontSize(10); 
                     
             Paragraph patientDetailsParagraph = new Paragraph()
-                    .add(patientDetails)
+                    .add(patientNameDetails)
                     .add("\n") 
-                    .add(age)
+                    .add(ageDetails)
                     .add("\n") 
-                    .add(sex)
+                    .add(genderDetails)
                     .add("\n") 
-                    .add(pid);
+                    //.add(pid);
+                    .add(phoneDetails);
                     
             Cell patientDetailsCell = new Cell().add(patientDetailsParagraph);
             
             paramsTable.addCell(patientDetailsCell.setTextAlignment(TextAlignment.LEFT));
+            }else {
+            	String patientName = ("N/A");
+				String gender = ("N/A");
+				String phone = ("N/A");
+				
+			Text patientNameDetails = new Text(patientName)
+	            		.setBold()
+	            		.setFontColor(com.itextpdf.kernel.color.Color.BLUE)
+	            		.setTextAlignment(TextAlignment.LEFT);
+			
+			 Text genderDetails = new Text(gender)
+	                    .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
+	                    .setFontSize(10);
+			 
+			 Text phoneDetails = new Text(phone)
+	                    .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
+	                    .setFontSize(10); 
+	                    
+	            Paragraph patientDetailsParagraph = new Paragraph()
+	                    .add(patientNameDetails)
+	                    .add("\n") 
+	                   // .add(age)
+	                    //.add("\n") 
+	                    .add(genderDetails)
+	                    .add("\n") 
+	                    //.add(pid);
+	                    .add(phoneDetails);
+	                    
+	            Cell patientDetailsCell = new Cell().add(patientDetailsParagraph);
+	            
+	            paramsTable.addCell(patientDetailsCell.setTextAlignment(TextAlignment.LEFT));
+	          
+			}
          // Add patient information ends
             
            // QR code scanner starts here
@@ -211,12 +355,18 @@ public class PdfLabReportGenaratorController {
             
             //patientSampleDetailsCell starts
             
+            if (labData.isPresent()) {
+            	ShopDetailsDTO shopDetailsDTO = labData.get();
+    				
+    			String labAddress = shopDetailsDTO.getShopAddress();
+			
+            
             Text patientSampleDetails = new Text("Sample Collected At:")
             		.setBold()
-            		.setFontColor(com.itextpdf.kernel.color.Color.BLACK)
+            		.setFontColor(com.itextpdf.kernel.color.Color.BLUE)
             		.setTextAlignment(TextAlignment.LEFT);
             
-            Text addressDetails = new Text("125, Shivam Bunglow, S G Road, Mumbai")
+            Text addressDetails = new Text(labAddress)
                     .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
                     .setFontSize(10);
             
@@ -234,7 +384,35 @@ public class PdfLabReportGenaratorController {
             Cell patientSampleDetailsCell = new Cell().add(patientSampleDetailsParagraph);
             
             paramsTable.addCell(patientSampleDetailsCell.setTextAlignment(TextAlignment.LEFT));
-            
+            } else {
+            	
+            	String labAddress = ("N/A");
+    			
+                
+                Text patientSampleDetails = new Text("Sample Collected At:")
+                		.setBold()
+                		.setFontColor(com.itextpdf.kernel.color.Color.BLUE)
+                		.setTextAlignment(TextAlignment.LEFT);
+                
+                Text addressDetails = new Text(labAddress)
+                        .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
+                        .setFontSize(10);
+                
+                Text refDetails = new Text("Ref.By: Dr.Harish")
+                        .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
+                        .setFontSize(10);
+                
+                Paragraph patientSampleDetailsParagraph = new Paragraph()
+                        .add(patientSampleDetails)
+                        .add("\n") 
+                        .add(addressDetails)
+                        .add("\n") 
+                        .add(refDetails);
+                  
+                Cell patientSampleDetailsCell = new Cell().add(patientSampleDetailsParagraph);
+                
+                paramsTable.addCell(patientSampleDetailsCell.setTextAlignment(TextAlignment.LEFT));
+			}
             //barcode image starts
             
          // Create a horizontal table for the barcode image

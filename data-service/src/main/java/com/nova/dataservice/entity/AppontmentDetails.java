@@ -55,6 +55,28 @@ public class AppontmentDetails {
     
     @Column (name="status")
     private Boolean status;
+    
+    @Column (name="refered_by_nova_user_name")
+    private String referedByNovaUserName;
+    
+    @Column (name="refered_by_non_nova_user_name")
+    private String referedByNonNovaUserName;
+
+	public String getReferedByNovaUserName() {
+		return referedByNovaUserName;
+	}
+
+	public void setReferedByNovaUserName(String referedByNovaUserName) {
+		this.referedByNovaUserName = referedByNovaUserName;
+	}
+
+	public String getReferedByNonNovaUserName() {
+		return referedByNonNovaUserName;
+	}
+
+	public void setReferedByNonNovaUserName(String referedByNonNovaUserName) {
+		this.referedByNonNovaUserName = referedByNonNovaUserName;
+	}
 
 	public Long getId() {
 		return id;

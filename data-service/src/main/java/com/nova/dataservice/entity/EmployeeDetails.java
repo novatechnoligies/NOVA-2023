@@ -64,7 +64,7 @@ public class EmployeeDetails
 	
 	@Column(name = "employe_photo")
 	private String photo;
-
+	
 	public Long getId() {
 		return id;
 	}
