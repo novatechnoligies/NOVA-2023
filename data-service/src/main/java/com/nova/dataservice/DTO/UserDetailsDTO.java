@@ -59,16 +59,6 @@ public class UserDetailsDTO {
 
 	private RoleDTO role;
 	
-	private String age;
-
-	public String getAge() {
-		return age;
-	}
-
-	public void setAge(String age) {
-		this.age = age;
-	}
-
 	public Long getId() {
 		return id;
 	}
