@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.modelmapper.internal.bytebuddy.asm.Advice.Local;
 
+import com.nova.dataservice.DTO.AppoinmenCounttDTO;
 import com.nova.dataservice.DTO.AppoinmentDTO;
 import com.nova.dataservice.DTO.AppoinmentDetailDTO;
 import com.nova.dataservice.DTO.PatientDetailsDTO;
@@ -24,5 +25,8 @@ public interface AppointmentDetailservice {
 	List<AppoinmentDetailDTO> getAllServicesByAppointmentIdAndPatientId(Long appointmentId, Long patientId);
 
 	PatientDetailsDTO getPatientDetailsByAppointmentId(Long appointmentId);
+
+	AppoinmenCounttDTO getTodaysAppointemtsCountByLabId(LocalDate date, Long labId, LocalDate fromDate,
+			LocalDate toDate);
 
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nova.dataservice.DTO.AppoinmenCounttDTO;
 import com.nova.dataservice.DTO.AppoinmentDTO;
 import com.nova.dataservice.DTO.AppoinmentDetailDTO;
 import com.nova.dataservice.DTO.ShopDetailsDTO;
@@ -96,6 +97,24 @@ public class AppointmentDetailsController {
 		try {
 			List<AppoinmentDetailDTO> data = appService.getAllServicesByAppointmentIdAndPatientId(appointmentId, patientId);
 			if (data.isEmpty()) {
+				return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
+		}
+	}
+	
+	@GetMapping(value = "getTodaysAppointemtsCountByLabId")
+	public ResponseEntity<Object> getTodaysAppointemtsCountByLabId(LocalDate date, Long labId, LocalDate fromDate,
+			LocalDate toDate) {
+
+		try {
+			AppoinmenCounttDTO data = appService.getTodaysAppointemtsCountByLabId(date, labId, fromDate, toDate);
+			
+			if (data!=null) {
 				return new ResponseEntity<Object>("no data found", HttpStatus.OK);
 			} else {
 				return new ResponseEntity<Object>(data, HttpStatus.OK);

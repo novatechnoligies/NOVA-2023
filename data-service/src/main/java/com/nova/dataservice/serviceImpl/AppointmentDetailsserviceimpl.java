@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nova.dataservice.DTO.AppoinmenCounttDTO;
 import com.nova.dataservice.DTO.AppoinmentDTO;
 import com.nova.dataservice.DTO.AppoinmentDetailDTO;
 import com.nova.dataservice.DTO.PatientDetailsDTO;
@@ -82,6 +83,26 @@ public class AppointmentDetailsserviceimpl implements AppointmentDetailservice{
 	public PatientDetailsDTO getPatientDetailsByAppointmentId(Long appointmentId) {
 		return patientDao.findPatientDetailsByAppointmentId(appointmentId);
 	}
+
+	@Override
+	public AppoinmenCounttDTO getTodaysAppointemtsCountByLabId(LocalDate date, Long labId, LocalDate fromDate,
+			LocalDate toDate) {
+		// TODO Auto-generated method stub
+		List<AppoinmentDTO> todaysAppointmentDetails =  appointmentDao.findTodaysAppoinmentsById(date, labId, fromDate, toDate);
+		List<AppoinmentDTO> toatlAppointmentDetails =  appointmentDao.findTotalsAppoinmentsById(labId, fromDate, toDate);
+		AppoinmenCounttDTO toDayEaring =  appointmentDao.findTodayAppoinmentsEarningsById(labId, fromDate, toDate);
+		AppoinmenCounttDTO totalEaring =  appointmentDao.findTotalsAppoinmentsEarningsById(labId, fromDate, toDate);
+		
+		
+		AppoinmenCounttDTO appoinmenCounttDTO = new AppoinmenCounttDTO();
+		appoinmenCounttDTO.setTodaysAppointmetCountByLabId(todaysAppointmentDetails.size());
+		appoinmenCounttDTO.setTotalsAppointmetCountByLabId(toatlAppointmentDetails.size());
+		appoinmenCounttDTO.setTodaysAppointmetEarningByLabId(toDayEaring.getTodaysAppointmetEarningByLabId());
+		appoinmenCounttDTO.setTotalsAppointmetEarningByLabId(totalEaring.getTotalsAppointmetEarningByLabId());
+		return appoinmenCounttDTO;
+	}
+	
+	
 
 	
 
