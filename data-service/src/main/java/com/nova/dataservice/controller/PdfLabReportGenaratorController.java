@@ -265,7 +265,7 @@ public class PdfLabReportGenaratorController {
 				String patientName = userData.getUsername();
 				String gender = userData.getGender();
 				String phone = userData.getPhone();
-				String age = userData.getAge();
+				//String age = userData.getAge();
 				
          // Add patient information starts
             Text patientNameDetails = new Text(patientName)
@@ -274,9 +274,10 @@ public class PdfLabReportGenaratorController {
             		.setTextAlignment(TextAlignment.LEFT);
             
 			
-			  Text ageDetails = new Text(age)
-					  .setFontColor(com.itextpdf.kernel.color.Color.BLACK) 
-					  .setFontSize(10);
+			/*
+			 * Text ageDetails = new Text(age)
+			 * .setFontColor(com.itextpdf.kernel.color.Color.BLACK) .setFontSize(10);
+			 */
 			 
             Text genderDetails = new Text(gender)
                     .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
@@ -293,8 +294,8 @@ public class PdfLabReportGenaratorController {
             Paragraph patientDetailsParagraph = new Paragraph()
                     .add(patientNameDetails)
                     .add("\n") 
-                    .add(ageDetails)
-                    .add("\n") 
+                    //.add(ageDetails)
+                   // .add("\n") 
                     .add(genderDetails)
                     .add("\n") 
                     //.add(pid);
