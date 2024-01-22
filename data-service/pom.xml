@@ -28,15 +28,29 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>3.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>3.4.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>
+				org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
+			<groupId>
+				org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<!--
 		https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-netflix-eureka-client -->
+
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-netflix-eureka-client</artifactId>
@@ -51,40 +65,49 @@
 			<groupId>com.google.zxing</groupId>
 			<artifactId>javase</artifactId>
 			<version>3.4.1</version> <!-- Replace with the latest version -->
+
 		</dependency>
 
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
+			<groupId>
+				org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
+			<scope>
+				runtime</scope>
 			<optional>true</optional>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
+			<artifactId>
+				mysql-connector-java</artifactId>
 			<version>8.0.26</version>
 		</dependency>
 		<dependency>
-			<groupId>org.projectlombok</groupId>
+			<groupId>
+				org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
+			<groupId>
+				org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+			<scope>
+				test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.modelmapper</groupId>
-			<artifactId>modelmapper</artifactId>
+			<artifactId>
+				modelmapper</artifactId>
 			<version>2.4.4</version> <!-- Use the latest version available -->
 		</dependency>
 
 		<!-- Cucumber Dependencies -->
 		<dependency>
+
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-java</artifactId>
 			<version>6.10.3</version>
@@ -93,75 +116,97 @@
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-junit</artifactId>
+
 			<version>6.10.3</version>
 			<scope>test</scope>
 		</dependency>
 
 		<!-- JUnit Dependency -->
 		<dependency>
+
 			<groupId>junit</groupId>
+
 			<artifactId>junit</artifactId>
 			<version>4.13.1</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
+
 			<groupId>com.itextpdf</groupId>
+
 			<artifactId>kernel</artifactId>
 			<version>7.0.2</version>
 		</dependency>
 
 		<dependency>
+
 			<groupId>com.itextpdf</groupId>
+
 			<artifactId>io</artifactId>
 			<version>7.0.2</version>
 		</dependency>
 
 		<dependency>
+
 			<groupId>com.itextpdf</groupId>
+
 			<artifactId>layout</artifactId>
 			<version>7.0.2</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.itextpdf/itext7-core -->
 		<dependency>
+
 			<groupId>com.itextpdf</groupId>
+
 			<artifactId>itext7-core</artifactId>
 			<version>8.0.2</version>
 			<type>pom</type>
 		</dependency>
 
 		<dependency>
+
 			<groupId>com.itextpdf</groupId>
+
 			<artifactId>forms</artifactId>
 			<version>7.0.2</version>
 		</dependency>
 
 		<dependency>
+
 			<groupId>com.itextpdf</groupId>
+
 			<artifactId>pdfa</artifactId>
 			<version>7.0.2</version>
 		</dependency>
 
 		<dependency>
+
 			<groupId>com.itextpdf</groupId>
+
 			<artifactId>sign</artifactId>
 			<version>7.0.2</version>
 		</dependency>
 
 		<dependency>
+
 			<groupId>com.itextpdf</groupId>
+
 			<artifactId>barcodes</artifactId>
 			<version>7.0.2</version>
 		</dependency>
 
 		<dependency>
+
 			<groupId>com.itextpdf</groupId>
+
 			<artifactId>font-asian</artifactId>
 			<version>7.0.2</version>
 		</dependency>
 
 		<dependency>
+
 			<groupId>com.itextpdf</groupId>
 			<artifactId>hyph</artifactId>
 			<version>7.0.2</version>
@@ -176,17 +221,20 @@
 			<artifactId>javase</artifactId>
 			<version>3.4.1</version> <!-- Replace with the latest version -->
 		</dependency>
+
 	</dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
+				<groupId>
+					org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<excludes>
 						<exclude>
-							<groupId>org.projectlombok</groupId>
+							<groupId>
+								org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
