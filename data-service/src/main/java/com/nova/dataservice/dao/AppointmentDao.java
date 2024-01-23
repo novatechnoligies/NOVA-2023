@@ -10,10 +10,22 @@ public interface AppointmentDao {
 
 	List<AppoinmentDTO> findTodaysAppoinmentsById(LocalDate date, Long labId, LocalDate fromDate, LocalDate toDate);
 
-	List<AppoinmentDTO> findTotalsAppoinmentsById(Long labId, LocalDate fromDate, LocalDate toDate);
+	AppoinmenCounttDTO findTotalsAppoinmentsById(Long labId, LocalDate fromDate, LocalDate toDate);
 
-	AppoinmenCounttDTO findTotalsAppoinmentsEarningsById(Long labId, LocalDate fromDate, LocalDate toDate);
+	AppoinmenCounttDTO findTodaysAppoinmentsCountByLabId(LocalDate date, Long labId, LocalDate fromDate, LocalDate toDate);
 
-	AppoinmenCounttDTO findTodayAppoinmentsEarningsById(Long labId, LocalDate fromDate, LocalDate toDate);
+	AppoinmenCounttDTO findTotalAppoinmentsEarningsByLabId(Long labId, LocalDate fromDate, LocalDate toDate);
+
+	AppoinmenCounttDTO findCompleatedReportByLabId(LocalDate date, Long labId, LocalDate fromDate, LocalDate toDate,String status);
+
+	AppoinmenCounttDTO findTotalAppointemtsCountByLabId(Long labId, LocalDate fromDate, LocalDate toDate);
+
+	AppoinmenCounttDTO findTodayAppoinmentsEarningsByLabId(Long labId, LocalDate fromDate, LocalDate toDate);
+
+
+
+
+		
 
 }
+ 

@@ -52,7 +52,7 @@ public class AppointmentDetailsserviceimpl implements AppointmentDetailservice{
 		details.setId(rl.getId());
 		rl.setId(null);
 		slotAvailability.setUserDetails(details);
-		availabilityRepository.save(slotAvailability);
+		availabilityRepository.save(slotAvailability); 
 		return appRepo.save(rl);
 	}
 
@@ -87,23 +87,47 @@ public class AppointmentDetailsserviceimpl implements AppointmentDetailservice{
 	@Override
 	public AppoinmenCounttDTO getTodaysAppointemtsCountByLabId(LocalDate date, Long labId, LocalDate fromDate,
 			LocalDate toDate) {
-		// TODO Auto-generated method stub
-		List<AppoinmentDTO> todaysAppointmentDetails =  appointmentDao.findTodaysAppoinmentsById(date, labId, fromDate, toDate);
-		List<AppoinmentDTO> toatlAppointmentDetails =  appointmentDao.findTotalsAppoinmentsById(labId, fromDate, toDate);
-		AppoinmenCounttDTO toDayEaring =  appointmentDao.findTodayAppoinmentsEarningsById(labId, fromDate, toDate);
-		AppoinmenCounttDTO totalEaring =  appointmentDao.findTotalsAppoinmentsEarningsById(labId, fromDate, toDate);
-		
-		
-		AppoinmenCounttDTO appoinmenCounttDTO = new AppoinmenCounttDTO();
-		appoinmenCounttDTO.setTodaysAppointmetCountByLabId(todaysAppointmentDetails.size());
-		appoinmenCounttDTO.setTotalsAppointmetCountByLabId(toatlAppointmentDetails.size());
-		appoinmenCounttDTO.setTodaysAppointmetEarningByLabId(toDayEaring.getTodaysAppointmetEarningByLabId());
-		appoinmenCounttDTO.setTotalsAppointmetEarningByLabId(totalEaring.getTotalsAppointmetEarningByLabId());
-		return appoinmenCounttDTO;
+		AppoinmenCounttDTO todaysAppointmentDetails = appointmentDao.findTodaysAppoinmentsCountByLabId(date, labId,
+				fromDate, toDate);
+		return todaysAppointmentDetails;
 	}
-	
-	
+
+	@Override
+	public AppoinmenCounttDTO getTodaysCompleatedReportCountByLabId(LocalDate date, Long labId, LocalDate fromDate,
+			LocalDate toDate, String status) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	
 
+//	@Override
+//	public AppoinmenCounttDTO getTodaysCompleatedReportCountByLabId(LocalDate date, Long labId, LocalDate fromDate,
+//			LocalDate toDate,String status) {
+//		AppoinmenCounttDTO compleatedReport = appointmentDao.findCompleatedReportByLabId(date,labId,fromDate,toDate,status);
+//		return compleatedReport;
+//	}
+//
+//	
+	@Override
+	public AppoinmenCounttDTO getTotalAppoinmentsEarningsByLabId(Long labId, LocalDate fromDate, LocalDate toDate) {
+		AppoinmenCounttDTO totaEarnings = appointmentDao.findTotalAppoinmentsEarningsByLabId(labId, fromDate, toDate);
+		return totaEarnings;
+
+	}
+
+	@Override
+	public AppoinmenCounttDTO getTotalAppointemtsCountByLabId(Long labId, LocalDate fromDate, LocalDate toDate) {
+		AppoinmenCounttDTO toatlAppointmentDetails =  appointmentDao.findTotalAppointemtsCountByLabId(labId, fromDate, toDate);
+		return toatlAppointmentDetails;
+	}
+
+
+	@Override
+	public AppoinmenCounttDTO getTodayAppoinmentsEarningsByLabId(Long labId, LocalDate fromDate, LocalDate toDate) {
+		AppoinmenCounttDTO totaEarnings = appointmentDao.findTotalAppoinmentsEarningsByLabId( labId,
+				fromDate, toDate);
+		return totaEarnings;
+
+}
 }

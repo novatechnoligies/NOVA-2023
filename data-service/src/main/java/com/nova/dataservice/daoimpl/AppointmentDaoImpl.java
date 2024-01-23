@@ -96,15 +96,11 @@ public class AppointmentDaoImpl implements AppointmentDao{
 
 	}
 
-	@Override
-	public List<AppoinmentDTO> findTotalsAppoinmentsById(Long labId, LocalDate fromDate, LocalDate toDate) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
-	public AppoinmenCounttDTO findTotalsAppoinmentsEarningsById(Long labId, LocalDate fromDate, LocalDate toDate) {
-		String sql = "SELECT SUM(amount) as todayEarn "
+	public AppoinmenCounttDTO findTotalAppoinmentsEarningsByLabId(Long labId, LocalDate fromDate, LocalDate toDate) {
+		String sql = "SELECT SUM(amount) as totalsAppointmetEarningByLabId  "
 				+ "FROM appointment_details AS ad "
 				+ "WHERE ad.shop_id =:labId  ";
 
@@ -126,8 +122,8 @@ public class AppointmentDaoImpl implements AppointmentDao{
 	}
 
 	@Override
-	public AppoinmenCounttDTO findTodayAppoinmentsEarningsById(Long labId, LocalDate fromDate, LocalDate toDate) {
-		String sql = "SELECT SUM(amount) as todayEarn "
+	public AppoinmenCounttDTO findTodayAppoinmentsEarningsByLabId(Long labId, LocalDate fromDate, LocalDate toDate) {
+		String sql = "SELECT SUM(amount) as todaysAppointmetEarningByLabId "
 				+ "FROM appointment_details AS ad "
 				+ "WHERE ad.shop_id =:labId  AND ad.created_at =:todayDate";
 
@@ -148,6 +144,101 @@ public class AppointmentDaoImpl implements AppointmentDao{
 		}
 
 	}
-	
+
+		@Override
+	public AppoinmenCounttDTO findTodaysAppoinmentsCountByLabId(LocalDate date, Long labId, LocalDate fromDate,
+			LocalDate toDate) {
+		String sql = "SELECT count(*) as todaysTotalAppointmentsByLabId " 
+				+ "FROM appointment_details AS ad "
+				+ "WHERE ad.shop_id= :labId and ad.created_at =:date";
+
+		Query query = entityManager.createNativeQuery(sql.toString())
+				.setParameter("labId", labId)
+				.setParameter("date", date);
+
+		query.unwrap(org.hibernate.query.NativeQuery.class).addScalar("todaysTotalAppointmentsByLabId",
+				StandardBasicTypes.LONG);
+		((NativeQuery) query).setResultTransformer(Transformers.aliasToBean(AppoinmenCounttDTO.class));
+
+		Object result = query.getSingleResult();
+
+		if (result != null) {
+			return (AppoinmenCounttDTO) result;
+		} else {
+			return null;
+		}
+	}
+
+
+	@Override
+	public AppoinmenCounttDTO findCompleatedReportByLabId(LocalDate date, Long labId, LocalDate fromDate,
+			LocalDate toDate,String status) {
+		String sql = "SELECT count(*) as todaysCompleatedReport "
+				+ "FROM appointment_details AS ad "
+				+ "WHERE ad.shop_id= :labId AND ad.slot_id=:slotId  and ad.status =:status";
+
+		Query query = entityManager.createNativeQuery(sql.toString())
+									.setParameter("labId", labId)
+									.setParameter("slotId", fromDate)
+									.setParameter("status", status);
+									
+
+		query.unwrap(NativeQuery.class).addScalar("todaysCompleatedReport", StandardBasicTypes.LONG);
+
+		((NativeQuery) query).setResultTransformer(Transformers.aliasToBean(AppoinmenCounttDTO.class));
+
+		Object result = query.getSingleResult();
+
+		if (result != null) {
+			return (AppoinmenCounttDTO) result;
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public AppoinmenCounttDTO findTotalsAppoinmentsById(Long labId, LocalDate fromDate, LocalDate toDate) {
+		String sql = "SELECT count(*) as todaysTotalAppointmentsByLabId "
+				+ "FROM appointment_details AS ad "
+				+ "WHERE ad.shop_id= :labId ";
+
+		Query query = entityManager.createNativeQuery(sql.toString())
+									.setParameter("labId", labId);
+									
+
+		query.unwrap(NativeQuery.class).addScalar("todaysTotalAppointmentsByLabId", StandardBasicTypes.LONG);
+
+		((NativeQuery) query).setResultTransformer(Transformers.aliasToBean(AppoinmenCounttDTO.class));
+
+		Object result = query.getSingleResult();
+
+		if (result != null) {
+			return (AppoinmenCounttDTO) result;
+		} else {
+			return null;
+		}
+	}
+
+	public AppoinmenCounttDTO findTotalAppointemtsCountByLabId(Long labId, LocalDate fromDate, LocalDate toDate) {
+		String sql = "SELECT count(*) as todaysTotalAppointmentcountsByLabId "
+				+ "FROM appointment_details AS ad "
+				+ "WHERE ad.shop_id= :labId ";
+
+		Query query = entityManager.createNativeQuery(sql.toString())
+									.setParameter("labId", labId);
+									
+
+		query.unwrap(NativeQuery.class).addScalar("todaysTotalAppointmentcountsByLabId", StandardBasicTypes.LONG);
+
+		((NativeQuery) query).setResultTransformer(Transformers.aliasToBean(AppoinmenCounttDTO.class));
+
+		Object result = query.getSingleResult();
+
+		if (result != null) {
+			return (AppoinmenCounttDTO) result;
+		} else {
+			return null;
+		}
+	}
 
 }

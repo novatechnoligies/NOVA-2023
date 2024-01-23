@@ -21,6 +21,8 @@ public interface AppointmentDetailservice {
 	Optional<AppontmentDetails> findAppointmentById(Long id);
 
 	List<AppoinmentDTO> getTodaysAppointemtsByLabId(LocalDate date, Long labId, LocalDate fromDate, LocalDate toDate);
+	
+	AppoinmenCounttDTO getTotalAppointemtsCountByLabId(Long labId, LocalDate fromDate, LocalDate toDate);
 
 	List<AppoinmentDetailDTO> getAllServicesByAppointmentIdAndPatientId(Long appointmentId, Long patientId);
 
@@ -28,5 +30,16 @@ public interface AppointmentDetailservice {
 
 	AppoinmenCounttDTO getTodaysAppointemtsCountByLabId(LocalDate date, Long labId, LocalDate fromDate,
 			LocalDate toDate);
+
+	AppoinmenCounttDTO getTodaysCompleatedReportCountByLabId(LocalDate date, Long labId, LocalDate fromDate,
+			LocalDate toDate, String status);
+
+
+	AppoinmenCounttDTO getTotalAppoinmentsEarningsByLabId(Long labId, LocalDate fromDate, LocalDate toDate);
+
+	AppoinmenCounttDTO getTodayAppoinmentsEarningsByLabId(Long labId, LocalDate fromDate, LocalDate toDate);
+
+
+	
 
 }

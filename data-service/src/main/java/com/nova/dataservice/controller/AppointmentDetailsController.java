@@ -113,8 +113,8 @@ public class AppointmentDetailsController {
 
 		try {
 			AppoinmenCounttDTO data = appService.getTodaysAppointemtsCountByLabId(date, labId, fromDate, toDate);
-			
-			if (data!=null) {
+
+			if (data == null) {
 				return new ResponseEntity<Object>("no data found", HttpStatus.OK);
 			} else {
 				return new ResponseEntity<Object>(data, HttpStatus.OK);
@@ -124,6 +124,74 @@ public class AppointmentDetailsController {
 			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
 		}
 	}
-	
+	@GetMapping(value = "getTotalsAppointemtsCountByLabId")
+	public ResponseEntity<Object> getTotalAppointemtsCountByLabId( Long labId, LocalDate fromDate,
+			LocalDate toDate) {
+
+		try {
+			AppoinmenCounttDTO data = appService.getTotalAppointemtsCountByLabId( labId, fromDate, toDate);
+
+			if (data== null) {
+				return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
+		}
+	}
+		@GetMapping(value = "getTodayAppoinmentsEarningsByLabId")
+		public ResponseEntity<Object> getTodayAppoinmentsEarningsByLabId( Long labId, LocalDate fromDate,
+				LocalDate toDate) {
+
+			try {
+				AppoinmenCounttDTO data = appService.getTodayAppoinmentsEarningsByLabId( labId, fromDate, toDate);
+
+				if (data== null) {
+					return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+				} else {
+					return new ResponseEntity<Object>(data, HttpStatus.OK);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
+			}
+		}
+			@GetMapping(value = "getTotalAppoinmentsEarningsByLabId")
+			public ResponseEntity<Object> getTotalAppoinmentsEarningsByLabId( Long labId, LocalDate fromDate,
+					LocalDate toDate) {
+
+				try {
+					AppoinmenCounttDTO data = appService.getTotalAppoinmentsEarningsByLabId( labId, fromDate, toDate);
+
+					if (data== null) {
+						return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+					} else {
+						return new ResponseEntity<Object>(data, HttpStatus.OK);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
+				}
+			}		
+	         @GetMapping(value = "getTodaysCompleatedReportCountByLabId")
+				public ResponseEntity<Object> getTodaysCompleatedReportCountByLabId(LocalDate date, Long labId,
+						LocalDate fromDate, LocalDate toDate, String status) {
+
+					try {
+						AppoinmenCounttDTO data = appService.getTodaysCompleatedReportCountByLabId(date, labId,
+								fromDate, toDate, status);
+
+						if (data == null) {
+							return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+						} else {
+							return new ResponseEntity<Object>(data, HttpStatus.OK);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+						return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
+					}
+				}
 	
 }
