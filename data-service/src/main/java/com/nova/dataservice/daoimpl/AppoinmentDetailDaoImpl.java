@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nova.dataservice.DTO.AppoinmentDetailDTO;
+import com.nova.dataservice.dao.AgeCategoryAppointmentCountDTO;
 import com.nova.dataservice.dao.AppointmentDetailDAO;
 
 import jakarta.persistence.EntityManager;
@@ -54,6 +55,41 @@ public class AppoinmentDetailDaoImpl implements AppointmentDetailDAO{
 
 		if (result != null) {
 			return (List<AppoinmentDetailDTO>) result;
+		} else {
+			return null;
+		}
+
+	}
+
+	@Override
+	public List<AgeCategoryAppointmentCountDTO> getAdultAppointmentCountByLabId(Long labId) {
+		String sql = "SELECT"
+				+ "   CASE"
+				+ "   WHEN ud.age < 18 THEN 'Child'"
+				+ "   WHEN ud.age >= 18 AND ud.age <= 60 THEN 'Adult'"
+				+ "   ELSE 'Extra Adult'"
+				+ "   END AS ageCategory,"
+				+ "   COUNT(*) AS ageCatAppointmentCount"
+				+ "   FROM"
+				+ "   appointment_details AS ad"
+				+ "   LEFT JOIN"
+				+ "   user_details AS ud ON ud.id = ad.consumer_id"
+				+ "   where ad.shop_id =:labId "
+				+ "   GROUP BY"
+				+ "   ageCategory";
+
+		Query query = entityManager.createNativeQuery(sql.toString())
+				.setParameter("labId", labId);
+
+		query.unwrap(NativeQuery.class).addScalar("ageCategory", StandardBasicTypes.STRING)
+				.addScalar("ageCatAppointmentCount", StandardBasicTypes.LONG);
+
+		((NativeQuery) query).setResultTransformer(Transformers.aliasToBean(AgeCategoryAppointmentCountDTO.class));
+
+		Object result = query.getResultList();
+
+		if (result != null) {
+			return (List<AgeCategoryAppointmentCountDTO>) result;
 		} else {
 			return null;
 		}
