@@ -17,7 +17,7 @@ public interface ShopDetailsRepository extends JpaRepository<ShopDetails,Long> {
 	@Query(nativeQuery = true, value ="Select * from shop_details as c where c.shop_name like %:labName%")
 	List<ShopDetails> searchLabByNameAndOwner(String labName);
 
-	List<ShopDetails> findByOwner(UserDetails ownerId);
+	List<ShopDetails> findByOwnerAndIsDeleted(UserDetails ownerId,Boolean isDeleted);
 
 
 }
