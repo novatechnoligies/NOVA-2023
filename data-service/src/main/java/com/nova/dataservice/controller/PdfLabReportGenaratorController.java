@@ -1,6 +1,8 @@
 package com.nova.dataservice.controller;
 
+import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Iterator;
 import java.util.List;
@@ -17,9 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.itextpdf.barcodes.BarcodeQRCode;
 import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.itextpdf.kernel.color.Color;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.border.Border;
 import com.itextpdf.layout.element.Cell;
@@ -35,9 +39,11 @@ import com.nova.dataservice.DTO.LabMasterHeading;
 import com.nova.dataservice.DTO.LabParametersDto;
 import com.nova.dataservice.DTO.ShopDetailsDTO;
 import com.nova.dataservice.DTO.UserDetailsDTO;
+import com.nova.dataservice.entity.BarCodeGenerateForLabEntity;
 import com.nova.dataservice.service.LabReportGenaratorMasterService;
 import com.nova.dataservice.service.ShopDetailsService;
 import com.nova.dataservice.service.UserDetailsServices;
+import com.nova.dataservice.utils.BarCodeGenUtils;
 import com.nova.dataservice.utils.QRCodeGenerator;
 
 @RestController
@@ -54,11 +60,16 @@ public class PdfLabReportGenaratorController {
 	@Autowired
 	UserDetailsServices userDetailsServices;
 	
+	@Autowired
+	BarCodeGenerateForLabController barCodeGenerateForLabController;
+	
 	@GetMapping(value = "createPdfReportAndSave")
 	public void createPdfReportAndSave(Long appointmentId, Long testId, String result) {
 		Optional<ShopDetailsDTO> labData = shopDetailsService.findByIdShopDetails(4l);
 		UserDetailsDTO userData = userDetailsServices.getUserDetailsById(1l);
 		LabMasterDTO report = labReportGenaratorMasterService.labReportGenaratorMaster(1l);
+		
+		BufferedImage qrCodeImage = BarCodeGenUtils.BarCodeGenerateForLab("http://google.com");
 		
 		String filepath="D:\\labreportdev\\darshan.pdf";
 		
@@ -340,18 +351,23 @@ public class PdfLabReportGenaratorController {
          // Add patient information ends
             
            // QR code scanner starts here
-            Image qrCodeImage = new Image(ImageDataFactory.create("D:\\labreportdev\\qrcode.png"))
-            		//.setWidth(UnitValue.createPercentValue(30))
-                    .setAutoScale(true)
-					.setTextAlignment(TextAlignment.CENTER); // Adjust the size as needed
             
-            Cell qrCodeCell = new Cell();
-            qrCodeCell.add(qrCodeImage);
-            qrCodeCell.setWidth(UnitValue.createPercentValue(8));
-            qrCodeCell.setVerticalAlignment(VerticalAlignment.MIDDLE);
-            
-            paramsTable.addCell(qrCodeCell.setTextAlignment(TextAlignment.CENTER));
-            
+			
+            Image img = null;
+			try {
+				img = new Image(ImageDataFactory.create(BarCodeGenUtils.toByteArray(qrCodeImage)));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			  
+			  Cell qrCodeCell = new Cell(); qrCodeCell.add(img);
+			  qrCodeCell.setWidth(UnitValue.createPercentValue(8));
+			  qrCodeCell.setVerticalAlignment(VerticalAlignment.MIDDLE);
+			  
+			 
+			  paramsTable.addCell(qrCodeCell.setTextAlignment(TextAlignment.CENTER));
+					 
          // QR code scanner starts here
             
             //patientSampleDetailsCell starts
@@ -644,4 +660,29 @@ public class PdfLabReportGenaratorController {
 			e.printStackTrace();
 		}
 	}
+
+	private Image generateQrCodeImage(String qrCodePath) {
+		try {
+            BarcodeQRCode qrCode = new BarcodeQRCode(qrCodePath);
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            PdfWriter pdfWriter = new PdfWriter(baos);
+            PdfDocument pdfDoc = new PdfDocument(pdfWriter);
+
+            PdfCanvas pdfCanvas = new PdfCanvas(pdfDoc.addNewPage());
+            qrCode.placeBarcode(pdfCanvas, Color.BLACK, 0);
+
+            pdfDoc.close();
+
+            Image qrCodeImage = new Image(ImageDataFactory.create(baos.toByteArray()));
+            qrCodeImage.setAutoScale(true);
+            qrCodeImage.setTextAlignment(TextAlignment.CENTER);
+
+            return qrCodeImage;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+	}
+
 }

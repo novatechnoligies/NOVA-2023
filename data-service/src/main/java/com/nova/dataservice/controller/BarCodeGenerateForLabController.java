@@ -28,7 +28,7 @@ public class BarCodeGenerateForLabController {
 	
 	@PostMapping("/BarCodeGenerateForLab")
     public ResponseEntity<Object> BarCodeGenerateForLab(@RequestBody BarCodeGenerateForLabEntity data) {
-		 barCodeGenerateForLabService.BarCodeGenerateForLab(data,"C:\\Users\\Admin\\Documents\\dumps\\example.pdf");
+		 barCodeGenerateForLabService.BarCodeGenerateForLab(data,"D:\\labreportdev\\example.pdf");
 
             return ResponseEntity.ok().header("Content-Type", "image/png").body("success");
     }
