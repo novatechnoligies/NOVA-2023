@@ -63,6 +63,26 @@ public class ShopDetailsDTO {
 	
 	private String shopPhoto;
 	
+	private String referredByNovaUserName;
+	
+	private String referredByNonNovaUserName;
+	
+	public String getReferredByNovaUserName() {
+		return referredByNovaUserName;
+	}
+
+	public void setReferredByNovaUserName(String referredByNovaUserName) {
+		this.referredByNovaUserName = referredByNovaUserName;
+	}
+
+	public String getReferredByNonNovaUserName() {
+		return referredByNonNovaUserName;
+	}
+
+	public void setReferredByNonNovaUserName(String referredByNonNovaUserName) {
+		this.referredByNonNovaUserName = referredByNonNovaUserName;
+	}
+
 	public Long getId() {
 		return id;
 	}

@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -37,10 +38,13 @@ import com.itextpdf.layout.property.VerticalAlignment;
 import com.nova.dataservice.DTO.LabMasterDTO;
 import com.nova.dataservice.DTO.LabMasterHeading;
 import com.nova.dataservice.DTO.LabParametersDto;
+import com.nova.dataservice.DTO.RoleDTO;
 import com.nova.dataservice.DTO.ShopDetailsDTO;
 import com.nova.dataservice.DTO.UserDetailsDTO;
 import com.nova.dataservice.entity.BarCodeGenerateForLabEntity;
+import com.nova.dataservice.entity.Role;
 import com.nova.dataservice.service.LabReportGenaratorMasterService;
+import com.nova.dataservice.service.RoleService;
 import com.nova.dataservice.service.ShopDetailsService;
 import com.nova.dataservice.service.UserDetailsServices;
 import com.nova.dataservice.utils.BarCodeGenUtils;
@@ -61,6 +65,9 @@ public class PdfLabReportGenaratorController {
 	UserDetailsServices userDetailsServices;
 	
 	@Autowired
+	RoleService roleService;
+	
+	@Autowired
 	BarCodeGenerateForLabController barCodeGenerateForLabController;
 	
 	@GetMapping(value = "createPdfReportAndSave")
@@ -68,6 +75,7 @@ public class PdfLabReportGenaratorController {
 		Optional<ShopDetailsDTO> labData = shopDetailsService.findByIdShopDetails(4l);
 		UserDetailsDTO userData = userDetailsServices.getUserDetailsById(1l);
 		LabMasterDTO report = labReportGenaratorMasterService.labReportGenaratorMaster(1l);
+		Optional<Role> roleData = roleService.findRoleById(1l);
 		
 		BufferedImage qrCodeImage = BarCodeGenUtils.BarCodeGenerateForLab("http://google.com");
 		
@@ -374,10 +382,11 @@ public class PdfLabReportGenaratorController {
             
             if (labData.isPresent()) {
             	ShopDetailsDTO shopDetailsDTO = labData.get();
-    				
     			String labAddress = shopDetailsDTO.getShopAddress();
-			
-            
+    			//String labRefName = shopDetailsDTO.getReferredByNovaUserName();
+			   // String labRefName = shopDetailsDTO.getReferredByNovaUserName();
+                	
+    			
             Text patientSampleDetails = new Text("Sample Collected At:")
             		.setBold()
             		.setFontColor(com.itextpdf.kernel.color.Color.BLUE)
@@ -387,7 +396,11 @@ public class PdfLabReportGenaratorController {
                     .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
                     .setFontSize(10);
             
-            Text refDetails = new Text("Ref.By: Dr.Harish")
+            Text refDetailsPrefix = new Text("RefBy :")
+                    .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
+                    .setFontSize(10);
+            
+            Text refDetails = new Text("Dr.Payal Shah")
                     .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
                     .setFontSize(10);
             
@@ -396,7 +409,7 @@ public class PdfLabReportGenaratorController {
                     .add("\n") 
                     .add(addressDetails)
                     .add("\n") 
-                    .add(refDetails);
+                    .add(refDetailsPrefix).add(refDetails);
             
             Cell patientSampleDetailsCell = new Cell().add(patientSampleDetailsParagraph);
             
@@ -404,7 +417,6 @@ public class PdfLabReportGenaratorController {
             } else {
             	
             	String labAddress = ("N/A");
-    			
                 
                 Text patientSampleDetails = new Text("Sample Collected At:")
                 		.setBold()
@@ -415,7 +427,11 @@ public class PdfLabReportGenaratorController {
                         .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
                         .setFontSize(10);
                 
-                Text refDetails = new Text("Ref.By: Dr.Harish")
+                Text refDetailsPrefix = new Text("RefBy :")
+                        .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
+                        .setFontSize(10);
+                
+                Text refDetails = new Text("Dr.Payal Shah")
                         .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
                         .setFontSize(10);
                 
@@ -424,7 +440,7 @@ public class PdfLabReportGenaratorController {
                         .add("\n") 
                         .add(addressDetails)
                         .add("\n") 
-                        .add(refDetails);
+                        .add(refDetailsPrefix).add(refDetails);
                   
                 Cell patientSampleDetailsCell = new Cell().add(patientSampleDetailsParagraph);
                 
@@ -434,49 +450,91 @@ public class PdfLabReportGenaratorController {
             
          // Create a horizontal table for the barcode image
 			
+            if (labData.isPresent()) {
+                ShopDetailsDTO shopDetailsDTO = labData.get();
+
+                // Retrieve email and phone number from ShopDetailsDTO
+                String collectedPlace = shopDetailsDTO.getShopAddress();
+                LocalDate collectedDate = shopDetailsDTO.getCreatedAt();
+               
             Image barCodeImage = new Image(ImageDataFactory.create("D:\\labreportdev\\barcode.gif"))
                     .scaleToFit(80, 80)
                     .setMarginLeft(50);
 
-            Text registeredPrefix = new Text("Registered On: ")
+            Text registeredPrefix = new Text("Collected Date: ")
             		.setBold()
                     .setFontSize(8)
                     .setFontColor(com.itextpdf.kernel.color.Color.BLACK);
 
-            Text registeredTime = new Text("02:31 PM 02 DEC 23")
+            Text registeredTime = new Text(collectedDate.toString())
                     .setFontSize(8)
                     .setFontColor(com.itextpdf.kernel.color.Color.BLACK);
 
-            Text collectedPrefix = new Text("Collected On: ")
+            Text collectedPrefix = new Text("Collected Place: ")
             		.setBold()
                     .setFontSize(8)
                     .setFontColor(com.itextpdf.kernel.color.Color.BLACK);
 
-            Text collectedTime = new Text("03:11 PM 02 DEC 23")
+            Text collectedTime = new Text(collectedPlace)
                     .setFontSize(8)
                     .setFontColor(com.itextpdf.kernel.color.Color.BLACK);
 
-            Text reportedPrefix = new Text("Reported On: ")
-            		.setBold()
-                    .setFontSize(8)
-                    .setFontColor(com.itextpdf.kernel.color.Color.BLACK);
-
-            Text reportedTime = new Text("04:35 PM 02 DEC 23")
-                    .setFontSize(8)
-                    .setFontColor(com.itextpdf.kernel.color.Color.BLACK);
-
+			/*
+			 * Text reportedPrefix = new Text("Reported On: ") .setBold() .setFontSize(8)
+			 * .setFontColor(com.itextpdf.kernel.color.Color.BLACK);
+			 * 
+			 * Text reportedTime = new Text("04:35 PM 02 DEC 23") .setFontSize(8)
+			 * .setFontColor(com.itextpdf.kernel.color.Color.BLACK);
+			 */
             Paragraph detailsParagraph = new Paragraph()
                     .add(barCodeImage)
                     .add("\n")
                     .add(registeredPrefix).add(registeredTime)
                     .add("\n")
-                    .add(collectedPrefix).add(collectedTime)
-                    .add("\n")
-                    .add(reportedPrefix).add(reportedTime);
+                    .add(collectedPrefix).add(collectedTime);
+                    //.add("\n")
+                    //.add(reportedPrefix).add(reportedTime);
 
             Cell detailsCell = new Cell().add(detailsParagraph);
             paramsTable.addCell(detailsCell).setTextAlignment(TextAlignment.LEFT);
-  
+            }else {
+				String collectedPlace = ("N/A");
+				String collectedDate = ("N/A");
+				
+				Image barCodeImage = new Image(ImageDataFactory.create("D:\\labreportdev\\barcode.gif"))
+	                    .scaleToFit(80, 80)
+	                    .setMarginLeft(50);
+
+	            Text registeredPrefix = new Text("Collected Date: ")
+	            		.setBold()
+	                    .setFontSize(8)
+	                    .setFontColor(com.itextpdf.kernel.color.Color.BLACK);
+
+	            Text registeredTime = new Text(collectedDate)
+	                    .setFontSize(8)
+	                    .setFontColor(com.itextpdf.kernel.color.Color.BLACK);
+
+	            Text collectedPrefix = new Text("Collected Place: ")
+	            		.setBold()
+	                    .setFontSize(8)
+	                    .setFontColor(com.itextpdf.kernel.color.Color.BLACK);
+
+	            Text collectedTime = new Text(collectedPlace)
+	                    .setFontSize(8)
+	                    .setFontColor(com.itextpdf.kernel.color.Color.BLACK);
+	            
+	            Paragraph detailsParagraph = new Paragraph()
+	                    .add(barCodeImage)
+	                    .add("\n")
+	                    .add(registeredPrefix).add(registeredTime)
+	                    .add("\n")
+	                    .add(collectedPrefix).add(collectedTime);
+	                    //.add("\n")
+	                    //.add(reportedPrefix).add(reportedTime);
+
+	            Cell detailsCell = new Cell().add(detailsParagraph);
+	            paramsTable.addCell(detailsCell).setTextAlignment(TextAlignment.LEFT);
+			}
             //barcode image ends here
             //Test name table
             
@@ -576,32 +634,33 @@ public class PdfLabReportGenaratorController {
             		
             Cell endOfReportCell = new Cell().add(new Paragraph(endOfReport));
             endOfReportCell.setPaddingLeft(70);
-            endOfReportCell.setMarginBottom(70);
+            endOfReportCell.setMarginBottom(50);
             
             thanksFooter.addCell(endOfReportCell.setTextAlignment(TextAlignment.LEFT));
           //thanks Table ends
             
             //Doctors signature table starts
-            Table doctorsSignatureTable = new Table(UnitValue.createPercentArray(new float[]{33.00f, 33.00f, 33.00f}))
+            Table doctorsSignatureTable = new Table(UnitValue.createPercentArray(new float[]{50.00f, 50.00f}))
                     .useAllAvailableWidth();
             
-            Text tecnicianSig = new Text("Medical Lab Tecnician")
-            		.setBold()
-            		.setFontColor(com.itextpdf.kernel.color.Color.BLACK);
+            	Text tecnicianSig = new Text("Tech Name")//need to handle from UI side
+                		.setBold()
+                		.setFontColor(com.itextpdf.kernel.color.Color.BLACK);
+                
+                Text additionalText = new Text("Designation")
+                        .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
+                        .setFontSize(8);
+                        
+                Paragraph technicianParagraph = new Paragraph()
+                        .add(tecnicianSig)
+                        .add("\n") // Add a newline to separate the texts
+                        .add(additionalText)
+                        .setMarginBottom(5);
+                		
+                Cell technicianSignatureCell = new Cell().add(technicianParagraph);
+                
+                doctorsSignatureTable.addCell(technicianSignatureCell.setTextAlignment(TextAlignment.CENTER));
             
-            Text additionalText = new Text("(DMLT,BMLT)")
-                    .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
-                    .setFontSize(8);
-                    
-            Paragraph technicianParagraph = new Paragraph()
-                    .add(tecnicianSig)
-                    .add("\n") // Add a newline to separate the texts
-                    .add(additionalText)
-                    .setMarginBottom(5);
-            		
-            Cell technicianSignatureCell = new Cell().add(technicianParagraph);
-            
-            doctorsSignatureTable.addCell(technicianSignatureCell.setTextAlignment(TextAlignment.CENTER));
             
             Text doctorsSign = new Text("Dr.Payal Shah")
             		.setBold()
@@ -621,23 +680,23 @@ public class PdfLabReportGenaratorController {
             
             doctorsSignatureTable.addCell(doctorSignatureCell.setTextAlignment(TextAlignment.CENTER));
             
-            Text secondDoctorsSign = new Text("Dr.Vimal Shah")
-            		.setBold()
-            		.setFontColor(com.itextpdf.kernel.color.Color.BLACK);
             
-            Text secondAdditionalText= new Text("(MD,Pathologist)")
-                    .setFontColor(com.itextpdf.kernel.color.Color.BLACK)
-                    .setFontSize(8);
-
-            Paragraph secondDoctorParagraph = new Paragraph()
-                    .add(secondDoctorsSign)
-                    .add("\n") // Add a newline to separate the texts
-                    .add(secondAdditionalText)
-                    .setMarginBottom(5);
-            		
-            Cell secondDoctorSigCell = new Cell().add(secondDoctorParagraph);
-            
-            doctorsSignatureTable.addCell(secondDoctorSigCell.setTextAlignment(TextAlignment.CENTER));
+			/*
+			 * Text secondDoctorsSign = new Text("Dr.Vimal Shah") .setBold()
+			 * .setFontColor(com.itextpdf.kernel.color.Color.BLACK);
+			 * 
+			 * Text secondAdditionalText= new Text("(MD,Pathologist)")
+			 * .setFontColor(com.itextpdf.kernel.color.Color.BLACK) .setFontSize(8);
+			 * 
+			 * Paragraph secondDoctorParagraph = new Paragraph() .add(secondDoctorsSign)
+			 * .add("\n") // Add a newline to separate the texts .add(secondAdditionalText)
+			 * .setMarginBottom(5);
+			 * 
+			 * Cell secondDoctorSigCell = new Cell().add(secondDoctorParagraph);
+			 * 
+			 * doctorsSignatureTable.addCell(secondDoctorSigCell.setTextAlignment(
+			 * TextAlignment.CENTER));
+			 */
             //Doctors signature table ends
 
             // Add the table to the document
