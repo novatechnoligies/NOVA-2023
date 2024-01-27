@@ -71,7 +71,7 @@ public class ShopDetailsServiceImpl implements ShopDetailsService {
 		owner.setId(ownerId);
 		
 		//return userServiceDao.getAllLabListByOwnerId(ownerId);
-		List<ShopDetails> shopDetails = detailsRepository.findByOwner(owner);
+		List<ShopDetails> shopDetails = detailsRepository.findByOwnerAndIsDeleted(owner, false);
 		
 		List<ShopDetailsDTO> shopDetailsDTOList = shopDetails.stream()
 				.map(shopDe -> modelMapper.map(shopDe, ShopDetailsDTO.class)).collect(Collectors.toList());
@@ -80,9 +80,9 @@ public class ShopDetailsServiceImpl implements ShopDetailsService {
 
 	@Override
 	public List<ShopDetailsDTO> getAllLabListForTabletByOwnerId(Long ownerId) {
-		// TODO Auto-generated method stub
 		return userServiceDao.getAllLabListByOwnerId(ownerId);
 		//return null;
 	}
 
+	
 }
