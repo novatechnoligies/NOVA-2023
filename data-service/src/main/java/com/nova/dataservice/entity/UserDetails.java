@@ -68,6 +68,12 @@ public class UserDetails {
 	@Column(name = "owner_photo")
 	private String ownerPhoto;
 	
+	@Column(name = "dob")
+	private LocalDate dob;
+	
+	@Column(name = "age")
+	private Integer age;
+	
 	@Column(name = "otp")
 	private String otp;
 	
@@ -240,6 +246,22 @@ public class UserDetails {
 
 	public void setIsPhoneNoVerified(Boolean isPhoneNoVerified) {
 		this.isPhoneNoVerified = isPhoneNoVerified;
+	}
+
+	public LocalDate getDob() {
+		return dob;
+	}
+
+	public void setDob(LocalDate dob) {
+		this.dob = dob;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
 	}
 
 //	@OneToMany(mappedBy = "shop")

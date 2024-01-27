@@ -1,7 +1,11 @@
 package com.nova.dataservice.controller;
 
 import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nova.dataservice.DTO.AppoinmentDTO;
 import com.nova.dataservice.DTO.AppoinmentDetailDTO;
 import com.nova.dataservice.DTO.ShopDetailsDTO;
+import com.nova.dataservice.dao.AgeCategoryAppointmentCountDTO;
 import com.nova.dataservice.entity.AppontmentDetails;
 import com.nova.dataservice.service.AppointmentDetailservice;
 
@@ -105,6 +110,20 @@ public class AppointmentDetailsController {
 			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
 		}
 	}
-	
+	@GetMapping("/adultCount/{labId}")
+	public ResponseEntity<Object> getAdultAppointmentCountByLabId(@PathVariable Long labId) {
+	    try {
+	        List<AgeCategoryAppointmentCountDTO> allAppointments = appService.getAdultAppointmentCountByLabId(labId);
+
+	       
+	        return new ResponseEntity<>(allAppointments, HttpStatus.OK);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<>("Something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	}
+	private int calculateAge(LocalDate dateOfBirth) {
+	    return Period.between(dateOfBirth, LocalDate.now()).getYears();
+	}
 	
 }
