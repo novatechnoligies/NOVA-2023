@@ -265,7 +265,7 @@ public class PdfLabReportGenaratorController {
 				String patientName = userData.getUsername();
 				String gender = userData.getGender();
 				String phone = userData.getPhone();
-				String age = "20";
+				String age = userData.getAge()+"";
 				
          // Add patient information starts
             Text patientNameDetails = new Text(patientName)
