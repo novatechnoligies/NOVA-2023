@@ -84,5 +84,13 @@ public class ShopDetailsServiceImpl implements ShopDetailsService {
 		//return null;
 	}
 
-	
+	@Override
+	public ShopDetails deleteShopDetails(Long shopId) {
+		Optional<ShopDetails> shopDetails = detailsRepository.findById(shopId);
+		if (shopDetails.isPresent()) {
+			shopDetails.get().setIsDeleted(true);
+			detailsRepository.save(shopDetails.get());
+		}
+		return shopDetails.get();
+	}
 }
