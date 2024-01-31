@@ -31,6 +31,8 @@ public interface AppointmentDetailservice {
 
 	EarningDetailsDTO getEarningDetailsByOwnerIdAndDate(Long ownerId, LocalDate fromDate, LocalDate toDate);
 
+	List<AppoinmentDetailDTO> getPastAppointmentsByLabIdAndPatientId(Long labId, Long patientId);
+
 	
 
 

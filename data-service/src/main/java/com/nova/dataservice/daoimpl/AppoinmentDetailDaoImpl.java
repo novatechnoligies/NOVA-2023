@@ -128,6 +128,41 @@ public class AppoinmentDetailDaoImpl implements AppointmentDetailDAO{
 		}
 	}
 
+	@Override
+	public List<AppoinmentDetailDTO> findPastAppointmentsByLabIdAndPatientId(Long labId, Long patientId) {
+		String sql = " SELECT ad.id AS appointmentId,ad.created_at AS appointmentDate,ad.slot_id AS appointmentSlot,ad.appointment_status AS appointmentStatus, "
+				+ "sd.id AS labId,sd.shop_name AS labName,sd.shop_address AS labAddress, "
+				+ "ud.first_name AS patientName,ud.gender AS gender,ud.phone AS patientPhone "
+				+ "FROM appointment_details AS ad "
+				+ "JOIN shop_details AS sd ON sd.id=ad.shop_id "
+				+ "JOIN user_details AS ud ON ad.consumer_id=ud.id "
+				+ "WHERE sd.id= :labId AND ad.id= :patientId AND  ad.created_at < CURDATE() "
+				+ "ORDER BY "
+				+ "  ad.created_at DESC;"
+				+ " ";
+		Query query = entityManager.createNativeQuery(sql.toString())
+									.setParameter("labId", labId)
+									.setParameter("patientId", patientId);
+		
+		query.unwrap(NativeQuery.class).addScalar("appointmentId", StandardBasicTypes.LONG)
+		                               .addScalar("appointmentDate", StandardBasicTypes.LOCAL_DATE)
+		                               .addScalar("appointmentSlot", StandardBasicTypes.LONG)
+		                               .addScalar("appointmentStatus", StandardBasicTypes.STRING)
+		                               .addScalar("labId", StandardBasicTypes.LONG)
+		                               .addScalar("labName", StandardBasicTypes.STRING)
+		                               .addScalar("labAddress", StandardBasicTypes.STRING)
+		                               .addScalar("patientName", StandardBasicTypes.STRING)
+		                               .addScalar("gender", StandardBasicTypes.STRING)
+		                               .addScalar("patientPhone", StandardBasicTypes.STRING);
+		                              
+		((NativeQuery) query).setResultTransformer(Transformers.aliasToBean(AppoinmentDetailDTO.class));
+		Object result = query.getResultList();
+		if (result != null) {
+			return (List<AppoinmentDetailDTO>)result;
+		} else {
+			return null;
+		}
+	}
 	
 
 	

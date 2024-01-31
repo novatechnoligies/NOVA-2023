@@ -13,6 +13,8 @@ public interface AppointmentDetailDAO  {
 	List<AgeCategoryAppointmentCountDTO> getAdultAppointmentCountByLabId(Long labId);
 
 	EarningDetailsDTO findEarningsByOwnerIdAndDate(Long ownerId, LocalDate fromDate, LocalDate toDate);
+
+	List<AppoinmentDetailDTO> findPastAppointmentsByLabIdAndPatientId(Long labId, Long patientId);
 	
 
 }
