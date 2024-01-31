@@ -1,14 +1,17 @@
 package com.nova.dataservice.daoimpl;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.hibernate.query.NativeQuery;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.BasicTypeReference;
 import org.hibernate.type.StandardBasicTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nova.dataservice.DTO.AppoinmentDetailDTO;
+import com.nova.dataservice.DTO.EarningDetailsDTO;
 import com.nova.dataservice.dao.AgeCategoryAppointmentCountDTO;
 import com.nova.dataservice.dao.AppointmentDetailDAO;
 
@@ -95,6 +98,37 @@ public class AppoinmentDetailDaoImpl implements AppointmentDetailDAO{
 		}
 
 	}
+
+	@Override
+	public EarningDetailsDTO findEarningsByOwnerIdAndDate(Long ownerId, LocalDate fromDate,LocalDate toDate) {
+		String sql = " SELECT ud.owner_id AS ownerId, "
+				+ "  SUM(CASE WHEN ad.created_at BETWEEN :fromDate AND :toDate THEN ad.amount ELSE 0 END) AS totalEarnings, "
+				+ "  SUM(CASE WHEN ad.created_at = CURDATE() THEN ad.amount ELSE 0 END) AS todaysEarnings "
+				+ "FROM appointment_details AS ad "
+				+ "JOIN shop_details AS sd ON sd.id = ad.shop_id "
+				+ "JOIN user_details AS ud ON ud.id = sd.user_id "
+				+ "WHERE ud.id = :ownerId  ";
+		Query query = entityManager.createNativeQuery(sql.toString())
+									.setParameter("ownerId", ownerId)
+									.setParameter("fromDate", fromDate)
+									.setParameter("toDate", toDate);
+		
+		query.unwrap(NativeQuery.class).addScalar("ownerId", StandardBasicTypes.LONG)
+		                               .addScalar("todaysEarnings", StandardBasicTypes.FLOAT)
+		                               .addScalar("totalEarnings", StandardBasicTypes.FLOAT);
+		                               
+		                               
+
+		((NativeQuery) query).setResultTransformer(Transformers.aliasToBean(EarningDetailsDTO.class));
+		Object result = query.getSingleResult();
+		if (result != null) {
+			return (EarningDetailsDTO)result;
+		} else {
+			return null;
+		}
+	}
+
+	
 
 	
 }

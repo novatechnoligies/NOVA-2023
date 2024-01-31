@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nova.dataservice.DTO.AppoinmentDTO;
 import com.nova.dataservice.DTO.AppoinmentDetailDTO;
+import com.nova.dataservice.DTO.EarningDetailsDTO;
 import com.nova.dataservice.DTO.ShopDetailsDTO;
 import com.nova.dataservice.dao.AgeCategoryAppointmentCountDTO;
 import com.nova.dataservice.entity.AppontmentDetails;
@@ -125,5 +126,25 @@ public class AppointmentDetailsController {
 	private int calculateAge(LocalDate dateOfBirth) {
 	    return Period.between(dateOfBirth, LocalDate.now()).getYears();
 	}
+
+
+	@GetMapping(value = "getEarningDetailsByOwnerIdAndDate")
+	public ResponseEntity<Object> getEarningDetailsByOwnerIdAndDate(Long ownerId, LocalDate fromDate, LocalDate toDate) {
+
+		try {
+			EarningDetailsDTO data = appService.getEarningDetailsByOwnerIdAndDate(ownerId, fromDate, toDate);
+			if (data==null) {
+				return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
+		}
+	}
+
 	
 }
+
+	
