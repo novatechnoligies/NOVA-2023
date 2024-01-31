@@ -20,4 +20,6 @@ public interface ShopDetailsService {
 
 	List<ShopDetailsDTO> getAllLabListForTabletByOwnerId(Long ownerId);
 
+	ShopDetails deleteShopDetails(Long shopId);
+
 }
