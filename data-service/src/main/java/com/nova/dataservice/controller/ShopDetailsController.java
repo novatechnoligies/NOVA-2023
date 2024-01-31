@@ -125,6 +125,7 @@ public class ShopDetailsController {
 			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
 		}
 	}
+
 	@PutMapping(value = "deleteShopDetails")
 	public ResponseEntity<Object> deleteShopDetails(Long shopId) {
 		try {
@@ -143,6 +144,5 @@ public class ShopDetailsController {
 			// TODO: handle exception
 			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
 		}
-
 	}
 }

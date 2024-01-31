@@ -24,6 +24,10 @@ public class AccessPermissions {
 	
 	private ShopDetails shopDetails;
 	
+	private String items;
+	
+	private Long createdBy;
+	
 	
 	private Boolean createLab;
 	 
@@ -553,6 +557,27 @@ public class AccessPermissions {
 	 */
 	public void setAccessPermissionsToDate(Date accessPermissionsToDate) {
 		this.accessPermissionsToDate = accessPermissionsToDate;
+	}
+
+
+	@Column(name = "items")
+	public String getItems() {
+		return items;
+	}
+
+
+	public void setItems(String items) {
+		this.items = items;
+	}
+
+	@Column(name = "created_by")
+	public Long getCreatedBy() {
+		return createdBy;
+	}
+
+
+	public void setCreatedBy(Long createdBy) {
+		this.createdBy = createdBy;
 	}
 	
 

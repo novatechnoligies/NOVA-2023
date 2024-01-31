@@ -60,6 +60,10 @@ public class UserDetailsDTO {
 
 	private RoleDTO role;
 	
+	private LocalDate dob;
+	
+	private Integer age;
+	
 	/**
 	 * @return the accePermissions
 	 */
@@ -226,6 +230,22 @@ public class UserDetailsDTO {
 
 	public void setRole(RoleDTO role) {
 		this.role = role;
+	}
+
+	public LocalDate getDob() {
+		return dob;
+	}
+
+	public void setDob(LocalDate dob) {
+		this.dob = dob;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
 	}
 
 }

@@ -55,6 +55,9 @@ public class AccessPermissionsDTO {
 	
 	private Boolean usedInventories;
 	
+	private String items;
+	
+	
 	/**
 	 * @return the id
 	 */
@@ -459,6 +462,14 @@ public class AccessPermissionsDTO {
 	 */
 	public void setAccessPermissionsToDate(Date accessPermissionsToDate) {
 		this.accessPermissionsToDate = accessPermissionsToDate;
+	}
+
+	public String getItems() {
+		return items;
+	}
+
+	public void setItems(String items) {
+		this.items = items;
 	}
 
 	private Boolean accessPermissionStatus;
