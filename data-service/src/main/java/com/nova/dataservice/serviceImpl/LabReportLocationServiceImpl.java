@@ -1,6 +1,7 @@
 package com.nova.dataservice.serviceImpl;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,7 +15,7 @@ import com.nova.dataservice.service.LabReportLocationService;
 @Service
 public class LabReportLocationServiceImpl implements LabReportLocationService{
 	
-	@Autowired
+	@Autowired 
 	LabReportLocationReporitory labReportLocationReporitory;
 
 	@Override
@@ -30,6 +31,11 @@ public class LabReportLocationServiceImpl implements LabReportLocationService{
 		labReportLocationReporitory.save(labReportLocatiosn);
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<LabReportLocatiosn> getAllReportsByAppointmentI(Long appointmentId) {
+		return labReportLocationReporitory.findAllReportsByAppointmentId(appointmentId);
 	}
 
 	
