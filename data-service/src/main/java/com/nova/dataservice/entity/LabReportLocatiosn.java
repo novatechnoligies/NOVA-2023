@@ -1,5 +1,7 @@
 package com.nova.dataservice.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +34,9 @@ public class LabReportLocatiosn {
 	
 	@Column(name="appointment_id")
     private Long appointmentId;
+	
+	@Column(name = "created_at")
+	private LocalDate createdAt;
 	
 	/**
 	 * @return the appointmentId
@@ -143,6 +148,14 @@ public class LabReportLocatiosn {
 	 */
 	public void setTechnicianId(Long technicianId) {
 		this.technicianId = technicianId;
+	}
+
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
 	}
 
     
