@@ -32,12 +32,12 @@ public class LabReportLocationServiceImpl implements LabReportLocationService{
 	}
 
 	@Override
+	public List<LabReportLocatiosn> getAllReportsByAppointmentId(Long appointmentId) {
+		return labReportLocationReporitory.findAllReportsByAppointmentId(appointmentId);
+  }
+  @Override
 	public List<LabReportLocatiosn> getAllReportsByPatientIdAndLabIdAndCreatedAt(Long patientId, Long labId,
 			LocalDate createdAt) {
 		return labReportLocationReporitory.findAllReportsByPatientIdAndLabIdAndCreatedAt(patientId,labId,createdAt);
   }
-  @Override
-  public List<LabReportLocatiosn> getAllReportsByAppointmentI(Long appointmentId) {
-		  return labReportLocationReporitory.findAllReportsByAppointmentId(appointmentId);
-	}
 }

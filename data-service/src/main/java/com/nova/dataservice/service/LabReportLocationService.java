@@ -17,9 +17,9 @@ public interface LabReportLocationService   {
 
 	void uploadLabReportLocation(MultipartFile file, Long patientId, Long labId, Long technicianId, Long appointmentId);
 
+	List<LabReportLocatiosn> getAllReportsByAppointmentId(Long appointmentId);
+
 	List<LabReportLocatiosn> getAllReportsByPatientIdAndLabIdAndCreatedAt(Long patientId, Long labId,
 			LocalDate createdAt);
-
-	List<LabReportLocatiosn> getAllReportsByAppointmentI(Long appointmentId);
 
 }

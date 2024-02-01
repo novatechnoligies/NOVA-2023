@@ -41,6 +41,20 @@ public class LabReportLocation {
 		}
 	}
 
+	@GetMapping(value = "getAllReportsByAppointmentId")
+	public ResponseEntity<Object> getAllReportsByAppointmentId(Long appointmentId) {
+		try {
+			List<LabReportLocatiosn> data = docSer.getAllReportsByAppointmentId(appointmentId);
+      if (data.isEmpty()) {
+				  return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+			  } else {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
+			  }
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
+		}
+	}
 	
 	@GetMapping(value = "getAllReportsByPatientIdAndLabIdAndCreatedAt")
 	public ResponseEntity<Object> getAllReportsByPatientIdAndLabIdAndCreatedAt( Long patientId, Long labId, LocalDate createdAt) {
@@ -52,22 +66,6 @@ public class LabReportLocation {
 			  } else {
 				return new ResponseEntity<Object>(data, HttpStatus.OK);
 			  }
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
-		}
-	}
-	@GetMapping(value = "getAllReportsByAppointmentI")
-	public ResponseEntity<Object> getAllReportsByAppointmentI(Long appointmentId) {
-  
-		try {
-			List<LabReportLocatiosn> data = docSer.getAllReportsByAppointmentI(appointmentId);
-    }
-			if (data.isEmpty()) {
-				return new ResponseEntity<Object>("no data found", HttpStatus.OK);
-			} else {
-				return new ResponseEntity<Object>(data, HttpStatus.OK);
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
