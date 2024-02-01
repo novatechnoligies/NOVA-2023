@@ -38,11 +38,11 @@ public class LabReportLocation {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload the file.");
 		}
 	}
-	@GetMapping(value = "getAllReportsByAppointmentI")
-	public ResponseEntity<Object> getAllReportsByAppointmentI(Long appointmentId) {
+	@GetMapping(value = "getAllReportsByAppointmentId")
+	public ResponseEntity<Object> getAllReportsByAppointmentId(Long appointmentId) {
 
 		try {
-			List<LabReportLocatiosn> data = docSer.getAllReportsByAppointmentI(appointmentId);
+			List<LabReportLocatiosn> data = docSer.getAllReportsByAppointmentId(appointmentId);
 			if (data.isEmpty()) {
 				return new ResponseEntity<Object>("no data found", HttpStatus.OK);
 			} else {
