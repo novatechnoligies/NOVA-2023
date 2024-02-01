@@ -17,30 +17,27 @@ import com.nova.dataservice.service.LabReportLocationService;
 @Service
 public class LabReportLocationServiceImpl implements LabReportLocationService{
 	
-	@Autowired
+	@Autowired 
 	LabReportLocationReporitory labReportLocationReporitory;
 
 	@Override
 	public void uploadLabReportLocation(MultipartFile file, Long patientId, Long labId, Long technicianId,
 			Long appointmentId) {
-		
 		LabReportLocatiosn labReportLocatiosn = new LabReportLocatiosn();
 		labReportLocatiosn.setFileName(file.getOriginalFilename());
 		labReportLocatiosn.setAppointmentId(appointmentId);
 		labReportLocatiosn.setPatientId(patientId);
 		labReportLocatiosn.setLabId(labId);
-		
 		labReportLocationReporitory.save(labReportLocatiosn);
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public List<LabReportLocatiosn> getAllReportsByPatientIdAndLabIdAndCreatedAt(Long patientId, Long labId,
 			LocalDate createdAt) {
 		return labReportLocationReporitory.findAllReportsByPatientIdAndLabIdAndCreatedAt(patientId,labId,createdAt);
+  }
+  @Override
+  public List<LabReportLocatiosn> getAllReportsByAppointmentI(Long appointmentId) {
+		  return labReportLocationReporitory.findAllReportsByAppointmentId(appointmentId);
 	}
-
-	
-
 }

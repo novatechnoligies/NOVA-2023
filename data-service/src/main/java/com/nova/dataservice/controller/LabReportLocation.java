@@ -2,6 +2,7 @@ package com.nova.dataservice.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +40,29 @@ public class LabReportLocation {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload the file.");
 		}
 	}
+
 	
 	@GetMapping(value = "getAllReportsByPatientIdAndLabIdAndCreatedAt")
 	public ResponseEntity<Object> getAllReportsByPatientIdAndLabIdAndCreatedAt( Long patientId, Long labId, LocalDate createdAt) {
 
 		try {
 			List<LabReportLocatiosn> data = docSer.getAllReportsByPatientIdAndLabIdAndCreatedAt(patientId, labId, createdAt);
+      if (data.isEmpty()) {
+				  return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+			  } else {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
+			  }
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
+		}
+	}
+	@GetMapping(value = "getAllReportsByAppointmentI")
+	public ResponseEntity<Object> getAllReportsByAppointmentI(Long appointmentId) {
+  
+		try {
+			List<LabReportLocatiosn> data = docSer.getAllReportsByAppointmentI(appointmentId);
+    }
 			if (data.isEmpty()) {
 				return new ResponseEntity<Object>("no data found", HttpStatus.OK);
 			} else {
