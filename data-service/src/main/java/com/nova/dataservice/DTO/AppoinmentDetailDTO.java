@@ -12,7 +12,7 @@ public class AppoinmentDetailDTO {
 	private String patientPhone;
 	private String appointmentStatus;
 	private String patientAdhar;
-	private Long labId;
+	private Long shopId;
 	private Long masterId;
 	private Long serviceId;
 	private String serviceName;
@@ -76,11 +76,11 @@ public class AppoinmentDetailDTO {
 	public void setPatientAdhar(String patientAdhar) {
 		this.patientAdhar = patientAdhar;
 	}
-	public Long getLabId() {
-		return labId;
+	public Long getShopId() {
+		return shopId;
 	}
-	public void setLabId(Long labId) {
-		this.labId = labId;
+	public void setShopbId(Long shopId) {
+		this.shopId = shopId;
 	}
 	public Long getMasterId() {
 		return masterId;

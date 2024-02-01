@@ -131,7 +131,7 @@ public class AppoinmentDetailDaoImpl implements AppointmentDetailDAO{
 	@Override
 	public List<AppoinmentDetailDTO> findPastAppointmentsByLabIdAndPatientId(Long labId, Long patientId) {
 		String sql = " SELECT ad.id AS appointmentId,ad.created_at AS appointmentDate,ad.slot_id AS appointmentSlot,ad.appointment_status AS appointmentStatus, "
-				+ "sd.id AS labId,sd.shop_name AS labName,sd.shop_address AS labAddress, "
+				+ "sd.id AS shopId,sd.shop_name AS labName,sd.shop_address AS labAddress, "
 				+ "ud.first_name AS patientName,ud.gender AS gender,ud.phone AS patientPhone "
 				+ "FROM appointment_details AS ad "
 				+ "JOIN shop_details AS sd ON sd.id=ad.shop_id "
@@ -148,7 +148,7 @@ public class AppoinmentDetailDaoImpl implements AppointmentDetailDAO{
 		                               .addScalar("appointmentDate", StandardBasicTypes.LOCAL_DATE)
 		                               .addScalar("appointmentSlot", StandardBasicTypes.LONG)
 		                               .addScalar("appointmentStatus", StandardBasicTypes.STRING)
-		                               .addScalar("labId", StandardBasicTypes.LONG)
+		                               .addScalar("shopId", StandardBasicTypes.LONG)
 		                               .addScalar("labName", StandardBasicTypes.STRING)
 		                               .addScalar("labAddress", StandardBasicTypes.STRING)
 		                               .addScalar("patientName", StandardBasicTypes.STRING)
