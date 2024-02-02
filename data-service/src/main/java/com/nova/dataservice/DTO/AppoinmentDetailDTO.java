@@ -79,7 +79,7 @@ public class AppoinmentDetailDTO {
 	public Long getShopId() {
 		return shopId;
 	}
-	public void setShopbId(Long shopId) {
+	public void setShopId(Long shopId) {
 		this.shopId = shopId;
 	}
 	public Long getMasterId() {
