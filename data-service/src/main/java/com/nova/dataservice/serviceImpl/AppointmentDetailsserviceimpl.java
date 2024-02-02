@@ -98,6 +98,11 @@ public class AppointmentDetailsserviceimpl implements AppointmentDetailservice{
 		return appDetailDao.findEarningsByOwnerIdAndDate(ownerId,fromDate,toDate);
 	}
 
+	@Override
+	public List<AppoinmentDetailDTO> getPastAppointmentsByLabIdAndPatientId(Long labId, Long patientId) {
+		return appDetailDao.findPastAppointmentsByLabIdAndPatientId(labId, patientId);
+	}
+
 	
 	
 

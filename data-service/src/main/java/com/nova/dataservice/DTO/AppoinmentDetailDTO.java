@@ -22,6 +22,11 @@ public class AppoinmentDetailDTO {
 	private Long patientId;
 	private Float serviceAmount;
 	private String serviceStatus;
+	private Long appointmentSlot;
+	private String labName;
+	private String labAddress;
+	private String gender;
+	
 	
 	public Long getAppointmentId() { 
 		return appointmentId;
@@ -130,6 +135,30 @@ public class AppoinmentDetailDTO {
 	}
 	public void setServiceStatus(String serviceStatus) {
 		this.serviceStatus = serviceStatus;
+	}
+	public Long getAppointmentSlot() {
+		return appointmentSlot;
+	}
+	public void setAppointmentSlot(Long appointmentSlot) {
+		this.appointmentSlot = appointmentSlot;
+	}
+	public String getLabName() {
+		return labName;
+	}
+	public void setLabName(String labName) {
+		this.labName = labName;
+	}
+	public String getLabAddress() {
+		return labAddress;
+	}
+	public void setLabAddress(String labAddress) {
+		this.labAddress = labAddress;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 	
 

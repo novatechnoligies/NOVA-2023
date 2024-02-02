@@ -144,7 +144,21 @@ public class AppointmentDetailsController {
 		}
 	}
 
-	
+	@GetMapping(value = "getPastAppointmentsByLabIdAndPatientId")
+	public ResponseEntity<Object> getPastAppointmentsByLabIdAndPatientId(Long labId, Long patientId) {
+
+		try {
+			List<AppoinmentDetailDTO> data = appService.getPastAppointmentsByLabIdAndPatientId(labId, patientId);
+			if (data.isEmpty()) {
+				return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
+		}
+	}
 }
 
 	
