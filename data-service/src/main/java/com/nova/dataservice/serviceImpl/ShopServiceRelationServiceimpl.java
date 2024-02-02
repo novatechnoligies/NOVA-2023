@@ -99,7 +99,20 @@ public class ShopServiceRelationServiceimpl implements ShopServiceRelationServic
 		List<ServiceDetailDTO> serivceMastershopRelationList = ServiceDao.findAllShopServiceByLab(labId);
 		return serivceMastershopRelationList;
 	}
+
+	@Override
+	public ServiceMasterShopRelation updatedServicePrice(Long serviceId, Float newPrice) {
+		 ServiceMasterShopRelation service = relationRepository.findById(serviceId)
+	                .orElseThrow(() -> new RuntimeException("Service not found"));
+
+	        // Update the price
+	        service.setAmount(newPrice);
+
+	        // Save the updated service to the database
+	        return relationRepository.save(service);
+	    }
+	}
 	
 	
 
-}
+
