@@ -1,6 +1,7 @@
 package com.nova.dataservice.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,6 +19,8 @@ public interface ShopDetailsRepository extends JpaRepository<ShopDetails,Long> {
 	List<ShopDetails> searchLabByNameAndOwner(String labName);
 
 	List<ShopDetails> findByOwnerAndIsDeleted(UserDetails ownerId,Boolean isDeleted);
+
+	Optional<ShopDetails> save(Long shopId);
 
 
 }

@@ -22,4 +22,7 @@ public interface ShopDetailsService {
 
 	ShopDetails deleteShopDetails(Long shopId);
 
+	Optional<ShopDetails> findById(Long shopId);
+
+
 }
