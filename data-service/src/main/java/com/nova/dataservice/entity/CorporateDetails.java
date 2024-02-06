@@ -21,38 +21,14 @@ public class CorporateDetails {
 	@Column(name = "id")
 	private Long id;
 	
-	public Long getEmployeeId() {
-		return employeeId;
-	}
-
-	public void setEmployeeId(Long employeeId) {
-		this.employeeId = employeeId;
-	}
-
-	public String getCompanyName() {
-		return companyName;
-	}
-
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-
-	public String getCompany_code() {
-		return company_code;
-	}
-
-	public void setCompany_code(String company_code) {
-		this.company_code = company_code;
-	}
-
 	@Column(name="employee_id")
-	private  Long employeeId;
+	private  String employeeId;
 	
 	@Column(name="company_name")
 	private String companyName;
 	
 	@Column(name="company_code")
-	private String company_code;
+	private String companyCode;
 	
 	
 	@Column(name = "first_name")
@@ -64,30 +40,15 @@ public class CorporateDetails {
 	@Column(name = "email")
 	private String email;
 	
-	public String getEmployeeEmail() {
-		return employeeEmail;
-	}
-
-	public void setEmployeeEmail(String employeeEmail) {
-		this.employeeEmail = employeeEmail;
-	}
 
 	@Column(name="employee_email")
 	private String employeeEmail;
 	
 	@Column(name = "phone")
 	private String phone;
-	
-	public String getEmployee_Phone() {
-		return employee_Phone;
-	}
-
-	public void setEmployee_Phone(String employee_Phone) {
-		this.employee_Phone = employee_Phone;
-	}
 
 	@Column(name="employee_phone")
-	private String employee_Phone;
+	private String employeePhone;
 	
 	@Column(name = "pin")
 	private String pin;
@@ -131,33 +92,18 @@ public class CorporateDetails {
 	@Column(name = "otp")
 	private String otp;
 	
-	public String getOtp() {
-		return otp;
-	}
-
-	public void setOtp(String otp) {
-		this.otp = otp;
-	}
-
 	@Column(name = "is_phone_no_verified")
 	private Boolean isPhoneNoVerified;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "role_id")
 	private Role role;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "org_id")
 	private Organization organization;
 
-	public Organization getOrganization() {
-		return organization;
-	}
-
-	public void setOrganization(Organization organization) {
-		this.organization = organization;
-	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -317,6 +263,61 @@ public class CorporateDetails {
 	public void setAge(Integer age) {
 		this.age = age;
 	}
+	
+	public String getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	public String getcompanyCode() {
+		return companyCode;
+	}
+
+	public void setcompanyCode(String companyCode) {
+		this.companyCode = companyCode;
+	}
+
+	public String getEmployeeEmail() {
+		return employeeEmail;
+	}
+
+	public void setEmployeeEmail(String employeeEmail) {
+		this.employeeEmail = employeeEmail;
+	}
+
+	public String getemployeePhone() {
+		return employeePhone;
+	}
+
+	public void setemployeePhone(String employeePhone) {
+		this.employeePhone = employeePhone;
+	}
+	public String getOtp() {
+		return otp;
+	}
+
+	public void setOtp(String otp) {
+		this.otp = otp;
+	}
+	public Organization getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(Organization organization) {
+		this.organization = organization;
+	}
+
 
 
 }
