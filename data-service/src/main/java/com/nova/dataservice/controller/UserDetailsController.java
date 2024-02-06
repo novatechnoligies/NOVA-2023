@@ -1,5 +1,6 @@
 package com.nova.dataservice.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -240,9 +241,27 @@ public class UserDetailsController {
     
 		List<UserDetailsDTO> data = detailsServices.getAllUserDetailsByCreadtedBy(userId);
 		if (data.isEmpty()) {
-			return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+			return new ResponseEntity<Object>(new ArrayList<>(), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Object>(data, HttpStatus.OK);
 		}
+	}
+	
+	@GetMapping(value = "searchOwnerByNameAndCreatedByAndStatus")
+	public ResponseEntity<Object> searchOwnerByNameAndCreatedByAndStatus(String ownerName,Long createdBy, boolean status) {
+    
+		try {
+			List<UserDetailsDTO> data = detailsServices.getAllUserDetailsOfOwner(ownerName);
+			List<UserDetailsDTO> data1 = detailsServices.searchOwnerByNameAndCreatedByAndStatus(ownerName, createdBy, status);
+			if (data.isEmpty()) {
+				return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		return new ResponseEntity<Object>("Something went wrong",HttpStatus.OK);
+	}
+		
 	}
 }

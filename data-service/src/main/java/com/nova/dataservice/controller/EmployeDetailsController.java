@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nova.dataservice.entity.AppontmentDetails;
 import com.nova.dataservice.entity.EmployeeDetails;
 import com.nova.dataservice.service.EmployeDetailService;
 

@@ -165,4 +165,15 @@ public class UserDetailsServicesimpl implements UserDetailsServices {
 			return userDetailsDTOList;
 	}
 
+	@Override
+	public List<UserDetailsDTO> searchOwnerByNameAndCreatedByAndStatus(String ownerName, Long createdBy,
+			boolean status) {
+		List<UserDetails> userDetailsList = detailsRepository.searchOwnerByNameAndCreatedByAndStatus(ownerName, createdBy, true); // Retrieve a list of UserDetails entities
+		
+		List<UserDetailsDTO> userDetailsDTOList = userDetailsList.stream()
+		    .map(userDetails -> modelMapper.map(userDetails, UserDetailsDTO.class))
+		    .collect(Collectors.toList());
+		return userDetailsDTOList;
+	}
+
 }

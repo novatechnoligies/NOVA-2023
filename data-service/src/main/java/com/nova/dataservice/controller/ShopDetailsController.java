@@ -1,5 +1,6 @@
 package com.nova.dataservice.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -100,7 +101,7 @@ public class ShopDetailsController {
 		try {
 			List<ShopDetailsDTO> data = detailsService.getAllLabListByOwnerId( ownerId);
 			if (data.isEmpty()) {
-				return new ResponseEntity<Object>("no data found", HttpStatus.OK);
+				return new ResponseEntity<Object>(new ArrayList<>(), HttpStatus.OK);
 			} else {
 				return new ResponseEntity<Object>(data, HttpStatus.OK);
 			}

@@ -21,4 +21,6 @@ public interface UserServiceDao {
 
 	List<ShopDetailsDTO> getAllLabListByOwnerId(Long ownerId);
 
+	List<ShopDetailsDTO> findByShopAccessByEmployeeAndIsDeleted(Long owner, boolean b);
+
 }

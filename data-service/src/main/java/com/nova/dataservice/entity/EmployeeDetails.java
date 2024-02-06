@@ -1,7 +1,6 @@
 package com.nova.dataservice.entity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -57,7 +56,7 @@ public class EmployeeDetails
 	
 	
 	@Column (name="created_at")
-	private LocalDateTime createdAt;
+	private LocalDate createdAt;
 	
 	@Column(name = "documents")
 	private String documents;
@@ -145,11 +144,11 @@ public class EmployeeDetails
 		this.ownerId = ownerId;
 	}
 
-	public LocalDateTime getCreatedAt() {
+	public LocalDate getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(LocalDateTime createdAt) {
+	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
 

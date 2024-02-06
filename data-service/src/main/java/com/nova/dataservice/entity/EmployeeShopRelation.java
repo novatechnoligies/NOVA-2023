@@ -27,13 +27,11 @@ public class EmployeeShopRelation {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "shop_details")
-	@JsonIgnore
     private ShopDetails shopId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "emp_id")
-	@JsonIgnore
-	private EmployeeDetails empId;
+	private UserDetails empId;
 	
 	@Column(name="employee_start_date")
 	private LocalDate employeeStartDate;
@@ -46,6 +44,61 @@ public class EmployeeShopRelation {
 	
 	@Column(name="status")
 	private Boolean status;
+	
+	@Column(name="is_deleted")
+	private Boolean isDeleted;
+	
+	@Column(name="salary")
+	private Float salary;
+	
+	@Column(name="owner_id")
+	private Long ownerId;
+	
+	@Column(name="emp_code")
+	private String empCode;
+	
+	@Column(name="createdAt")
+	private LocalDate created_at;
+
+	public Boolean getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(Boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	public Float getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Float salary) {
+		this.salary = salary;
+	}
+
+	public Long getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(Long ownerId) {
+		this.ownerId = ownerId;
+	}
+
+	public String getEmpCode() {
+		return empCode;
+	}
+
+	public void setEmpCode(String empCode) {
+		this.empCode = empCode;
+	}
+
+	public LocalDate getCreated_at() {
+		return created_at;
+	}
+
+	public void setCreated_at(LocalDate created_at) {
+		this.created_at = created_at;
+	}
 
 	public Long getId() {
 		return id;
@@ -63,16 +116,16 @@ public class EmployeeShopRelation {
 		this.shopId = shopId;
 	}
 
-	public EmployeeDetails getEmpId() {
+	public UserDetails getEmpId() {
 		return empId;
 	}
 
-	public void setEmpId(EmployeeDetails empId) {
+	public void setEmpId(UserDetails empId) {
 		this.empId = empId;
 	}
 
 	public LocalDate getEmployeeStartDate() {
-		return employeeStartDate;
+		return employeeStartDate; 
 	}
 
 	public void setEmployeeStartDate(LocalDate employeeStartDate) {
