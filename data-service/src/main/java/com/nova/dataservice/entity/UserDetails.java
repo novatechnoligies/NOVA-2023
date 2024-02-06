@@ -77,6 +77,9 @@ public class UserDetails {
 	@Column(name = "otp")
 	private String otp;
 	
+	@Column(name = "address")
+	private String address;
+	
 	public String getOtp() {
 		return otp;
 	}
@@ -262,6 +265,14 @@ public class UserDetails {
 
 	public void setAge(Integer age) {
 		this.age = age;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 //	@OneToMany(mappedBy = "shop")
