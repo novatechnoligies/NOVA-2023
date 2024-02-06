@@ -142,10 +142,8 @@ public class UserServiceDaoImpl implements UserServiceDao{
 		String sql = "SELECT sd.id AS id,sd.email AS email,sd.gst_no AS gstNo,sd.logo AS logo,sd.phone AS phone,sd.latitude AS latitude "
 				+ ",sd.longitude AS longitude ,sd.created_at AS createdAt, sd.shop_address AS shopAddress,sd.shop_code AS shopCode,sd.shop_photo AS shopPhoto, "
 				+ "ud.id as OwnerId, ud.username AS ownerName "
-				+ "ad.refered_by_nova_user_name AS refByNovaUserName,ad.refered_by_non_nova_user_name AS refByNonNovaUserName "
 				+ "FROM shop_details AS sd "
 				+ "JOIN user_details AS ud ON ud.id= sd.user_id "
-				+ "JOIN appointment_details AS ad ON ad.id = ud.id "
 				+ "where sd.user_id = :ownerId";
 		
 		Query query = entityManager.createNativeQuery(sql.toString())
@@ -164,10 +162,7 @@ public class UserServiceDaoImpl implements UserServiceDao{
 		.addScalar("shopPhoto", StandardBasicTypes.STRING)
 		.addScalar("OwnerId", StandardBasicTypes.LONG)
 		.addScalar("createdAt", StandardBasicTypes.LOCAL_DATE)
-		.addScalar("ownerName", StandardBasicTypes.STRING)
-		.addScalar("refByNovaUserName", StandardBasicTypes.STRING)
-		.addScalar("refByNonNovaUserName", StandardBasicTypes.STRING);
-		
+		.addScalar("ownerName", StandardBasicTypes.STRING);
 		
 		
         ((NativeQuery) query).setResultTransformer(Transformers.aliasToBean(ShopDetailsDTO.class));
