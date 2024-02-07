@@ -177,5 +177,47 @@ public class UserServiceDaoImpl implements UserServiceDao{
 		}
 	
 	}
+
+	@Override
+	public List<ShopDetailsDTO> findByShopAccessByEmployeeAndIsDeleted(Long ownerId, boolean b) {
+		String sql = "SELECT sd.id as id, sd.shop_name as shopName, sd.shop_address As shopAddress, sd.latitude AS latitude , sd.longitude AS longitude, "
+				+ " sd.logo AS logo, sd.email AS email, sd.phone AS phone , sd.pin_code AS pinCode , sd.shop_code as shopCode, sd.gst_no AS gstNo "
+				+ "FROM shop_employee_relation AS ser "
+				+ "JOIN user_details AS ud ON ud.id= ser.emp_id "
+				+ "JOIN shop_details AS sd ON sd.id= ser.shop_details "
+				+ "WHERE ser.emp_id = :ownerId and ser.status = :status ";
+				
+		
+		Query query = entityManager.createNativeQuery(sql.toString())
+				.setParameter("ownerId",  ownerId )
+				.setParameter("status",  b );
+		
+		query.unwrap(NativeQuery.class)
+		.addScalar("id",StandardBasicTypes.LONG)
+		.addScalar("shopName",StandardBasicTypes.STRING)
+		.addScalar("shopAddress",StandardBasicTypes.STRING)
+        .addScalar("latitude", StandardBasicTypes.STRING)
+        .addScalar("longitude", StandardBasicTypes.STRING)
+        .addScalar("logo", StandardBasicTypes.STRING)
+        .addScalar("email", StandardBasicTypes.STRING)
+        .addScalar("phone", StandardBasicTypes.STRING)
+		.addScalar("pinCode", StandardBasicTypes.STRING)
+		.addScalar("shopCode", StandardBasicTypes.STRING)
+		.addScalar("gstNo", StandardBasicTypes.STRING);
+		
+		
+		
+		
+        ((NativeQuery) query).setResultTransformer(Transformers.aliasToBean(ShopDetailsDTO.class));
+        
+        Object result = query.getResultList();
+        
+        if (result != null) {
+			return(List<ShopDetailsDTO>)result;
+		}else {
+			return null;
+		}
+	
+	}
 	
 }

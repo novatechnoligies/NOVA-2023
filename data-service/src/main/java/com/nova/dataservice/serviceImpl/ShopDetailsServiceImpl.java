@@ -14,6 +14,7 @@ import com.nova.dataservice.dao.UserServiceDao;
 import com.nova.dataservice.entity.ShopDetails;
 import com.nova.dataservice.entity.UserDetails;
 import com.nova.dataservice.repository.ShopDetailsRepository;
+import com.nova.dataservice.repository.UserDetailsRepository;
 import com.nova.dataservice.service.ShopDetailsService;
 
 @Service
@@ -27,6 +28,9 @@ public class ShopDetailsServiceImpl implements ShopDetailsService {
 	
 	@Autowired
 	UserServiceDao userServiceDao;
+	
+	@Autowired
+	UserDetailsRepository userDetailsRepository;
 	
 	
 	@Override
@@ -67,15 +71,21 @@ public class ShopDetailsServiceImpl implements ShopDetailsService {
 	@Override
 	public List<ShopDetailsDTO> getAllLabListByOwnerId(Long ownerId) {
 		// TODO Auto-generated method stub
-		UserDetails owner = new UserDetails();
-		owner.setId(ownerId);
+		UserDetails owner = userDetailsRepository.findById(ownerId).get();
 		
-		//return userServiceDao.getAllLabListByOwnerId(ownerId);
-		List<ShopDetails> shopDetails = detailsRepository.findByOwnerAndIsDeleted(owner, false);
-		
-		List<ShopDetailsDTO> shopDetailsDTOList = shopDetails.stream()
-				.map(shopDe -> modelMapper.map(shopDe, ShopDetailsDTO.class)).collect(Collectors.toList());
-		return shopDetailsDTOList;
+		List<ShopDetails> shopDetails = null;
+		if (owner.getRole().getId()==1l) {
+			shopDetails = detailsRepository.findByOwnerAndIsDeleted(owner, false);
+			List<ShopDetailsDTO> shopDetailsDTOList = shopDetails.stream()
+					.map(shopDe -> modelMapper.map(shopDe, ShopDetailsDTO.class)).collect(Collectors.toList());
+			return shopDetailsDTOList;
+		} else {
+			List<ShopDetailsDTO> shopDetailsDTOList = userServiceDao.findByShopAccessByEmployeeAndIsDeleted(ownerId, true);
+			
+//			List<ShopDetailsDTO> shopDetailsDTOList1 = shopDetails.stream()
+//					.map(shopDe -> modelMapper.map(shopDe, ShopDetailsDTO.class)).collect(Collectors.toList());
+			return shopDetailsDTOList;
+		}
 	}
 
 	@Override
