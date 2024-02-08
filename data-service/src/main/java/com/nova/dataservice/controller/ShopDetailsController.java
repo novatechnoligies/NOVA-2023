@@ -1,5 +1,10 @@
 package com.nova.dataservice.controller;
 
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,10 +20,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nova.dataservice.DTO.ShopDetailsDTO;
 import com.nova.dataservice.entity.ShopDetails;
+import com.nova.dataservice.entity.UserDetails;
+import com.nova.dataservice.repository.ShopDetailsRepository;
 import com.nova.dataservice.service.ShopDetailsService;
 
 @RestController
@@ -27,6 +37,11 @@ import com.nova.dataservice.service.ShopDetailsService;
 public class ShopDetailsController {
 	@Autowired
 	ShopDetailsService detailsService;
+	
+	@Autowired
+	ShopDetailsRepository detailsRepository;
+	
+	private static final String UPLOAD_DIR = "D:\\uploadLogo";
 
 	@PostMapping(value = "saveShopDetails")
 	public ResponseEntity<Object> saveShopDetails(@RequestBody ShopDetails details) {
@@ -146,4 +161,34 @@ public class ShopDetailsController {
 			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
 		}
 	}
+	
+
+	@PostMapping(value = "uploadLogo")
+    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file, Long shopId) {
+        try {
+            createUploadsDirectory();
+            String fileName = file.getOriginalFilename();
+            Path filePath = Paths.get(UPLOAD_DIR, fileName);
+            Files.copy(file.getInputStream(), filePath);
+
+           Optional<ShopDetails> shopData = detailsRepository.findById(shopId);
+           shopData.get().setLogo(UPLOAD_DIR+"\\"+fileName);
+           detailsRepository.save(shopData.get());
+            return ResponseEntity.ok("File uploaded successfully: " + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Failed to upload file");
+        }
+    }
+
+    private void createUploadsDirectory() throws IOException {
+        // Create the uploads directory if it doesn't exist
+        Path directory = Paths.get(UPLOAD_DIR);
+        if (!Files.exists(directory)) {
+            Files.createDirectories(directory);
+        }
+    }
+
 }
+
+

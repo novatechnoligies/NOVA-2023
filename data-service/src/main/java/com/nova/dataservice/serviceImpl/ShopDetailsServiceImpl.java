@@ -103,4 +103,10 @@ public class ShopDetailsServiceImpl implements ShopDetailsService {
 		}
 		return shopDetails.get();
 	}
+
+	@Override
+	public Optional<ShopDetails> findById(Long shopId) {
+		return detailsRepository.save(shopId);
+	}
+
 }
