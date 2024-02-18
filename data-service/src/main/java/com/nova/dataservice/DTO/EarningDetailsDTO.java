@@ -7,6 +7,7 @@ public class EarningDetailsDTO {
 	
 	private Float totalEarnings;
 
+	
 	/**
 	 * @return the todaysEarnings
 	 */
@@ -42,6 +43,7 @@ public class EarningDetailsDTO {
 	public void setOwnerId(Long ownerId) {
 		this.ownerId = ownerId;
 	}
+
 	
 
 }
