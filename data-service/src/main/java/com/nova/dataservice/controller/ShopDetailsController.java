@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nova.dataservice.DTO.ShopDetailsDTO;
+import com.nova.dataservice.DTO.ShopDetailsDashboardDTO;
 import com.nova.dataservice.entity.ShopDetails;
 import com.nova.dataservice.entity.UserDetails;
 import com.nova.dataservice.repository.ShopDetailsRepository;
@@ -188,7 +189,21 @@ public class ShopDetailsController {
             Files.createDirectories(directory);
         }
     }
+    @GetMapping(value = "getAllLabListInDashboardByOwnerId")
+	public ResponseEntity<Object> getAllLabListInDashboardByOwnerId( Long ownerId) {
 
+		try {
+			List<ShopDetailsDashboardDTO> data = detailsService.getAllLabListInDashboardByOwnerId( ownerId);
+			if (data.isEmpty()) {
+				return new ResponseEntity<Object>(new ArrayList<>(), HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
+		}
+	}
 }
 
 

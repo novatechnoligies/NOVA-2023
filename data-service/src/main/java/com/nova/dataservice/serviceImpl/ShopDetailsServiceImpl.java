@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nova.dataservice.DTO.ShopDetailsDTO;
+import com.nova.dataservice.DTO.ShopDetailsDashboardDTO;
+import com.nova.dataservice.dao.ShopDetailsDao;
 import com.nova.dataservice.dao.UserServiceDao;
 import com.nova.dataservice.entity.ShopDetails;
 import com.nova.dataservice.entity.UserDetails;
@@ -20,17 +22,22 @@ import com.nova.dataservice.service.ShopDetailsService;
 @Service
 public class ShopDetailsServiceImpl implements ShopDetailsService {
 	
-	@Autowired
+	@Autowired 
 	ShopDetailsRepository detailsRepository;
 	
 	@Autowired
 	private ModelMapper modelMapper;
 	
 	@Autowired
-	UserServiceDao userServiceDao;
+	UserServiceDao userServiceDao; 
+	
 	
 	@Autowired
 	UserDetailsRepository userDetailsRepository;
+	
+	@Autowired
+	ShopDetailsDao shopDao;
+	
 	
 	
 	@Override
@@ -108,5 +115,14 @@ public class ShopDetailsServiceImpl implements ShopDetailsService {
 	public Optional<ShopDetails> findById(Long shopId) {
 		return detailsRepository.save(shopId);
 	}
+
+	@Override
+	public List<ShopDetailsDashboardDTO> getAllLabListInDashboardByOwnerId(Long ownerId) {
+		// TODO Auto-generated method stub
+		  List<ShopDetailsDashboardDTO> ShopDetailDto2List  = shopDao.findAllLabListByOwnerId1(ownerId);
+		  return ShopDetailDto2List;
+	}
+
+	
 
 }
