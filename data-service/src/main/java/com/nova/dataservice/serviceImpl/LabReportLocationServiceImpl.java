@@ -22,12 +22,13 @@ public class LabReportLocationServiceImpl implements LabReportLocationService{
 
 	@Override
 	public void uploadLabReportLocation(MultipartFile file, Long patientId, Long labId, Long technicianId,
-			Long appointmentId) {
+			Long appointmentId, String result) {
 		LabReportLocatiosn labReportLocatiosn = new LabReportLocatiosn();
 		labReportLocatiosn.setFileName(file.getOriginalFilename());
 		labReportLocatiosn.setAppointmentId(appointmentId);
 		labReportLocatiosn.setPatientId(patientId);
 		labReportLocatiosn.setLabId(labId);
+		labReportLocatiosn.setResult(result);
 		labReportLocationReporitory.save(labReportLocatiosn);
 	}
 

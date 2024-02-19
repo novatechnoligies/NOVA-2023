@@ -15,7 +15,7 @@ import com.nova.dataservice.entity.LabReportLocatiosn;
 
 public interface LabReportLocationService   {
 
-	void uploadLabReportLocation(MultipartFile file, Long patientId, Long labId, Long technicianId, Long appointmentId);
+	void uploadLabReportLocation(MultipartFile file, Long patientId, Long labId, Long technicianId, Long appointmentId,String result);
 
 	List<LabReportLocatiosn> getAllReportsByAppointmentId(Long appointmentId);
 

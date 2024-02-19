@@ -38,6 +38,17 @@ public class LabReportLocatiosn {
 	@Column(name = "created_at")
 	private LocalDate createdAt;
 	
+	@Column(name="result")
+    private String result;
+	
+	public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
+	}
+
 	/**
 	 * @return the appointmentId
 	 */

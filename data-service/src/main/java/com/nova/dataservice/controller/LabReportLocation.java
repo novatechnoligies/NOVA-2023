@@ -31,10 +31,10 @@ public class LabReportLocation {
 	@PostMapping("/uploadLabReportLocation")
 	public ResponseEntity<String> uploadLabReportLocation(@RequestParam("file") MultipartFile file,
 			@RequestParam("patientId") Long patientId, @RequestParam("labId") Long labId,
-			@RequestParam("technicianId") Long technicianId, @RequestParam("appointmentId") Long appointmentId) {
+			@RequestParam("technicianId") Long technicianId, @RequestParam("appointmentId") Long appointmentId, String result) {
 
 		try {
-			docSer.uploadLabReportLocation(file, patientId, labId, technicianId, appointmentId);
+			docSer.uploadLabReportLocation(file, patientId, labId, technicianId, appointmentId, result);
 			return ResponseEntity.ok("File uploaded successfully.");
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload the file.");
