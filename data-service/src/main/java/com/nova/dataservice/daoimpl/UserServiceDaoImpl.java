@@ -165,7 +165,6 @@ public class UserServiceDaoImpl implements UserServiceDao{
 		.addScalar("ownerName", StandardBasicTypes.STRING);
 		
 		
-		
         ((NativeQuery) query).setResultTransformer(Transformers.aliasToBean(ShopDetailsDTO.class));
         
         Object result = query.getResultList();

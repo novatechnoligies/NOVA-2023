@@ -38,7 +38,7 @@ public class BarCodeGenerateForLabServiceImpl implements BarCodeGenerateForLabSe
 	        hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
 	        QRCodeWriter qrCodeWriter = new QRCodeWriter();
 	        try {
-	            return qrCodeWriter.encode(data, BarcodeFormat.QR_CODE, 300, 300, hints);
+	            return qrCodeWriter.encode(data, BarcodeFormat.QR_CODE, 10, 10, hints);
 	        } catch (WriterException e) {
 	            e.printStackTrace();
 	            throw new RuntimeException("Error generating QR code", e);
@@ -52,13 +52,6 @@ public class BarCodeGenerateForLabServiceImpl implements BarCodeGenerateForLabSe
 	        }
 	    }
 
-//	    public void main(String[] args) {
-//	        BarCodeGenerateForLabEntity data = new BarCodeGenerateForLabEntity();
-//	        data.setId(11L);
-//	        BarCodeGenerateForLab(data, "C:\\Users\\Admin\\Documents\\dumps\\example.pdf");
-//	        System.out.println("Success");
-//	    }
-
 		@Override
 		public void BarCodeGenerateForLab(BarCodeGenerateForLabEntity labEntity, String outputPath) {
 	        String data = "http://localhost:8082/dataservice/getShopAvaibilityByShopId/1";
@@ -69,6 +62,7 @@ public class BarCodeGenerateForLabServiceImpl implements BarCodeGenerateForLabSe
 	             PdfDocument pdfDocument = new PdfDocument(pdfWriter);
 	             Document document = new Document(pdfDocument)) {
 	            Image img = new Image(ImageDataFactory.create(toByteArray(qrCodeImage)));
+	            img.scale(2.0f,2.0f);
 	            document.add(img);
 	            System.out.println("PDF with QR code generated successfully at: " + outputPath);
 	        } catch (IOException e) {
