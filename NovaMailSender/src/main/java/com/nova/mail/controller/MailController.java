@@ -22,4 +22,11 @@ public class MailController {
 		inter.sendMail(tomail, "test", "i Love you boss i need to make this project ASAP thanks for support...!"+otp);
 		return "done";
 	}
+	
+	
+	@GetMapping(value = "/sendAppointDetails")
+	public String sendAppointDetails(String tomail, String slotId, String date) {
+		inter.sendMail(tomail, "test", "booked appoint from you org to the nova lab with ...!"+slotId+" on Date "+date+"Dont  iss opprtunity Thanks to nova");
+		return "done";
+	}
 }

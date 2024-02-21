@@ -31,4 +31,6 @@ public interface UserDetailsServices {
 
 	List<UserDetailsDTO> getAllUserDetailsByCreadtedBy(Long userId);
 
+	List<UserDetailsDTO> searchOwnerByNameAndCreatedByAndStatus(String ownerName, Long createdBy, boolean status);
+
 }

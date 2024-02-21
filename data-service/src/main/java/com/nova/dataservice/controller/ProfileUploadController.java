@@ -27,6 +27,9 @@ public class ProfileUploadController {
 	UserDetailsRepository userDetailsRepository;
 	
 	private static final String UPLOAD_DIR = "D:\\profilePhoto";
+	
+	private static final String UPLOAD_DIRV = "D:\\uploadAdharPhoto";
+
 
     @PostMapping(value = "uploadProfile")
     public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file, Long userId) {
@@ -49,6 +52,31 @@ public class ProfileUploadController {
     private void createUploadsDirectory() throws IOException {
         // Create the uploads directory if it doesn't exist
         Path directory = Paths.get(UPLOAD_DIR);
+        if (!Files.exists(directory)) {
+            Files.createDirectories(directory);
+        }
+    }
+    @PostMapping(value = "uploadAdharPhoto")
+    public ResponseEntity<String> uploadAdharPhoto(@RequestParam("file") MultipartFile file, Long userId) {
+        try {
+            createUploadsDirectory();
+            String fileName = file.getOriginalFilename();
+            Path filePath = Paths.get(UPLOAD_DIRV, fileName);
+            Files.copy(file.getInputStream(), filePath);
+
+           Optional<UserDetails> userData = userDetailsRepository.findById(userId);
+           userData.get().setAdharPhoto(UPLOAD_DIRV+"\\"+fileName);
+           userDetailsRepository.save(userData.get());
+            return ResponseEntity.ok("File uploaded successfully: " + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Failed to upload file");
+        }
+    }
+
+    private void uploadAdharPhoto() throws IOException {
+        // Create the uploads directory if it doesn't exist
+        Path directory = Paths.get(UPLOAD_DIRV);
         if (!Files.exists(directory)) {
             Files.createDirectories(directory);
         }

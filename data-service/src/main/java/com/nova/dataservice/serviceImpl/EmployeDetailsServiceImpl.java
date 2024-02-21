@@ -18,7 +18,6 @@ public class EmployeDetailsServiceImpl implements EmployeDetailService {
 	
 	@Override
 	public EmployeeDetails saveEmployeDetails(EmployeeDetails employeeDetails) {
-		// TODO Auto-generated method stub
 		return employeDetailRepository.save(employeeDetails);
 	}
 

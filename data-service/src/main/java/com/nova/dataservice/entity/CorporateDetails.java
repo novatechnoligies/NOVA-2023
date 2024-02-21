@@ -1,85 +1,109 @@
-package com.nova.dataservice.DTO;
+package com.nova.dataservice.entity;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.nova.dataservice.entity.AccessPermissions;
-import com.nova.dataservice.entity.Organization;
-import com.nova.dataservice.entity.Role;
-import com.nova.dataservice.entity.ShopDetails;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-
-public class UserDetailsDTO {
-
+import jakarta.persistence.Table;
+@Entity
+@Table(name="corporate_details")
+public class CorporateDetails {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Long id;
-
+	
+	@Column(name="employee_id")
+	private  String employeeId;
+	
+	@Column(name="company_name")
+	private String companyName;
+	
+	@Column(name="company_code")
+	private String companyCode;
+	
+	
+	@Column(name = "first_name")
 	private String firstName;
-
+	
+	@Column(name = "last_name")
 	private String lastName;
-
+	
+	@Column(name = "email")
 	private String email;
+	
 
+	@Column(name="employee_email")
+	private String employeeEmail;
+	
+	@Column(name = "phone")
 	private String phone;
 
-	private String pin;
-
-	private String gender;
-
-	private LocalDate createdAt;
-
-	private Boolean status;
-
-	private Boolean isDeleted;
-
-	private Long ownerId;
-
-	private String username;
-
-	private String password;
-
-	private String adharNo;
-
-	private String adharPhoto;
-
-	private String ownerPhoto;
-
-	private String otp;
-
-	private Boolean isPhoneNoVerified;
-
-	private RoleDTO role;
+	@Column(name="employee_phone")
+	private String employeePhone;
 	
+	@Column(name = "pin")
+	private String pin;
+	
+	@Column(name = "gender")
+	private String gender;
+	
+	@Column(name = "created_at")
+	private LocalDate createdAt;
+	
+	@Column(name = "status")
+	private Boolean status;
+	
+	@Column(name = "is_deleted")
+	private Boolean isDeleted;
+	
+	@Column(name = "created_by")
+	private Long createdBy;
+	
+	@Column(name = "username")
+	private String username;
+	
+	@Column(name = "password")
+	private String password;
+	
+	@Column(name = "adhar_no")
+	private String adharNo;
+	
+	@Column(name = "adhar_photo")
+	private String adharPhoto;
+	
+	@Column(name = "owner_photo")
+	private String ownerPhoto;
+	
+	@Column(name = "dob")
 	private LocalDate dob;
 	
+	@Column(name = "age")
 	private Integer age;
 	
-	/**
-	 * @return the accePermissions
-	 */
-	public List<AccessPermissionsDTO> getAccePermissions() {
-		return accePermissions;
-	}
+	@Column(name = "otp")
+	private String otp;
+	
+	@Column(name = "is_phone_no_verified")
+	private Boolean isPhoneNoVerified;
 
-	/**
-	 * @param accePermissions the accePermissions to set
-	 */
-	public void setAccePermissions(List<AccessPermissionsDTO> accePermissions) {
-		this.accePermissions = accePermissions;
-	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "role_id")
+	private Role role;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "org_id")
+	private Organization organization;
 
-	List<AccessPermissionsDTO> accePermissions;
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -160,12 +184,12 @@ public class UserDetailsDTO {
 		this.isDeleted = isDeleted;
 	}
 
-	public Long getOwnerId() {
-		return ownerId;
+	public Long getCreatedBy() {
+		return createdBy;
 	}
 
-	public void setOwnerId(Long ownerId) {
-		this.ownerId = ownerId;
+	public void setCreatedBy(Long createdBy) {
+		this.createdBy = createdBy;
 	}
 
 	public String getUsername() {
@@ -184,6 +208,14 @@ public class UserDetailsDTO {
 		this.password = password;
 	}
 
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	
 	public String getAdharNo() {
 		return adharNo;
 	}
@@ -208,28 +240,12 @@ public class UserDetailsDTO {
 		this.ownerPhoto = ownerPhoto;
 	}
 
-	public String getOtp() {
-		return otp;
-	}
-
-	public void setOtp(String otp) {
-		this.otp = otp;
-	}
-
 	public Boolean getIsPhoneNoVerified() {
 		return isPhoneNoVerified;
 	}
 
 	public void setIsPhoneNoVerified(Boolean isPhoneNoVerified) {
 		this.isPhoneNoVerified = isPhoneNoVerified;
-	}
-
-	public RoleDTO getRole() {
-		return role;
-	}
-
-	public void setRole(RoleDTO role) {
-		this.role = role;
 	}
 
 	public LocalDate getDob() {
@@ -247,5 +263,61 @@ public class UserDetailsDTO {
 	public void setAge(Integer age) {
 		this.age = age;
 	}
+	
+	public String getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	public String getcompanyCode() {
+		return companyCode;
+	}
+
+	public void setcompanyCode(String companyCode) {
+		this.companyCode = companyCode;
+	}
+
+	public String getEmployeeEmail() {
+		return employeeEmail;
+	}
+
+	public void setEmployeeEmail(String employeeEmail) {
+		this.employeeEmail = employeeEmail;
+	}
+
+	public String getemployeePhone() {
+		return employeePhone;
+	}
+
+	public void setemployeePhone(String employeePhone) {
+		this.employeePhone = employeePhone;
+	}
+	public String getOtp() {
+		return otp;
+	}
+
+	public void setOtp(String otp) {
+		this.otp = otp;
+	}
+	public Organization getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(Organization organization) {
+		this.organization = organization;
+	}
+
+
 
 }

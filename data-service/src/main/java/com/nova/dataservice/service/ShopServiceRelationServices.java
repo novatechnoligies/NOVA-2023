@@ -8,6 +8,7 @@ import com.nova.dataservice.DTO.ServiceDetailDTO;
 import com.nova.dataservice.DTO.ServiceMasterShopRelationDTO;
 import com.nova.dataservice.DTO.ServiceMasterShoplistDto;
 import com.nova.dataservice.entity.ServiceMasterShopRelation;
+import com.nova.dataservice.entity.ShopDetails;
 
 public interface ShopServiceRelationServices {
 
@@ -24,5 +25,7 @@ public interface ShopServiceRelationServices {
 	List<ServiceDetailDTO> findAllShopServiceByLab(Long labId,String service);
 
 	List<ServiceDetailDTO> findAllShopServiceByLab(Long labId);
+
+	ServiceMasterShopRelation updatedServicePrice(Long serviceId, Float newPrice);
 
 }

@@ -91,21 +91,23 @@ public class UserDetailsServicesimpl implements UserDetailsServices {
 		Optional<UserDetails> data = serviceDao.findByUsernameAndPassword(userName,password);
 		
 		List<AccessPermissions> accePermissions = null;
-		if (data.isPresent()) {
-		 accePermissions =	accessPermissionsRepository.findByEmployeeDetails(data.get());
-		}
+		
 		
 		UserDetailsDTO userDetailsDTO = data.map(userDetails ->
         									modelMapper.map(userDetails, UserDetailsDTO.class)).orElse(null);
 		
 		//set to acc dto
-		List<AccessPermissionsDTO> accePermissionsDto = accePermissions.stream()
-	    .map(userDetails -> modelMapper.map(userDetails, AccessPermissionsDTO.class))
-	    .collect(Collectors.toList());
-		AccessPermissionsDTO accessPermissionsDTO =data.map(AccessPermissions ->
-		                                    modelMapper.map(AccessPermissions, AccessPermissionsDTO.class)).orElse(null);
+		if (data.isPresent()) {
+			 accePermissions =	accessPermissionsRepository.findByEmployeeDetails(data.get());
+			 List<AccessPermissionsDTO> accePermissionsDto = accePermissions.stream()
+					    .map(userDetails -> modelMapper.map(userDetails, AccessPermissionsDTO.class))
+					    .collect(Collectors.toList());
+						AccessPermissionsDTO accessPermissionsDTO =data.map(AccessPermissions ->
+						                                    modelMapper.map(AccessPermissions, AccessPermissionsDTO.class)).orElse(null);
+						
+						userDetailsDTO.setAccePermissions(accePermissionsDto);
+			}
 		
-		userDetailsDTO.setAccePermissions(accePermissionsDto);
 		return userDetailsDTO;
 	}
 
@@ -161,6 +163,17 @@ public class UserDetailsServicesimpl implements UserDetailsServices {
 			    .map(userDetails -> modelMapper.map(userDetails, UserDetailsDTO.class))
 			    .collect(Collectors.toList());
 			return userDetailsDTOList;
+	}
+
+	@Override
+	public List<UserDetailsDTO> searchOwnerByNameAndCreatedByAndStatus(String ownerName, Long createdBy,
+			boolean status) {
+		List<UserDetails> userDetailsList = detailsRepository.searchOwnerByNameAndCreatedByAndStatus(ownerName, createdBy, true); // Retrieve a list of UserDetails entities
+		
+		List<UserDetailsDTO> userDetailsDTOList = userDetailsList.stream()
+		    .map(userDetails -> modelMapper.map(userDetails, UserDetailsDTO.class))
+		    .collect(Collectors.toList());
+		return userDetailsDTOList;
 	}
 
 }
