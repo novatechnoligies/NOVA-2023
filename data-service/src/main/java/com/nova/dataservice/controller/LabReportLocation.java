@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +28,16 @@ public class LabReportLocation {
 
 	@Autowired
 	LabReportLocationService docSer;
+	
+	@PostMapping("/saveReportLocation")
+	public ResponseEntity<String> saveReportLocation(@RequestBody LabReportLocatiosn labReportLocatiosn) {
+		try {
+			docSer.saveReportLocation(labReportLocatiosn);
+			return ResponseEntity.ok("File uploaded successfully.");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload the file.");
+		}
+	}
 	
 	@PostMapping("/uploadLabReportLocation")
 	public ResponseEntity<String> uploadLabReportLocation(@RequestParam("file") MultipartFile file,

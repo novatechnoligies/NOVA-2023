@@ -22,4 +22,6 @@ public interface LabReportLocationService   {
 	List<LabReportLocatiosn> getAllReportsByPatientIdAndLabIdAndCreatedAt(Long patientId, Long labId,
 			LocalDate createdAt);
 
+	public void saveReportLocation(LabReportLocatiosn labReportLocatiosn);
+
 }

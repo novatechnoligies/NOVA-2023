@@ -39,14 +39,25 @@ public class LabReportLocatiosn {
 	private LocalDate createdAt;
 	
 	@Column(name="result")
-    private String result;
+    private String results;
 	
-	public String getResult() {
-		return result;
+	@Column(name="test_id")
+    private String testId;
+	
+	public String getTestId() {
+		return testId;
 	}
 
-	public void setResult(String result) {
-		this.result = result;
+	public void setTestId(String testId) {
+		this.testId = testId;
+	}
+
+	public String getResults() {
+		return results;
+	}
+
+	public void setResult(String results) {
+		this.results = results;
 	}
 
 	/**
