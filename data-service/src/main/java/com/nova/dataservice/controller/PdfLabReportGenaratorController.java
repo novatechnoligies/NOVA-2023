@@ -79,7 +79,7 @@ public class PdfLabReportGenaratorController {
 		
 		BufferedImage qrCodeImage = BarCodeGenUtils.BarCodeGenerateForLab("http://google.com");
 		
-		String filepath="D:\\labreportdev\\darshan.pdf";
+		String filepath="D:\\labreportdev\\"+appointmentId+report.getTestName()+".pdf";
 		
 		try {
 			PdfWriter writer=new PdfWriter(filepath);
@@ -93,7 +93,7 @@ public class PdfLabReportGenaratorController {
 			Table labTable = new Table(UnitValue.createPercentArray(new float[]{10.00f, 60.00f, 30.00f}))
                     .useAllAvailableWidth();  
 			//logo starts here
-			Image image = new Image(ImageDataFactory.create("D:\\labreportdev\\logo.png"))
+			Image image = new Image(ImageDataFactory.create("images/logo.png"))
                     .setWidth(UnitValue.createPercentValue(100))
                     .setAutoScale(true)
 					.setTextAlignment(TextAlignment.CENTER);
@@ -180,11 +180,11 @@ public class PdfLabReportGenaratorController {
                 String phoneNumber = shopDetailsDTO.getPhone();
             
             
-            Image phoneIcon = new Image(ImageDataFactory.create("D:\\labreportdev\\phone.png"))
+            Image phoneIcon = new Image(ImageDataFactory.create("images/phone.png"))
                     .scaleToFit(10, 10)
                     .setMarginTop(10);
             
-            Image emailIcon = new Image(ImageDataFactory.create("D:\\labreportdev\\email.png"))
+            Image emailIcon = new Image(ImageDataFactory.create("images/email.png"))
                     .scaleToFit(10, 10);
                     
             Text emailId = new Text(email)
@@ -213,11 +213,11 @@ public class PdfLabReportGenaratorController {
             	String defaultEmail = "default@example.com";
                 String defaultPhoneNumber = "N/A";
 
-                Image phoneIcon = new Image(ImageDataFactory.create("D:\\labreportdev\\phone.png"))
+                Image phoneIcon = new Image(ImageDataFactory.create("images/phone.png"))
                         .scaleToFit(10, 10)
                         .setMarginTop(10);
 
-                Image emailIcon = new Image(ImageDataFactory.create("D:\\labreportdev\\email.png"))
+                Image emailIcon = new Image(ImageDataFactory.create("images/email.png"))
                         .scaleToFit(10, 10);
 
                 Text emaiId = new Text(defaultEmail)
@@ -458,7 +458,7 @@ public class PdfLabReportGenaratorController {
                 String collectedPlace = shopDetailsDTO.getShopAddress();
                 LocalDate collectedDate = shopDetailsDTO.getCreatedAt();
                
-            Image barCodeImage = new Image(ImageDataFactory.create("D:\\labreportdev\\barcode.gif"))
+            Image barCodeImage = new Image(ImageDataFactory.create("images/barcode.gif"))
                     .scaleToFit(80, 80)
                     .setMarginLeft(50);
 
@@ -502,7 +502,7 @@ public class PdfLabReportGenaratorController {
 				String collectedPlace = ("N/A");
 				String collectedDate = ("N/A");
 				
-				Image barCodeImage = new Image(ImageDataFactory.create("D:\\labreportdev\\barcode.gif"))
+				Image barCodeImage = new Image(ImageDataFactory.create("images/barcode.gif"))
 	                    .scaleToFit(80, 80)
 	                    .setMarginLeft(50);
 
