@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +28,11 @@ public class ProfileUploadController {
 	@Autowired
 	UserDetailsRepository userDetailsRepository;
 	
-	private static final String UPLOAD_DIR = "D:\\profilePhoto";
+	private static final String UPLOAD_DIR = "C:\\Downloads";
 	
-	private static final String UPLOAD_DIRV = "D:\\uploadAdharPhoto";
+	private static final String UPLOAD_DIRV = "C:\\Downloads";
+	
+	private static final List<String> ALLOWED_FILE_TYPES = Arrays.asList("pdf", "png", "jpg");
 
 
     @PostMapping(value = "uploadProfile")
@@ -36,8 +40,13 @@ public class ProfileUploadController {
         try {
             createUploadsDirectory();
             String fileName = file.getOriginalFilename();
+            String fileExtension = getFileExtension(fileName);
             Path filePath = Paths.get(UPLOAD_DIR, fileName);
             Files.copy(file.getInputStream(), filePath);
+            
+            if (!ALLOWED_FILE_TYPES.contains(fileExtension.toLowerCase())) {
+                return ResponseEntity.status(400).body("Invalid file format. Allowed Only: PDF, PNG, JPG");
+            }
 
            Optional<UserDetails> userData = userDetailsRepository.findById(userId);
            userData.get().setOwnerPhoto(UPLOAD_DIR+"\\"+fileName);
@@ -49,7 +58,15 @@ public class ProfileUploadController {
         }
     }
 
-    private void createUploadsDirectory() throws IOException {
+    private String getFileExtension(String fileName) {
+    	int lastDotIndex = fileName.lastIndexOf(".");
+        if (lastDotIndex == -1) {
+            return "";  // No extension found
+        }
+        return fileName.substring(lastDotIndex + 1);
+	}
+
+	private void createUploadsDirectory() throws IOException {
         // Create the uploads directory if it doesn't exist
         Path directory = Paths.get(UPLOAD_DIR);
         if (!Files.exists(directory)) {
@@ -58,22 +75,26 @@ public class ProfileUploadController {
     }
     @PostMapping(value = "uploadAdharPhoto")
     public ResponseEntity<String> uploadAdharPhoto(@RequestParam("file") MultipartFile file, Long userId) {
-        try {
-            createUploadsDirectory();
-            String fileName = file.getOriginalFilename();
-            Path filePath = Paths.get(UPLOAD_DIRV, fileName);
-            Files.copy(file.getInputStream(), filePath);
+    	 try {
+             createUploadsDirectory();
+             String fileName = file.getOriginalFilename();
+             String fileExtension = getFileExtension(fileName);
+             Path filePath = Paths.get(UPLOAD_DIR, fileName);
+             Files.copy(file.getInputStream(), filePath);
+             
+             if (!ALLOWED_FILE_TYPES.contains(fileExtension.toLowerCase())) {
+                 return ResponseEntity.status(400).body("Invalid file format. Allowed Only PDF, PNG, JPG");
+             }
 
-           Optional<UserDetails> userData = userDetailsRepository.findById(userId);
-           userData.get().setAdharPhoto(UPLOAD_DIRV+"\\"+fileName);
-           userDetailsRepository.save(userData.get());
-            return ResponseEntity.ok("File uploaded successfully: " + fileName);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Failed to upload file");
-        }
-    }
-
+            Optional<UserDetails> userData = userDetailsRepository.findById(userId);
+            userData.get().setOwnerPhoto(UPLOAD_DIR+"\\"+fileName);
+            userDetailsRepository.save(userData.get());
+             return ResponseEntity.ok("File uploaded successfully: " + fileName);
+         } catch (IOException e) {
+             e.printStackTrace();
+             return ResponseEntity.status(500).body("Failed to upload file");
+         }
+     }
     private void uploadAdharPhoto() throws IOException {
         // Create the uploads directory if it doesn't exist
         Path directory = Paths.get(UPLOAD_DIRV);
