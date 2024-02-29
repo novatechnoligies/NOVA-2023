@@ -1,16 +1,17 @@
 package com.nova.dataservice.daoimpl;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.query.NativeQuery;
 import org.hibernate.transform.Transformers;
-import org.hibernate.type.BasicTypeReference;
 import org.hibernate.type.StandardBasicTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nova.dataservice.DTO.AppoinmentDetailDTO;
+import com.nova.dataservice.DTO.EachLabEariningByOwnerIdDTO;
 import com.nova.dataservice.DTO.EarningDetailsDTO;
 import com.nova.dataservice.dao.AgeCategoryAppointmentCountDTO;
 import com.nova.dataservice.dao.AppointmentDetailDAO;
@@ -163,7 +164,36 @@ public class AppoinmentDetailDaoImpl implements AppointmentDetailDAO{
 			return null;
 		}
 	}
+
+	@Override
+	public List<EachLabEariningByOwnerIdDTO>  findEachLabEariningByOwnerId(Long ownerId) {
+		
+		String sql = "SELECT SUM(ad.amount) AS totalAmount, sd.shop_name AS shopName, sl.app_date AS appDate " +
+                "FROM appointment_details AS ad " +
+                "JOIN slot_availibility AS sl ON sl.id = ad.slot_id " +
+                "JOIN shop_details AS sd ON ad.shop_id = sd.id " +
+                "WHERE sd.user_id = :ownerId " +
+                "GROUP BY sd.shop_name, sl.app_date";
+
+   Query query = entityManager.createNativeQuery(sql)
+           .setParameter("ownerId", ownerId);
+
+   query.unwrap(NativeQuery.class)
+        .addScalar("totalAmount", StandardBasicTypes.FLOAT)
+        .addScalar("shopName", StandardBasicTypes.STRING)
+        .addScalar("appDate", StandardBasicTypes.LOCAL_DATE);
+
+   ((NativeQuery) query).setResultTransformer(Transformers.aliasToBean(EachLabEariningByOwnerIdDTO.class));
+   List<?> results = query.getResultList();
+
+   if (results != null && !results.isEmpty()) {
+       return (List<EachLabEariningByOwnerIdDTO>) results;
+   }
+
+   return Collections.emptyList();
+	}
+}
 	
 
 	
-}
+

@@ -8,6 +8,7 @@ import org.modelmapper.internal.bytebuddy.asm.Advice.Local;
 
 import com.nova.dataservice.DTO.AppoinmentDTO;
 import com.nova.dataservice.DTO.AppoinmentDetailDTO;
+import com.nova.dataservice.DTO.EachLabEariningByOwnerIdDTO;
 import com.nova.dataservice.DTO.EarningDetailsDTO;
 import com.nova.dataservice.DTO.PatientDetailsDTO;
 import com.nova.dataservice.dao.AgeCategoryAppointmentCountDTO;
@@ -32,6 +33,8 @@ public interface AppointmentDetailservice {
 	EarningDetailsDTO getEarningDetailsByOwnerIdAndDate(Long ownerId, LocalDate fromDate, LocalDate toDate);
 
 	List<AppoinmentDetailDTO> getPastAppointmentsByLabIdAndPatientId(Long labId, Long patientId);
+
+	List<EachLabEariningByOwnerIdDTO> getEachLabEariningByOwnerId(Long ownerId);
 
 	
 
