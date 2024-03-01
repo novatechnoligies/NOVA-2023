@@ -2,10 +2,7 @@ package com.nova.dataservice.controller;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nova.dataservice.DTO.AppoinmentDTO;
 import com.nova.dataservice.DTO.AppoinmentDetailDTO;
+import com.nova.dataservice.DTO.EachLabEariningByOwnerIdDTO;
 import com.nova.dataservice.DTO.EarningDetailsDTO;
-import com.nova.dataservice.DTO.ShopDetailsDTO;
 import com.nova.dataservice.dao.AgeCategoryAppointmentCountDTO;
 import com.nova.dataservice.entity.AppontmentDetails;
 import com.nova.dataservice.service.AppointmentDetailservice;
@@ -158,6 +155,24 @@ public class AppointmentDetailsController {
 			e.printStackTrace();
 			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
 		}
+	}
+	@GetMapping(value = "getEachLabEariningByOwnerId/{ownerId}")
+	public ResponseEntity<Object> getEachLabEariningByOwnerId(@PathVariable Long ownerId) {
+	try {
+		List<EachLabEariningByOwnerIdDTO> data=	appService.getEachLabEariningByOwnerId(ownerId);
+		if (data==null) {
+			return new ResponseEntity<Object>("Not Found", HttpStatus.OK);
+			
+		} else {
+			return new ResponseEntity<Object>(data, HttpStatus.OK);
+
+		}
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+		return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
+	}
+		
 	}
 }
 
