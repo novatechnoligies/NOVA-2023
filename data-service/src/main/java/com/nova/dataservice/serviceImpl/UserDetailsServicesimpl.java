@@ -33,7 +33,7 @@ public class UserDetailsServicesimpl implements UserDetailsServices {
 	UserDetailsRepository detailsRepository;
 	
 	@Autowired
-	RoleRepo roleRepo;
+	RoleRepo roleRepo; 
 	
 	@Autowired
 	UserServiceDao serviceDao;
@@ -57,7 +57,14 @@ public class UserDetailsServicesimpl implements UserDetailsServices {
 		if (role.isPresent()) {
 			userDetails.setRole(role.get());
 		}
-		return detailsRepository.save(userDetails);
+		// username is present then dont allow
+		UserDetails isPresent = detailsRepository.findByUsername(userDetails.getUsername());
+		if (isPresent!= null) {
+			return null;
+		}else {
+			return detailsRepository.save(userDetails);
+		}
+		
 	}
 
 	@Override

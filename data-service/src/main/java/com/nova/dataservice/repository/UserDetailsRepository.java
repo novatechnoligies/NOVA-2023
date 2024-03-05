@@ -33,4 +33,7 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, Long> 
 	@Query(nativeQuery = true, value ="Select * from user_details as c where c.first_name like %:ownerName% and c.CreatedBy = :createdBy and c.status = :status")
 	List<UserDetails> searchOwnerByNameAndCreatedByAndStatus(String ownerName, Long createdBy, Boolean status);
 
+	UserDetails findByUsername(String username);
+
+
 }

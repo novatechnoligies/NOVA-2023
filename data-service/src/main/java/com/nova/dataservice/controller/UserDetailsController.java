@@ -24,6 +24,9 @@ import com.nova.dataservice.entity.UserDetails;
 import com.nova.dataservice.service.RoleService;
 
 import com.nova.dataservice.service.UserDetailsServices;
+import java.util.HashMap;
+import java.util.Map;
+
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -262,6 +265,5 @@ public class UserDetailsController {
 			e.printStackTrace();
 		return new ResponseEntity<Object>("Something went wrong",HttpStatus.OK);
 	}
-		
 	}
 }
