@@ -29,17 +29,17 @@ import com.nova.dataservice.service.UserDetailsServices;
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "/dataservice")
 public class UserDetailsController {
-	
+
 	@Autowired
 	UserDetailsServices detailsServices;
-	
+
 	@PostMapping(value = "saveUserDetails")
 	public ResponseEntity<Object> saveUserDetails(@RequestBody UserDetails userDetails) {
 		try {
 			UserDetails data = detailsServices.saveUserDetails(userDetails);
-			if (data!=null) {
+			if (data != null) {
 				return new ResponseEntity<>(data, HttpStatus.OK);
-			}else {
+			} else {
 				return new ResponseEntity<>("fail to save data", HttpStatus.OK);
 			}
 		} catch (Exception e) {
@@ -47,10 +47,10 @@ public class UserDetailsController {
 			return new ResponseEntity<>("somthing went wrong fail to save data , due to MYSQL is down", HttpStatus.OK);
 		}
 	}
-	
+
 	@GetMapping(value = "getAllUserDetails")
 	public ResponseEntity<Object> getAllUserDetails() {
-    
+
 		List<UserDetailsDTO> data = detailsServices.getAllUserDetails();
 		if (data.isEmpty()) {
 			return new ResponseEntity<Object>("no data found", HttpStatus.OK);
@@ -58,10 +58,10 @@ public class UserDetailsController {
 			return new ResponseEntity<Object>(data, HttpStatus.OK);
 		}
 	}
-	
+
 	@GetMapping(value = "searchOwnerByName")
 	public ResponseEntity<Object> getAllUserDetailsOfOwner(String ownerName) {
-    
+
 		try {
 			List<UserDetailsDTO> data = detailsServices.getAllUserDetailsOfOwner(ownerName);
 			if (data.isEmpty()) {
@@ -71,12 +71,11 @@ public class UserDetailsController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		return new ResponseEntity<Object>("Something went wrong",HttpStatus.OK);
+			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
+		}
+
 	}
-		
-	}
-	
-	
+
 	@GetMapping(value = "getUserDetailsById/{id}")
 	public ResponseEntity<Object> getUserDetailsById(@PathVariable("id") Long id) {
 		try {
@@ -90,7 +89,7 @@ public class UserDetailsController {
 			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
 		}
 	}
-	
+
 	@PostMapping(value = "getUserByUserNameAndPassword")
 	public ResponseEntity<Object> getUserByUserNameAndPassword(String username, String password) {
 		try {
@@ -186,6 +185,7 @@ public class UserDetailsController {
 		}
 
 	}
+
 //	@GetMapping(value="/updtaePasswordByPhone/{phone}/{otp}/{password}")
 //	public ResponseEntity<Object> updatePasswordByPhone(@PathVariable("phone") String phone,@PathVariable("otp") String otp,@PathVariable ("password")String password) {
 //	try {
@@ -206,39 +206,40 @@ public class UserDetailsController {
 //		return new ResponseEntity<Object>("Something Went wrong",HttpStatus.OK);
 //	}
 //	}
-	@GetMapping(value="/updtaePasswordByEmail/{email}/{otp}/{password}")
-	public ResponseEntity<Object> updtaePasswordByEmail(@PathVariable("email")String email,@PathVariable("otp") String otp,@PathVariable("password")String password) {
-	try {
-		Optional<UserDetails>data =	detailsServices.findUserByEmailAndOtp(email, otp);
-		HashMap<String, Boolean> map = new HashMap<>();
-		if (data.isPresent()) {
-		UserDetails ud=	data.get();
-		ud.setPassword(password);
-		detailsServices.saveUserDetails(ud);
-		map.put("updaed", true);
-		return new ResponseEntity<Object>(map,HttpStatus.OK);
-			
-		} else {
-			map.put("updaed", true);
-			return new ResponseEntity<Object>(map,HttpStatus.OK);
+	@GetMapping(value = "/updtaePasswordByEmail/{email}/{otp}/{password}")
+	public ResponseEntity<Object> updtaePasswordByEmail(@PathVariable("email") String email,
+			@PathVariable("otp") String otp, @PathVariable("password") String password) {
+		try {
+			Optional<UserDetails> data = detailsServices.findUserByEmailAndOtp(email, otp);
+			HashMap<String, Boolean> map = new HashMap<>();
+			if (data.isPresent()) {
+				UserDetails ud = data.get();
+				ud.setPassword(password);
+				detailsServices.saveUserDetails(ud);
+				map.put("updaed", true);
+				return new ResponseEntity<Object>(map, HttpStatus.OK);
 
+			} else {
+				map.put("updaed", true);
+				return new ResponseEntity<Object>(map, HttpStatus.OK);
+
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
 		}
-		
-	} catch (Exception e) {
-		// TODO: handle exception
-		return new ResponseEntity<Object>("Something went wrong",HttpStatus.OK);
 	}
-	}
-	
+
 	@GetMapping(value = "getConsumerByPhone/{phone}")
 	public ResponseEntity<Object> getConsumerByPhone(@PathVariable("phone") String phone) {
-	 List<UserDetailsDTO> data=	detailsServices.getConsumerByPhone(phone);
-	 return new ResponseEntity<Object>(data, HttpStatus.OK);
+		List<UserDetailsDTO> data = detailsServices.getConsumerByPhone(phone);
+		return new ResponseEntity<Object>(data, HttpStatus.OK);
 	}
-	
+
 	@GetMapping(value = "getAllUserDetailsByCreadtedBy")
 	public ResponseEntity<Object> getAllUserDetailsByCreadtedBy(Long userId) {
-    
+
 		List<UserDetailsDTO> data = detailsServices.getAllUserDetailsByCreadtedBy(userId);
 		if (data.isEmpty()) {
 			return new ResponseEntity<Object>(new ArrayList<>(), HttpStatus.OK);
@@ -246,13 +247,15 @@ public class UserDetailsController {
 			return new ResponseEntity<Object>(data, HttpStatus.OK);
 		}
 	}
-	
+
 	@GetMapping(value = "searchOwnerByNameAndCreatedByAndStatus")
-	public ResponseEntity<Object> searchOwnerByNameAndCreatedByAndStatus(String ownerName,Long createdBy, boolean status) {
-    
+	public ResponseEntity<Object> searchOwnerByNameAndCreatedByAndStatus(String ownerName, Long createdBy,
+			boolean status) {
+
 		try {
 			List<UserDetailsDTO> data = detailsServices.getAllUserDetailsOfOwner(ownerName);
-			List<UserDetailsDTO> data1 = detailsServices.searchOwnerByNameAndCreatedByAndStatus(ownerName, createdBy, status);
+			List<UserDetailsDTO> data1 = detailsServices.searchOwnerByNameAndCreatedByAndStatus(ownerName, createdBy,
+					status);
 			if (data.isEmpty()) {
 				return new ResponseEntity<Object>("no data found", HttpStatus.OK);
 			} else {
@@ -260,8 +263,16 @@ public class UserDetailsController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		return new ResponseEntity<Object>("Something went wrong",HttpStatus.OK);
+			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
+		}
+
 	}
-		
+
+
+
+	@GetMapping(value = "getConsumerByUsername/{username}")
+	public ResponseEntity<Object> getConsumerByUsername(@PathVariable("username") String username) {
+		List<UserDetailsDTO> data = detailsServices.getConsumerByUsername(username);
+		return new ResponseEntity<Object>(data, HttpStatus.OK);
 	}
 }
