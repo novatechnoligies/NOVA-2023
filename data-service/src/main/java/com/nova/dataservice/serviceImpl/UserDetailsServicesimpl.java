@@ -29,7 +29,7 @@ import com.nova.dataservice.utils.OtpUtils;
 @Service
 public class UserDetailsServicesimpl implements UserDetailsServices {
 	
-	@Autowired
+	@Autowired 
 	UserDetailsRepository detailsRepository;
 	
 	@Autowired
@@ -181,6 +181,16 @@ public class UserDetailsServicesimpl implements UserDetailsServices {
 		    .map(userDetails -> modelMapper.map(userDetails, UserDetailsDTO.class))
 		    .collect(Collectors.toList());
 		return userDetailsDTOList;
+	}
+
+	@Override
+	public List<UserDetailsDTO> getConsumerByUsername(String username) {
+		List<UserDetails> userDetailsList = detailsRepository.findUserByUsername(username,4l);
+		
+		List<UserDetailsDTO> userDetailsDTOList = userDetailsList.stream()
+			    .map(userDetails -> modelMapper.map(userDetails, UserDetailsDTO.class))
+			    .collect(Collectors.toList());
+			return userDetailsDTOList;
 	}
 
 }

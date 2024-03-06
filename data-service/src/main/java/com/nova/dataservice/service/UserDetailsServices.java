@@ -33,5 +33,6 @@ public interface UserDetailsServices {
 
 	List<UserDetailsDTO> searchOwnerByNameAndCreatedByAndStatus(String ownerName, Long createdBy, boolean status);
 
-	
+	List<UserDetailsDTO> getConsumerByUsername(String username);
+
 }

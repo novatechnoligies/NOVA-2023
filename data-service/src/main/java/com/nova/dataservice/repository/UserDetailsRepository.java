@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.query.Param;
 
+import com.nova.dataservice.DTO.UserDetailsDTO;
 import com.nova.dataservice.entity.UserDetails;
 
 @EnableJpaRepositories
@@ -32,6 +33,9 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, Long> 
 
 	@Query(nativeQuery = true, value ="Select * from user_details as c where c.first_name like %:ownerName% and c.CreatedBy = :createdBy and c.status = :status")
 	List<UserDetails> searchOwnerByNameAndCreatedByAndStatus(String ownerName, Long createdBy, Boolean status);
+	
+	@Query(nativeQuery = true, value ="Select * from user_details as c where c.first_name like :username% and c.role_id = :roleId")
+	List<UserDetails> findUserByUsername(String username, Long roleId);
 
 	UserDetails findByUsername(String username);
 
