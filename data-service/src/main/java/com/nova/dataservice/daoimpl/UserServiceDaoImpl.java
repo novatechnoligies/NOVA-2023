@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nova.dataservice.DTO.ServiceDetailDTO;
 import com.nova.dataservice.DTO.ShopDetailsDTO;
 import com.nova.dataservice.DTO.SlotAvailabilityDTO;
+import com.nova.dataservice.DTO.UserDetailsDTO;
 import com.nova.dataservice.dao.UserServiceDao;
 import com.nova.dataservice.entity.ServiceMasterShopRelation;
 import com.nova.dataservice.entity.UserDetails;
@@ -216,7 +217,45 @@ public class UserServiceDaoImpl implements UserServiceDao{
 		}else {
 			return null;
 		}
-	
 	}
-	
+	@Override
+	public Optional<UserDetails> findByResisterUser(String username, String password) {
+	    String sql = "SELECT ud.username AS username, ud.password AS password " +
+	                 "FROM user_details AS ud " +
+	                 "WHERE ud.username = :username AND ud.password = :password";
+	    Query query = entityManager.createNativeQuery(sql, UserDetails.class)
+	            .setParameter("username", username)
+	            .setParameter("password", password);
+	    
+	    query.unwrap(NativeQuery.class)
+	        .addScalar("username", StandardBasicTypes.STRING)
+	        .addScalar("password", StandardBasicTypes.STRING);
+
+	    try {
+	        UserDetails userDetails = (UserDetails) query.getSingleResult();
+	        return Optional.of(userDetails); // Return the found user details
+	    } catch (NoResultException e) {
+	        return Optional.empty(); // No user found with the given credentials
+	    }
+	}
+
+	@Override
+	public Optional<UserDetails> findUserByUsername(String username) {
+	    String sql = "SELECT ud.username AS username, ud.password AS password " +
+	                 "FROM user_details AS ud " +
+	                 "WHERE ud.username = :username";
+	    Query query = entityManager.createNativeQuery(sql, UserDetails.class)
+	            .setParameter("username", username);
+	    
+	    query.unwrap(NativeQuery.class)
+	        .addScalar("username", StandardBasicTypes.STRING)
+	        .addScalar("password", StandardBasicTypes.STRING);
+
+	    try {
+	        UserDetails userDetails = (UserDetails) query.getSingleResult();
+	        return Optional.of(userDetails); // Return the found user details
+	    } catch (NoResultException e) {
+	        return Optional.empty(); // No user found with the given username
+	    }
+	}
 }

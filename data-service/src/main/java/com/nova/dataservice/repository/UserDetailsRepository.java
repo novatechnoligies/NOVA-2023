@@ -37,4 +37,7 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, Long> 
 	@Query(nativeQuery = true, value ="Select * from user_details as c where c.first_name like :username% and c.role_id = :roleId")
 	List<UserDetails> findUserByUsername(String username, Long roleId);
 
+	UserDetails findByUsername(String username);
+
+
 }

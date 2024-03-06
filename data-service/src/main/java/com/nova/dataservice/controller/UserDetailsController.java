@@ -24,6 +24,9 @@ import com.nova.dataservice.entity.UserDetails;
 import com.nova.dataservice.service.RoleService;
 
 import com.nova.dataservice.service.UserDetailsServices;
+import java.util.HashMap;
+import java.util.Map;
+
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -267,8 +270,6 @@ public class UserDetailsController {
 		}
 
 	}
-
-
 
 	@GetMapping(value = "getConsumerByUsername/{username}")
 	public ResponseEntity<Object> getConsumerByUsername(@PathVariable("username") String username) {

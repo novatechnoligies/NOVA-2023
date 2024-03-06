@@ -7,6 +7,7 @@ import java.util.Optional;
 import com.nova.dataservice.DTO.ServiceDetailDTO;
 import com.nova.dataservice.DTO.ShopDetailsDTO;
 import com.nova.dataservice.DTO.SlotAvailabilityDTO;
+import com.nova.dataservice.DTO.UserDetailsDTO;
 import com.nova.dataservice.entity.UserDetails;
 
 public interface UserServiceDao {
@@ -22,5 +23,9 @@ public interface UserServiceDao {
 	List<ShopDetailsDTO> getAllLabListByOwnerId(Long ownerId);
 
 	List<ShopDetailsDTO> findByShopAccessByEmployeeAndIsDeleted(Long owner, boolean b);
+
+	Optional<UserDetails> findByResisterUser(String username, String password);
+
+	Optional<UserDetails> findUserByUsername(String username);
 
 }
