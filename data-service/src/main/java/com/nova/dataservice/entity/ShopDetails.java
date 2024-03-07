@@ -88,11 +88,16 @@ public class ShopDetails {
 	//@JsonIgnore
 	private ShopType shopType;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "location_id")
+	private Locations locations;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "org_id")
+	private Organization organization;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	//@JsonIgnore
 	private UserDetails owner;
 	
 //	@OneToMany(mappedBy = "shop")

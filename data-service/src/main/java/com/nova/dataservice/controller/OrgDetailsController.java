@@ -1,6 +1,7 @@
 package com.nova.dataservice.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
@@ -42,9 +43,7 @@ public class OrgDetailsController {
 
 			} else {
 				return new ResponseEntity<Object>("ShopDetails Not Found", HttpStatus.OK);
-
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
@@ -64,9 +63,23 @@ public class OrgDetailsController {
 
 			} else {
 				return new ResponseEntity<Object>("ShopDetails Not Found", HttpStatus.OK);
-
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);
+		}
+	}
+	
+	@GetMapping(value = "getOrgDetailsByAdminId")
+	public ResponseEntity<Object> getOrgDetailsByAdminId(Long adminId) {
+		try {
+			Optional<Organization> data = orgDetailsService.getOrgDetailsByAdminId(adminId);
+			if (data != null) {
+				return new ResponseEntity<Object>(data, HttpStatus.OK);
 
+			} else {
+				return new ResponseEntity<Object>("OrganizationDetails Not Found", HttpStatus.OK);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<Object>("Something went wrong", HttpStatus.OK);

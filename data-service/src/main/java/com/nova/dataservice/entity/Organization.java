@@ -17,6 +17,9 @@ public class Organization {
 	@Column(name = "id")
 	private Long id;
 	
+	@Column(name = "admin_id")
+	private Long adminId;
+	
 	@Column(name = "org_name")
 	private String orgName;
 	
@@ -58,7 +61,8 @@ public class Organization {
 	
 	@OneToMany(mappedBy = "organization")
 	private List<Locations> locations;
-
+	
+	
 	public List<Locations> getLocations() {
 		return locations;
 	}
@@ -177,6 +181,14 @@ public class Organization {
 
 	public void setGstNo(String gstNo) {
 		this.gstNo = gstNo;
+	}
+	
+	public Long getAdminId() {
+		return adminId;
+	}
+
+	public void setAdminId(Long adminId) {
+		this.adminId = adminId;
 	}
 
 }

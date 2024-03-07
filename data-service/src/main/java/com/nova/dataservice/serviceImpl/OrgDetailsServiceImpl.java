@@ -2,7 +2,7 @@ package com.nova.dataservice.serviceImpl;
 
 import java.time.LocalDate;
 import java.util.List;
-
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -54,6 +54,13 @@ public class OrgDetailsServiceImpl implements OrgDetailsService{
 		        .map(orgDetails -> modelMapper.map(orgDetails, OrganizationDTO.class))
 		        .collect(Collectors.toList());
 		return orgDetailsDTOList;
+	}
+
+
+	@Override
+	public Optional<Organization> getOrgDetailsByAdminId(Long adminId) {
+		// TODO Auto-generated method stub
+		return orgDetailsRepository.findById(adminId);
 	}
 
 }

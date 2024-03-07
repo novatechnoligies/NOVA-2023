@@ -13,5 +13,9 @@ public interface OrgDetailsRepository extends JpaRepository<Organization, Long>{
 
 	@Query(nativeQuery = true, value ="SELECT * FROM organization_details  as od where od.org_name like %:orgName%")
 	List<Organization> findByName(@Param("orgName")String orgName);
+
+	List<Organization> getOrgDetailsByAdminId(Long adminId);
+
+	
 	
 }

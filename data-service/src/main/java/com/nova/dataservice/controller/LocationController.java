@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nova.dataservice.DTO.LocationsDTO;
 import com.nova.dataservice.entity.Locations;
+import com.nova.dataservice.entity.Organization;
 import com.nova.dataservice.entity.Role;
 import com.nova.dataservice.service.LocationService;
 
@@ -26,12 +27,12 @@ import com.nova.dataservice.service.LocationService;
 public class LocationController {
 	
 	@Autowired
-	LocationService lService;
+	LocationService locationService;
 	
 	@PostMapping(value = "saveLocations")
 	public ResponseEntity<Object> saveLocation(@RequestBody Locations location) {
 		try {
-			Locations data = lService.saveLocation(location);
+			Locations data = locationService.saveLocation(location);
 			if (data!=null) {
 				return new ResponseEntity<>(data, HttpStatus.OK);
 			}else {
@@ -45,7 +46,7 @@ public class LocationController {
 	@GetMapping(value = "getLocation")
 	public ResponseEntity<Object> getAllLocation() {
 		
-		List<Locations> data = lService.getLocation();
+		List<Locations> data = locationService.getLocation();
 		if (data.isEmpty()) {
 			return new ResponseEntity<Object>("no data found", HttpStatus.OK);
 		} else {
@@ -55,14 +56,24 @@ public class LocationController {
 	
 	@GetMapping(value = "getLocationById/{id}")
 	public ResponseEntity<Object> findLocationsByOrgId(@PathVariable("id") Long id) {
-		LocationsDTO data = lService.findLocationsByOrgId(id);
+		LocationsDTO data = locationService.findLocationsByOrgId(id);
 		if (data!=null) {
 			return new ResponseEntity<Object>(data,HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Object>("no data found for this id",HttpStatus.OK);
 		}
-		
 	}
-	}
+	
+	/*
+	 * @GetMapping(value = "getLocationByOrgId") public ResponseEntity<Object>
+	 * getLocationsByOrgId(@PathVariable("orgId")Long orgId) { try { List<Locations>
+	 * locations = locationService.getLocationsByOrgId(orgId); if (locations !=
+	 * null) { return new ResponseEntity<Object>(locations, HttpStatus.OK);
+	 * 
+	 * } else { return new ResponseEntity<Object>("Organization Details Not Found",
+	 * HttpStatus.OK); } } catch (Exception e) { e.printStackTrace(); return new
+	 * ResponseEntity<Object>("Something went wrong", HttpStatus.OK); } }
+	 */
+}
 
 
